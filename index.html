@@ -46,13 +46,69 @@
             color: #666;
             font-size: 0.9rem;
         }
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            justify-content: center;
+            align-items: center;
+        }
+        .modal-content {
+            text-align: center;
+            max-width: 90%;
+            max-height: 90%;
+        }
+        .modal-content img {
+            max-width: 100%;
+            max-height: 80vh;
+            object-fit: contain;
+        }
+        .modal-info {
+            color: white;
+            padding: 20px;
+            margin-top: 15px;
+        }
+        .modal-info h2 {
+            margin: 0 0 10px 0;
+        }
+        .modal-info p {
+            margin: 0;
+            font-size: 1.1rem;
+        }
+        .close {
+            color: white;
+            font-size: 40px;
+            font-weight: bold;
+            position: absolute;
+            top: 20px;
+            right: 35px;
+            cursor: pointer;
+        }
+        .close:hover {
+            color: #ccc;
+        }
     </style>
 </head>
 <body>
     <h1 style="text-align: center; margin-bottom: 30px;">Photography Gallery</h1>
+    <div id="fullscreenModal" class="modal">
+        <span class="close">&times;</span>
+        <div class="modal-content">
+            <img id="modalImage" src="" alt="">
+            <div class="modal-info">
+                <h2 id="modalTitle"></h2>
+                <p id="modalDescription"></p>
+            </div>
+        </div>
+    </div>
     <div class="gallery">
         <div class="card">
-            <a href="images/image1girl.png">
+            <a href="images/image1girl.png" class="image-link" data-src="images/image1girl.png" data-alt="Girl peeking out from leaves" data-desc="A closeup of a girl peaking out from leaves.">
                 <img src="images/image1girl.png" alt="Girl peeking out from leaves">
             </a>
             <div class="card-content">
@@ -61,7 +117,7 @@
             </div>
         </div>
         <div class="card">
-            <a href="images/image2googlephotos.png">
+            <a href="images/image2googlephotos.png" class="image-link" data-src="images/image2googlephotos.png" data-alt="Google Photos logo" data-desc="The Google Photos logo.">
                 <img src="images/image2googlephotos.png" alt="Google Photos logo">
             </a>
             <div class="card-content">
@@ -70,7 +126,7 @@
             </div>
         </div>
         <div class="card">
-            <a href="images/image3flower.jpeg">
+            <a href="images/image3flower.jpeg" class="image-link" data-src="images/image3flower.jpeg" data-alt="Pink flower closeup" data-desc="A six petalled pink flower, with a small yellow stem, closeup.">
                 <img src="images/image3flower.jpeg" alt="Pink flower closeup">
             </a>
             <div class="card-content">
@@ -79,7 +135,7 @@
             </div>
         </div>
         <div class="card">
-            <a href="images/image4eye.png">
+            <a href="images/image4eye.png" class="image-link" data-src="images/image4eye.png" data-alt="Closeup of an eye" data-desc="Hyper closeup image of an eye, with deep black lashes, and purple and yellow eyeliner.">
                 <img src="images/image4eye.png" alt="Closeup of an eye">
             </a>
             <div class="card-content">
@@ -88,7 +144,7 @@
             </div>
         </div>
         <div class="card">
-            <a href="images/image5heart.png">
+            <a href="images/image5heart.png" class="image-link" data-src="images/image5heart.png" data-alt="Hands forming heart silhouette" data-desc="A silhouette of 2 different people's hands touching, making the shape of a heart, in front of a sunset.">
                 <img src="images/image5heart.png" alt="Hands forming heart silhouette">
             </a>
             <div class="card-content">
@@ -97,7 +153,7 @@
             </div>
         </div>
         <div class="card">
-            <a href="images/image6boy.png">
+            <a href="images/image6boy.png" class="image-link" data-src="images/image6boy.png" data-alt="Boy in white tank top" data-desc="A young boy, in a white tank top. Both of his arms are missing below his shoulders.">
                 <img src="images/image6boy.png" alt="Boy in white tank top">
             </a>
             <div class="card-content">
@@ -106,7 +162,7 @@
             </div>
         </div>
         <div class="card">
-            <a href="images/image7baby.jpg">
+            <a href="images/image7baby.jpg" class="image-link" data-src="images/image7baby.jpg" data-alt="Baby in red bag" data-desc="A baby wearing a blue outfit, sitting inside of a red leather bag, zipped up so they cannot fall out. The bag is being carried by a person in a brown jacket, who is otherwise not visible.">
                 <img src="images/image7baby.jpg" alt="Baby in red bag">
             </a>
             <div class="card-content">
@@ -115,7 +171,7 @@
             </div>
         </div>
         <div class="card">
-            <a href="images/image8rose.png">
+            <a href="images/image8rose.png" class="image-link" data-src="images/image8rose.png" data-alt="Red rose with water droplets" data-desc="A red rose, with water droplets on it, on a dark, rainy background.">
                 <img src="images/image8rose.png" alt="Red rose with water droplets">
             </a>
             <div class="card-content">
@@ -124,7 +180,7 @@
             </div>
         </div>
         <div class="card">
-            <a href="images/image9sunset.jpg">
+            <a href="images/image9sunset.jpg" class="image-link" data-src="images/image9sunset.jpg" data-alt="Person photographing sunset" data-desc="An over-the-shoulder shot of a person with long hair taking a photo of the sunset with their phone. The sunset is visible on the phone, and the phone is being held with two hands.">
                 <img src="images/image9sunset.jpg" alt="Person photographing sunset">
             </a>
             <div class="card-content">
@@ -133,5 +189,48 @@
             </div>
         </div>
     </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const modal = document.getElementById('fullscreenModal');
+            const modalImage = document.getElementById('modalImage');
+            const modalTitle = document.getElementById('modalTitle');
+            const modalDescription = document.getElementById('modalDescription');
+            const closeBtn = document.querySelector('.close');
+
+            const imageLinks = document.querySelectorAll('.image-link');
+
+            imageLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const src = this.getAttribute('data-src');
+                    const alt = this.getAttribute('data-alt');
+                    const desc = this.getAttribute('data-desc');
+                    const imageName = src.split('/').pop();
+
+                    modalImage.src = src;
+                    modalImage.alt = alt;
+                    modalTitle.textContent = imageName;
+                    modalDescription.textContent = desc;
+                    modal.style.display = 'flex';
+                });
+            });
+
+            closeBtn.addEventListener('click', function() {
+                modal.style.display = 'none';
+            });
+
+            modal.addEventListener('click', function(e) {
+                if (e.target === modal) {
+                    modal.style.display = 'none';
+                }
+            });
+
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape') {
+                    modal.style.display = 'none';
+                }
+            });
+        });
+    </script>
 </body>
 </html>
