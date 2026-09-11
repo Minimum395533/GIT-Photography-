@@ -225,9 +225,65 @@
         </div>
     </div>
     <script>
-        const HUGGINGFACE_API_KEY = '';
-        const HUGGINGFACE_MODEL = 'Salesforce/blip-image-captioning-base';
-        const HUGGINGFACE_API_URL = `https://api-inference.huggingface.co/models/${HUGGINGFACE_MODEL}`;
+        const CEREBRAS_API_KEY = 'csk-j9nrjkhtpyf2pc4dtenc3p6py9r6d4c6jnyd9pfc2mtvcf4t';
+        const CEREBRAS_API_URL = 'https://api.cerebras.net/v1/predict';
+
+        function getCookie(name) {
+            const value = `; ${document.cookie}`;
+            const parts = value.split(`; ${name}=`);
+            if (parts.length === 2) return parts.pop().split(';').shift();
+        }
+
+        function setCookie(name, value, days) {
+            const date = new Date();
+            date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+            const expires = `expires=${date.toUTCString()}`;
+            document.cookie = `${name}=${value};${expires};path=/`;
+        }
+
+        async function generateAIDescription(imageSrc, imageName) {
+            const cookieName = `desc_${imageName}`;
+            const cached = getCookie(cookieName);
+            if (cached) {
+                return cached;
+            }
+
+            try {
+                const response = await fetch(CEREBRAS_API_URL, {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': `Bearer ${CEREBRAS_API_KEY}`,
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        model: 'cerebras/llava-1.5-7b',
+                        inputs: imageSrc
+                    })
+                });
+
+                if (!response.ok) {
+                    throw new Error(`API Error: ${response.status}`);
+                }
+
+                const data = await response.json();
+                let description = '';
+                if (data && data.generated_text) {
+                    description = data.generated_text;
+                } else if (Array.isArray(data) && data[0] && data[0].generated_text) {
+                    description = data[0].generated_text;
+                } else if (data && data.output && data.output[0]) {
+                    description = data.output[0];
+                } else {
+                    description = 'Could not generate description. Try again.';
+                }
+
+                setCookie(cookieName, description, 30);
+                return description;
+            } catch (error) {
+                console.error('Error generating AI description:', error);
+                return 'Error generating description. Check console.';
+            }
+        }
 
         document.addEventListener('DOMContentLoaded', function() {
             const modal = document.getElementById('fullscreenModal');
@@ -245,21 +301,29 @@
             const imageLinks = document.querySelectorAll('.image-link');
 
             imageLinks.forEach(link => {
-                link.addEventListener('click', function(e) {
+                link.addEventListener('click', async function(e) {
                     e.preventDefault();
                     const src = this.getAttribute('data-src');
                     const alt = this.getAttribute('data-alt');
-                    const desc = this.getAttribute('data-desc');
-                    const imageName = src.split('/').pop();
+                    const imageName = src.split('/').pop() || `image_${Array.from(imageLinks).indexOf(this) + 1}`;
 
                     currentImageSrc = src;
                     modalImage.src = src;
                     modalImage.alt = alt;
                     modalTitle.textContent = imageName;
-                    modalDescription.textContent = desc;
-                    aiDescriptionContainer.style.display = 'none';
-                    aiDescriptionText.textContent = '';
+
+                    aiDescriptionBtn.disabled = true;
+                    loadingSpinner.style.display = 'inline-block';
+                    aiDescriptionContainer.style.display = 'block';
+                    aiDescriptionText.textContent = 'Generating description...';
+
+                    const description = await generateAIDescription(src, imageName);
+
+                    modalDescription.textContent = description;
+                    aiDescriptionText.textContent = description;
+                    loadingSpinner.style.display = 'none';
                     aiDescriptionBtn.disabled = false;
+
                     modal.style.display = 'flex';
                 });
             });
@@ -281,47 +345,17 @@
             });
 
             aiDescriptionBtn.addEventListener('click', async function() {
-                if (!HUGGINGFACE_API_KEY) {
-                    aiDescriptionText.textContent = 'Please add your Hugging Face API key in the code.';
-                    aiDescriptionContainer.style.display = 'block';
-                    return;
-                }
-
+                const imageName = modalTitle.textContent;
                 aiDescriptionBtn.disabled = true;
                 loadingSpinner.style.display = 'inline-block';
-                aiDescriptionContainer.style.display = 'block';
-                aiDescriptionText.textContent = '';
+                aiDescriptionText.textContent = 'Regenerating...';
 
-                try {
-                    const response = await fetch(HUGGINGFACE_API_URL, {
-                        method: 'POST',
-                        headers: {
-                            'Authorization': `Bearer ${HUGGINGFACE_API_KEY}`,
-                            'Content-Type': 'application/json'
-                        },
-                        body: JSON.stringify({
-                            inputs: currentImageSrc
-                        })
-                    });
+                const description = await generateAIDescription(currentImageSrc, imageName);
+                modalDescription.textContent = description;
+                aiDescriptionText.textContent = description;
 
-                    if (!response.ok) {
-                        throw new Error(`API Error: ${response.status} - ${response.statusText}`);
-                    }
-
-                    const data = await response.json();
-                    
-                    if (data && data[0] && data[0].generated_text) {
-                        aiDescriptionText.textContent = data[0].generated_text;
-                    } else {
-                        aiDescriptionText.textContent = 'Could not generate description. Try again.';
-                    }
-                } catch (error) {
-                    console.error('Error generating AI description:', error);
-                    aiDescriptionText.textContent = 'Error generating description. Check console.';
-                } finally {
-                    loadingSpinner.style.display = 'none';
-                    aiDescriptionBtn.disabled = false;
-                }
+                loadingSpinner.style.display = 'none';
+                aiDescriptionBtn.disabled = false;
             });
         });
     </script>
