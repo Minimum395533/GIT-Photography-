@@ -116,6 +116,46 @@
             background: #cccccc;
             cursor: not-allowed;
         }
+        .regen-controls {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin-top: 15px;
+        }
+        .regen-btn {
+            background: #9c27b0;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background 0.3s;
+        }
+        .regen-btn:hover {
+            background: #7b1fa2;
+        }
+        .regen-btn:disabled {
+            background: #666;
+            cursor: not-allowed;
+        }
+        .creativity-btn {
+            background: #2196F3;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: background 0.3s;
+        }
+        .creativity-btn:hover {
+            background: #1976D2;
+        }
+        .creativity-btn.active {
+            background: #0d47a1;
+        }
+
         .ai-description {
             color: white;
             margin-top: 15px;
@@ -157,6 +197,10 @@
                 <h2 id="modalTitle"></h2>
                 <p id="modalDescription"></p>
                 <button id="aiDescriptionBtn" class="ai-description-btn">Generate AI Description</button>
+                <div id="regenControls" class="regen-controls" style="display: none;">
+                    <button id="regenBtn" class="regen-btn">Regenerate</button>
+                    <button id="creativityToggle" class="creativity-btn">More Creative</button>
+                </div>
                 <div id="aiDescriptionContainer" class="ai-description" style="display: none;">
                     <span id="aiDescriptionText"></span>
                     <span id="loadingSpinner" class="loading" style="display: none;"></span>
@@ -279,12 +323,27 @@
             });
         }
 
-        async function generateAIDescription(imageSrc, imageId) {
+        async function generateAIDescription(imageSrc, imageId, options = {}) {
             const requestImage = await imageToDataUri(imageSrc);
+            const params = {
+                seed: options.seed !== undefined ? options.seed : Math.floor(Math.random() * 2147483647),
+                temperature: options.temperature !== undefined ? options.temperature : 0.7,
+                repetition_penalty: options.repetition_penalty !== undefined ? options.repetition_penalty : 1.1,
+                top_p: 0.9,
+                top_k: 50
+            };
             const response = await fetch('/api/generate-description', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ imageId, image: requestImage })
+                body: JSON.stringify({ 
+                    imageId, 
+                    image: requestImage,
+                    seed: params.seed,
+                    temperature: params.temperature,
+                    repetition_penalty: params.repetition_penalty,
+                    top_p: params.top_p,
+                    top_k: params.top_k
+                })
             });
             const data = await response.json();
             if (!response.ok) {
@@ -311,11 +370,15 @@
             const aiDescriptionContainer = document.getElementById('aiDescriptionContainer');
             const aiDescriptionText = document.getElementById('aiDescriptionText');
             const loadingSpinner = document.getElementById('loadingSpinner');
+            const regenControls = document.getElementById('regenControls');
+            const regenBtn = document.getElementById('regenBtn');
+            const creativityToggle = document.getElementById('creativityToggle');
 
             let currentImageSrc = '';
             let currentImageId = '';
             let currentImageLink = null;
             let descriptionsByImage = {};
+            let useHighCreativity = false;
 
             try {
                 const response = await fetch('/api/descriptions');
@@ -356,12 +419,14 @@
                         aiDescriptionText.textContent = savedDescription;
                         aiDescriptionContainer.style.display = 'block';
                         aiDescriptionBtn.style.display = 'none';
+                        regenControls.style.display = 'flex';
                     } else {
                         modalDescription.textContent = desc;
                         aiDescriptionContainer.style.display = 'none';
                         aiDescriptionText.textContent = '';
                         aiDescriptionBtn.style.display = 'inline-block';
                         aiDescriptionBtn.disabled = false;
+                        regenControls.style.display = 'none';
                     }
                     modal.style.display = 'flex';
                 });
@@ -394,6 +459,41 @@
                     modal.style.display = 'none';
                 }
             });
+            creativityToggle.addEventListener('click', function() {
+                useHighCreativity = !useHighCreativity;
+                creativityToggle.textContent = useHighCreativity ? 'Less Creative' : 'More Creative';
+                creativityToggle.classList.toggle('active', useHighCreativity);
+            });
+
+            regenBtn.addEventListener('click', async function() {
+                regenBtn.disabled = true;
+                loadingSpinner.style.display = 'inline-block';
+                aiDescriptionText.textContent = 'Regenerating description...';
+
+                try {
+                    const temperature = useHighCreativity ? 0.9 : 0.3;
+                    const result = await generateAIDescription(currentImageSrc, currentImageId, {
+                        seed: Math.floor(Math.random() * 2147483647),
+                        temperature: temperature,
+                        repetition_penalty: 1.15
+                    });
+                    const description = result.description;
+                    descriptionsByImage[currentImageId] = {
+                        description,
+                        image_hash: result.image_hash || ''
+                    };
+                    setCardDescription(currentImageLink, description);
+                    aiDescriptionText.textContent = description;
+                    modalDescription.textContent = description;
+                } catch (error) {
+                    console.error('Error regenerating AI description:', error);
+                    aiDescriptionText.textContent = error.message || 'Error regenerating description. Try again.';
+                } finally {
+                    loadingSpinner.style.display = 'none';
+                    regenBtn.disabled = false;
+                }
+            });
+
 
             aiDescriptionBtn.addEventListener('click', async function() {
                 aiDescriptionBtn.disabled = true;
@@ -412,6 +512,7 @@
                     aiDescriptionText.textContent = description;
                     modalDescription.textContent = description;
                     aiDescriptionBtn.style.display = 'none';
+                    regenControls.style.display = 'flex';
                 } catch (error) {
                     console.error('Error generating AI description:', error);
                     aiDescriptionText.textContent = error.message || 'Error generating description. Try again.';
