@@ -239,15 +239,20 @@
         </div>
     </div>
     <script>
-        function rasterizeSvgDataUri(imageSrc) {
+        function imageToDataUri(imageSrc) {
             return new Promise((resolve, reject) => {
+                if (imageSrc.startsWith('data:')) {
+                    resolve(imageSrc);
+                    return;
+                }
                 const image = new Image();
                 image.onload = () => {
                     const canvas = document.createElement('canvas');
                     canvas.width = image.naturalWidth || 300;
                     canvas.height = image.naturalHeight || 300;
-                    canvas.getContext('2d').drawImage(image, 0, 0);
-                    resolve(canvas.toDataURL('image/png'));
+                    const ctx = canvas.getContext('2d');
+                    ctx.drawImage(image, 0, 0, canvas.width, canvas.height);
+                    resolve(canvas.toDataURL('image/jpeg'));
                 };
                 image.onerror = () => reject(new Error('Unable to prepare the selected image.'));
                 image.src = imageSrc;
@@ -255,9 +260,7 @@
         }
 
         async function generateAIDescription(imageSrc, imageId) {
-            const requestImage = imageSrc.startsWith('data:image/svg+xml')
-                ? await rasterizeSvgDataUri(imageSrc)
-                : imageSrc;
+            const requestImage = await imageToDataUri(imageSrc);
             const response = await fetch('/api/generate-description', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
