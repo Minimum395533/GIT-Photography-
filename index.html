@@ -5,11 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Burgers</title>
     <style>
+        :root {
+            color-scheme: dark;
+        }
         body {
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 20px;
-            background-color: #f5f5f5;
+            background-color: #0b0f14;
+            color: #f3f6fa;
         }
         .gallery {
             display: grid;
@@ -19,14 +23,16 @@
             margin: 0 auto;
         }
         .card {
-            background: white;
+            background: #151c25;
             border-radius: 8px;
             overflow: hidden;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border: 1px solid #263242;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
             transition: transform 0.3s ease;
         }
         .card:hover {
             transform: scale(1.02);
+            border-color: #40546d;
         }
         .card img {
             width: 100%;
@@ -43,7 +49,7 @@
         }
         .card-content p {
             margin: 0;
-            color: #666;
+            color: #aeb9c7;
             font-size: 0.9rem;
         }
         .modal {
@@ -131,79 +137,17 @@
         @keyframes spin {
             to { transform: rotate(360deg); }
         }
-        .tag-filters {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            margin-bottom: 30px;
-            flex-wrap: wrap;
-        }
-        .tag-btn {
-            padding: 10px 20px;
-            border: 2px solid #ddd;
-            background: white;
-            border-radius: 25px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-size: 1rem;
-        }
-        .tag-btn:hover {
-            border-color: #4CAF50;
-            background: #f0f0f0;
-        }
-        .tag-btn.active {
-            background: #4CAF50;
-            color: white;
-            border-color: #4CAF50;
-        }
-        .tag-btn.burgerking { border-color: #ff6600; }
-        .tag-btn.burgerking:hover { border-color: #ff6600; background: #f0f0f0; }
-        .tag-btn.burgerking.active { background: #ff6600; border-color: #ff6600; color: white; }
-        .tag-btn.mcdonalds { border-color: #c41e3a; }
-        .tag-btn.mcdonalds:hover { border-color: #c41e3a; background: #f0f0f0; }
-        .tag-btn.mcdonalds.active { background: #c41e3a; border-color: #c41e3a; color: white; }
-        .tag-btn.wendys { border-color: #1e3a8a; }
-        .tag-btn.wendys:hover { border-color: #1e3a8a; background: #f0f0f0; }
-        .tag-btn.wendys.active { background: #1e3a8a; border-color: #1e3a8a; color: white; }
-        .tag-row {
-            margin-bottom: 20px;
-        }
-        .tag-label {
-            display: block;
-            font-size: 1.3rem;
-            font-weight: bold;
-            margin-bottom: 10px;
-            padding: 10px;
-            border-radius: 5px 5px 0 0;
-            color: white;
-        }
-        .tag-label.burgerking { background: #ff6600; }
-        .tag-label.mcdonalds { background: #c41e3a; }
-        .tag-label.wendys { background: #1e3a8a; }
-        .tag-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 20px;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-        .no-results {
-            text-align: center;
-            padding: 40px;
-            color: #666;
-            font-size: 1.2rem;
+        #shuffleBtn:hover {
+            background: #0b7dda;
         }
     </style>
 </head>
 <body>
-    <h1 style="text-align: center; margin-bottom: 30px;">Burgers</h1>
-    <div class="tag-filters">
-        <button class="tag-btn burgerking" data-tag="Burger King">Burger King</button>
-        <button class="tag-btn mcdonalds" data-tag="McDonald's">McDonald's</button>
-        <button class="tag-btn wendys" data-tag="Wendy's">Wendy's</button>
-        <button class="tag-btn" data-tag="all">All</button>
-    </div>
-    <div id="galleryContainer" class="gallery">
+    <h1 style="text-align: center; margin-bottom: 30px;">Photography Gallery</h1>
+    <div style="text-align: center; margin-bottom: 20px;">
+        <button id="shuffleBtn" style="padding: 10px 20px; background: #2196F3; color: white; border: none; border-radius: 5px; cursor: pointer; font-size: 1rem;">
+            Shuffle Images
+        </button>
     </div>
     <div id="fullscreenModal" class="modal">
         <span class="close">&times;</span>
@@ -220,184 +164,121 @@
             </div>
         </div>
     </div>
-
+    <div class="gallery">
+        <div class="card">
+            <a href="images/mcdonalds_hamburger.jpg" class="image-link" data-image-id="image-1" data-src="images/mcdonalds_hamburger.jpg" data-alt="McDonalds Hamburger" data-desc="">
+                <img src="images/mcdonalds_hamburger.jpg" alt="McDonalds Hamburger">
+            </a>
+            <div class="card-content">
+                <p></p>
+            </div>
+        </div>
+        <div class="card">
+            <a href="images/mcdonalds_quarterpounder.png" class="image-link" data-image-id="image-2" data-src="images/mcdonalds_quarterpounder.png" data-alt="McDonalds Quarter Pounder" data-desc="">
+                <img src="images/mcdonalds_quarterpounder.png" alt="McDonalds Quarter Pounder">
+            </a>
+            <div class="card-content">
+                <p></p>
+            </div>
+        </div>
+        <div class="card">
+            <a href="images/mcdonalds_bigmac.png" class="image-link" data-image-id="image-3" data-src="images/mcdonalds_bigmac.png" data-alt="McDonalds Big Mac" data-desc="">
+                <img src="images/mcdonalds_bigmac.png" alt="McDonalds Big Mac">
+            </a>
+            <div class="card-content">
+                <p></p>
+            </div>
+        </div>
+        <div class="card">
+            <a href="images/burgerking_sliders.jpg" class="image-link" data-image-id="image-4" data-src="images/burgerking_sliders.jpg" data-alt="Burger King Sliders" data-desc="">
+                <img src="images/burgerking_sliders.jpg" alt="Burger King Sliders">
+            </a>
+            <div class="card-content">
+                <p></p>
+            </div>
+        </div>
+        <div class="card">
+            <a href="images/burgerking_bbq_brisket.jpg" class="image-link" data-image-id="image-5" data-src="images/burgerking_bbq_brisket.jpg" data-alt="Burger King BBQ Brisket" data-desc="">
+                <img src="images/burgerking_bbq_brisket.jpg" alt="Burger King BBQ Brisket">
+            </a>
+            <div class="card-content">
+                <p></p>
+            </div>
+        </div>
+        <div class="card">
+            <a href="images/burgerking_chicken_sandwich.png" class="image-link" data-image-id="image-6" data-src="images/burgerking_chicken_sandwich.png" data-alt="Burger King Chicken Sandwich" data-desc="">
+                <img src="images/burgerking_chicken_sandwich.png" alt="Burger King Chicken Sandwich">
+            </a>
+            <div class="card-content">
+                <p></p>
+            </div>
+        </div>
+        <div class="card">
+            <a href="images/wendys_square_burger.jpg" class="image-link" data-image-id="image-7" data-src="images/wendys_square_burger.jpg" data-alt="Wendys Square Burger" data-desc="">
+                <img src="images/wendys_square_burger.jpg" alt="Wendys Square Burger">
+            </a>
+            <div class="card-content">
+                <p></p>
+            </div>
+        </div>
+        <div class="card">
+            <a href="images/wendys_daves_double.png" class="image-link" data-image-id="image-8" data-src="images/wendys_daves_double.png" data-alt="Wendys Dave's Double" data-desc="">
+                <img src="images/wendys_daves_double.png" alt="Wendys Dave's Double">
+            </a>
+            <div class="card-content">
+                <p></p>
+            </div>
+        </div>
+        <div class="card">
+            <a href="images/wendys_secret_menu.jpg" class="image-link" data-image-id="image-9" data-src="images/wendys_secret_menu.jpg" data-alt="Wendys Secret Menu Item" data-desc="">
+                <img src="images/wendys_secret_menu.jpg" alt="Wendys Secret Menu Item">
+            </a>
+            <div class="card-content">
+                <p></p>
+            </div>
+        </div>
+    </div>
     <script>
-        const CEREBRAS_API_KEY = 'csk-j9nrjkhtpyf2pc4dtenc3p6py9r6d4c6jnyd9pfc2mtvcf4t';
-        const CEREBRAS_API_URL = 'https://api.cerebras.net/v1/predict';
-
-        const burgers = [
-            { src: 'images/mcdonalds_hamburger.jpg', alt: "McDonald's Hamburger", tag: "McDonald's" },
-            { src: 'images/mcdonalds_quarterpounder.png', alt: "McDonald's Quarter Pounder", tag: "McDonald's" },
-            { src: 'images/mcdonalds_bigmac.png', alt: "McDonald's Big Mac", tag: "McDonald's" },
-            { src: 'images/burgerking_sliders.jpg', alt: "Burger King Sliders", tag: "Burger King" },
-            { src: 'images/burgerking_bbq_brisket.jpg', alt: "Burger King BBQ Brisket", tag: "Burger King" },
-            { src: 'images/burgerking_chicken_sandwich.png', alt: "Burger King Chicken Sandwich", tag: "Burger King" },
-            { src: 'images/wendys_square_burger.jpg', alt: "Wendy's Square Burger", tag: "Wendy's" },
-            { src: 'images/wendys_daves_double.png', alt: "Wendy's Dave's Double", tag: "Wendy's" },
-            { src: 'images/wendys_secret_menu.jpg', alt: "Wendy's Secret Menu Item", tag: "Wendy's" }
-        ];
-
-        function getCookie(name) {
-            const value = `; ${document.cookie}`;
-            const parts = value.split(`; ${name}=`);
-            if (parts.length === 2) return parts.pop().split(';').shift();
-        }
-
-        function setCookie(name, value, days) {
-            const date = new Date();
-            date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
-            const expires = `expires=${date.toUTCString()}`;
-            document.cookie = `${name}=${value};${expires};path=/`;
-        }
-
-        function imageToBase64(imgElement) {
-            return new Promise((resolve) => {
-                const canvas = document.createElement('canvas');
-                canvas.width = imgElement.naturalWidth || 512;
-                canvas.height = imgElement.naturalHeight || 512;
-                const ctx = canvas.getContext('2d');
-                ctx.drawImage(imgElement, 0, 0, canvas.width, canvas.height);
-                const base64 = canvas.toDataURL('image/jpeg', 0.8).split(',')[1];
-                resolve(base64);
+        function rasterizeSvgDataUri(imageSrc) {
+            return new Promise((resolve, reject) => {
+                const image = new Image();
+                image.onload = () => {
+                    const canvas = document.createElement('canvas');
+                    canvas.width = image.naturalWidth || 300;
+                    canvas.height = image.naturalHeight || 300;
+                    canvas.getContext('2d').drawImage(image, 0, 0);
+                    resolve(canvas.toDataURL('image/png'));
+                };
+                image.onerror = () => reject(new Error('Unable to prepare the selected image.'));
+                image.src = imageSrc;
             });
         }
 
-        async function generateAIDescription(imageSrc, imageName) {
-            const cookieName = `desc_${imageName}`;
-            const cached = getCookie(cookieName);
-            if (cached) {
-                return cached;
-            }
-
-            try {
-                const img = new Image();
-                img.crossOrigin = 'Anonymous';
-                await new Promise((resolve, reject) => {
-                    img.onload = resolve;
-                    img.onerror = reject;
-                    img.src = imageSrc;
-                });
-
-                const base64Image = await imageToBase64(img);
-
-                const response = await fetch(CEREBRAS_API_URL, {
-                    method: 'POST',
-                    headers: {
-                        'Authorization': `Bearer ${CEREBRAS_API_KEY}`,
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        model: 'cerebras/llava-1.5-7b',
-                        inputs: `data:image/jpeg;base64,${base64Image}`,
-                        prompt: 'Describe this image in detail.'
-                    })
-                });
-
-                if (!response.ok) {
-                    throw new Error(`API Error: ${response.status} - ${response.statusText}`);
-                }
-
-                const data = await response.json();
-                let description = '';
-                if (data && data.generated_text) {
-                    description = data.generated_text;
-                } else if (Array.isArray(data) && data[0] && data[0].generated_text) {
-                    description = data[0].generated_text;
-                } else if (data && data.output && data.output[0]) {
-                    description = data.output[0];
-                } else {
-                    description = 'Could not generate description. Try again.';
-                }
-
-                setCookie(cookieName, description, 30);
-                return description;
-            } catch (error) {
-                console.error('Error generating AI description:', error);
-                return 'Error generating description. Check console.';
-            }
-        }
-
-        function renderGallery(filterTag) {
-            const gallery = document.getElementById('galleryContainer');
-            gallery.innerHTML = '';
-
-            if (filterTag === 'all') {
-                burgers.forEach(burger => {
-                    const card = createCard(burger);
-                    gallery.appendChild(card);
-                });
-                return;
-            }
-
-            const grouped = {};
-            burgers.forEach(burger => {
-                if (filterTag === 'all' || burger.tag === filterTag) {
-                    if (!grouped[burger.tag]) {
-                        grouped[burger.tag] = [];
-                    }
-                    grouped[burger.tag].push(burger);
-                }
+        async function generateAIDescription(imageSrc, imageId) {
+            const requestImage = imageSrc.startsWith('data:image/svg+xml')
+                ? await rasterizeSvgDataUri(imageSrc)
+                : imageSrc;
+            const response = await fetch('/api/generate-description', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ imageId, image: requestImage })
             });
+            const data = await response.json();
+            if (!response.ok) {
+                throw new Error(data.error || 'Cerebras could not generate a description.');
+            }
+            return data;
+        }
 
-            const sortedTags = Object.keys(grouped).sort();
-            sortedTags.forEach(tag => {
-                const tagRow = document.createElement('div');
-                tagRow.className = 'tag-row';
-
-                const tagLabel = document.createElement('div');
-                tagLabel.className = `tag-label ${tag.toLowerCase().replace(/\s+/g, '').replace(/'/g, '')}`;
-                tagLabel.textContent = tag;
-                tagRow.appendChild(tagLabel);
-
-                const tagGrid = document.createElement('div');
-                tagGrid.className = 'tag-grid';
-
-                grouped[tag].forEach(burger => {
-                    const card = createCard(burger);
-                    tagGrid.appendChild(card);
-                });
-
-                tagRow.appendChild(tagGrid);
-                gallery.appendChild(tagRow);
-            });
-
-            if (Object.keys(grouped).length === 0) {
-                const noResults = document.createElement('div');
-                noResults.className = 'no-results';
-                noResults.textContent = 'No burgers found for this filter.';
-                gallery.appendChild(noResults);
+        function setCardDescription(link, description) {
+            link.dataset.desc = description;
+            const cardDescription = link.closest('.card')?.querySelector('.card-content p');
+            if (cardDescription) {
+                cardDescription.textContent = description;
             }
         }
 
-        function createCard(burger) {
-            const card = document.createElement('div');
-            card.className = 'card';
-
-            const link = document.createElement('a');
-            link.href = burger.src;
-            link.className = 'image-link';
-            link.setAttribute('data-src', burger.src);
-            link.setAttribute('data-alt', burger.alt);
-            link.setAttribute('data-desc', '');
-
-            const img = document.createElement('img');
-            img.src = burger.src;
-            img.alt = burger.alt;
-
-            link.appendChild(img);
-            card.appendChild(link);
-
-            const cardContent = document.createElement('div');
-            cardContent.className = 'card-content';
-            const tagP = document.createElement('p');
-            tagP.textContent = burger.tag;
-            cardContent.appendChild(tagP);
-            card.appendChild(cardContent);
-
-            return card;
-        }
-
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', async function() {
             const modal = document.getElementById('fullscreenModal');
             const modalImage = document.getElementById('modalImage');
             const modalTitle = document.getElementById('modalTitle');
@@ -407,49 +288,58 @@
             const aiDescriptionContainer = document.getElementById('aiDescriptionContainer');
             const aiDescriptionText = document.getElementById('aiDescriptionText');
             const loadingSpinner = document.getElementById('loadingSpinner');
-            const galleryContainer = document.getElementById('galleryContainer');
-            const tagButtons = document.querySelectorAll('.tag-btn');
 
             let currentImageSrc = '';
+            let currentImageId = '';
+            let currentImageLink = null;
+            let descriptionsByImage = {};
 
-            renderGallery('all');
+            try {
+                const response = await fetch('/api/descriptions');
+                if (response.ok) {
+                    descriptionsByImage = await response.json();
+                }
+            } catch (error) {
+                console.warn('Saved descriptions could not be loaded:', error);
+            }
 
-            tagButtons.forEach(btn => {
-                btn.addEventListener('click', function() {
-                    tagButtons.forEach(b => {
-                        b.classList.remove('active');
-                    });
-                    this.classList.add('active');
-                    const filterTag = this.getAttribute('data-tag');
-                    renderGallery(filterTag);
-                });
+            const imageLinks = document.querySelectorAll('.image-link');
+
+            imageLinks.forEach(link => {
+                const savedDescription = descriptionsByImage[link.dataset.imageId]?.description;
+                if (savedDescription) {
+                    setCardDescription(link, savedDescription);
+                }
             });
 
-            galleryContainer.addEventListener('click', function(e) {
-                const link = e.target.closest('.image-link');
-                if (!link) return;
+            imageLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const src = this.getAttribute('data-src') || this.querySelector('img')?.src || '';
+                    const alt = this.getAttribute('data-alt');
+                    const desc = this.getAttribute('data-desc');
+                    const imageName = src.startsWith('data:') ? alt : src.split('/').pop();
+                    const imageId = this.dataset.imageId;
+                    const savedDescription = descriptionsByImage[imageId]?.description;
 
-                e.preventDefault();
-                const src = link.getAttribute('data-src');
-                const alt = link.getAttribute('data-alt');
-                const imageName = src.split('/').pop() || alt;
-
-                currentImageSrc = src;
-                modalImage.src = src;
-                modalImage.alt = alt;
-                modalTitle.textContent = imageName;
-                modalDescription.textContent = '';
-
-                aiDescriptionBtn.disabled = true;
-                loadingSpinner.style.display = 'inline-block';
-                aiDescriptionContainer.style.display = 'block';
-                aiDescriptionText.textContent = 'Generating description...';
-
-                generateAIDescription(src, imageName).then(description => {
-                    modalDescription.textContent = description;
-                    aiDescriptionText.textContent = description;
-                    loadingSpinner.style.display = 'none';
-                    aiDescriptionBtn.disabled = false;
+                    currentImageSrc = src;
+                    currentImageId = imageId;
+                    currentImageLink = this;
+                    modalImage.src = src;
+                    modalImage.alt = alt;
+                    modalTitle.textContent = imageName;
+                    if (savedDescription) {
+                        modalDescription.textContent = savedDescription;
+                        aiDescriptionText.textContent = savedDescription;
+                        aiDescriptionContainer.style.display = 'block';
+                        aiDescriptionBtn.style.display = 'none';
+                    } else {
+                        modalDescription.textContent = desc;
+                        aiDescriptionContainer.style.display = 'none';
+                        aiDescriptionText.textContent = '';
+                        aiDescriptionBtn.style.display = 'inline-block';
+                        aiDescriptionBtn.disabled = false;
+                    }
                     modal.style.display = 'flex';
                 });
             });
@@ -464,6 +354,18 @@
                 }
             });
 
+            const shuffleBtn = document.getElementById('shuffleBtn');
+            const gallery = document.querySelector('.gallery');
+
+            shuffleBtn.addEventListener('click', function() {
+                const cards = Array.from(gallery.querySelectorAll('.card'));
+                for (let i = cards.length - 1; i > 0; i--) {
+                    const j = Math.floor(Math.random() * (i + 1));
+                    [cards[i], cards[j]] = [cards[j], cards[i]];
+                }
+                cards.forEach(card => gallery.appendChild(card));
+            });
+
             document.addEventListener('keydown', function(e) {
                 if (e.key === 'Escape') {
                     modal.style.display = 'none';
@@ -471,17 +373,31 @@
             });
 
             aiDescriptionBtn.addEventListener('click', async function() {
-                const imageName = modalTitle.textContent;
                 aiDescriptionBtn.disabled = true;
                 loadingSpinner.style.display = 'inline-block';
-                aiDescriptionText.textContent = 'Regenerating...';
+                aiDescriptionContainer.style.display = 'block';
+                aiDescriptionText.textContent = 'Generating a description with Cerebras…';
 
-                const description = await generateAIDescription(currentImageSrc, imageName);
-                modalDescription.textContent = description;
-                aiDescriptionText.textContent = description;
-
-                loadingSpinner.style.display = 'none';
-                aiDescriptionBtn.disabled = false;
+                try {
+                    const result = await generateAIDescription(currentImageSrc, currentImageId);
+                    const description = result.description;
+                    descriptionsByImage[currentImageId] = {
+                        description,
+                        image_hash: result.image_hash || ''
+                    };
+                    setCardDescription(currentImageLink, description);
+                    aiDescriptionText.textContent = description;
+                    modalDescription.textContent = description;
+                    aiDescriptionBtn.style.display = 'none';
+                } catch (error) {
+                    console.error('Error generating AI description:', error);
+                    aiDescriptionText.textContent = error.message || 'Error generating description. Try again.';
+                } finally {
+                    loadingSpinner.style.display = 'none';
+                    if (aiDescriptionBtn.style.display !== 'none') {
+                        aiDescriptionBtn.disabled = false;
+                    }
+                }
             });
         });
     </script>
