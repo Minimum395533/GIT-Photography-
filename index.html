@@ -198,6 +198,16 @@
             margin: 10px auto 0;
             cursor: pointer;
         }
+        .card-image-wrapper {
+            position: relative;
+            display: block;
+            background-color: #ffffff;
+        }
+        .card-image-wrapper img {
+            display: block;
+            width: 100%;
+        }
+
 
 
         .ai-description {
@@ -444,6 +454,52 @@
             container.appendChild(imgElement.cloneNode(true));
             return container;
         }
+        async function checkImageTransparency(src) {
+            return new Promise((resolve) => {
+                const img = new Image();
+                img.onload = () => {
+                    const canvas = document.createElement('canvas');
+                    canvas.width = img.naturalWidth || 1;
+                    canvas.height = img.naturalHeight || 1;
+                    const ctx = canvas.getContext('2d');
+                    ctx.drawImage(img, 0, 0);
+                    const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+                    for (let i = 3; i < imageData.data.length; i += 4) {
+                        if (imageData.data[i] < 255) {
+                            resolve(true);
+                            return;
+                        }
+                    }
+                    resolve(false);
+                };
+                img.onerror = () => resolve(false);
+                img.src = src;
+            });
+        }
+
+        function applyBgToGalleryImage(imgElement, hexValue) {
+            const color = getBgColor(hexValue);
+            const wrapper = imgElement.closest('.card-image-wrapper');
+            if (wrapper) {
+                wrapper.style.backgroundColor = color;
+            }
+        }
+
+        async function setupGalleryImageWithBg(card, imageId, src) {
+            const img = card.querySelector('img');
+            if (!img) return;
+
+            const hasAlpha = await checkImageTransparency(src);
+            if (hasAlpha) {
+                const wrapper = document.createElement('div');
+                wrapper.className = 'card-image-wrapper';
+                const bgValue = loadBgColor(imageId);
+                wrapper.style.backgroundColor = getBgColor(bgValue);
+                img.parentNode.insertBefore(wrapper, img);
+                wrapper.appendChild(img);
+            }
+        }
+
 
 
         document.addEventListener('DOMContentLoaded', async function() {
@@ -480,6 +536,19 @@
             }
 
             const imageLinks = document.querySelectorAll('.image-link');
+
+            // Setup background colors for transparent images in gallery
+            const cards = document.querySelectorAll('.card');
+            cards.forEach(card => {
+                const link = card.querySelector('.image-link');
+                if (link) {
+                    const imageId = link.dataset.imageId;
+                    const src = link.getAttribute('data-src') || link.querySelector('img')?.src || '';
+                    if (imageId && src) {
+                        setupGalleryImageWithBg(card, imageId, src);
+                    }
+                }
+            });
 
             imageLinks.forEach(link => {
                 const savedDescription = descriptionsByImage[link.dataset.imageId]?.description;
