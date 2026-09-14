@@ -155,6 +155,50 @@
         .creativity-btn.active {
             background: #0d47a1;
         }
+        .bg-slider-container {
+            margin-top: 15px;
+            text-align: center;
+        }
+        .bg-slider-label {
+            display: block;
+            margin-bottom: 8px;
+            color: white;
+            font-size: 0.9rem;
+        }
+        .bg-slider {
+            width: 200px;
+            height: 8px;
+            border-radius: 4px;
+            background: #d3d3d3;
+            outline: none;
+            -webkit-appearance: none;
+        }
+        .bg-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: #2196F3;
+            cursor: pointer;
+        }
+        .bg-slider::-moz-range-thumb {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: #2196F3;
+            cursor: pointer;
+            border: none;
+        }
+        .bg-color-preview {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            border: 2px solid white;
+            margin: 10px auto 0;
+            cursor: pointer;
+        }
+
 
         .ai-description {
             color: white;
@@ -198,6 +242,12 @@
                 <p id="modalDescription"></p>
                 <button id="aiDescriptionBtn" class="ai-description-btn">Generate AI Description</button>
                 <div id="regenControls" class="regen-controls" style="display: none;">
+                <div id="bgSliderContainer" class="bg-slider-container" style="display: none;">
+                    <label class="bg-slider-label">Background Color</label>
+                    <input type="range" id="bgSlider" class="bg-slider" min="0" max="255" value="255">
+                    <div id="bgColorPreview" class="bg-color-preview" style="background-color: #ffffff;"></div>
+                </div>
+
                     <button id="regenBtn" class="regen-btn">Regenerate</button>
                     <button id="creativityToggle" class="creativity-btn">More Creative</button>
                 </div>
@@ -359,6 +409,42 @@
                 cardDescription.textContent = description;
             }
         }
+        function getBgColor(hexValue) {
+            const hex = hexValue.toString(16).padStart(2, '0');
+            return '#' + hex + hex + hex;
+        }
+
+        function updateBgColor() {
+            bgColorValue = parseInt(bgSlider.value);
+            const color = getBgColor(bgColorValue);
+            bgColorPreview.style.backgroundColor = color;
+            saveBgColor(currentImageId, bgColorValue);
+        }
+
+        function saveBgColor(imageId, value) {
+            localStorage.setItem('bgColor_' + imageId, value.toString());
+        }
+
+        function loadBgColor(imageId) {
+            const saved = localStorage.getItem('bgColor_' + imageId);
+            if (saved !== null) {
+                return parseInt(saved);
+            }
+            return 255; // default to white
+        }
+
+        function applyBgColorToImage(imgElement, hexValue) {
+            const color = getBgColor(hexValue);
+            // Create a container with the background color
+            const container = document.createElement('div');
+            container.style.backgroundColor = color;
+            container.style.display = 'inline-block';
+            container.style.padding = '0';
+            container.style.margin = '0';
+            container.appendChild(imgElement.cloneNode(true));
+            return container;
+        }
+
 
         document.addEventListener('DOMContentLoaded', async function() {
             const modal = document.getElementById('fullscreenModal');
@@ -373,12 +459,16 @@
             const regenControls = document.getElementById('regenControls');
             const regenBtn = document.getElementById('regenBtn');
             const creativityToggle = document.getElementById('creativityToggle');
+            const bgSliderContainer = document.getElementById('bgSliderContainer');
+            const bgSlider = document.getElementById('bgSlider');
+            const bgColorPreview = document.getElementById('bgColorPreview');
 
             let currentImageSrc = '';
             let currentImageId = '';
             let currentImageLink = null;
             let descriptionsByImage = {};
             let useHighCreativity = false;
+            let bgColorValue = 255;
 
             try {
                 const response = await fetch('/api/descriptions');
@@ -411,6 +501,7 @@
                     currentImageSrc = src;
                     currentImageId = imageId;
                     currentImageLink = this;
+                    bgColorValue = loadBgColor(imageId);
                     modalImage.src = src;
                     modalImage.alt = alt;
                     modalTitle.textContent = imageName;
@@ -429,16 +520,21 @@
                         regenControls.style.display = 'none';
                     }
                     modal.style.display = 'flex';
+                    bgSlider.value = bgColorValue;
+                    bgColorPreview.style.backgroundColor = getBgColor(bgColorValue);
+                    bgSliderContainer.style.display = 'block';
                 });
             });
 
             closeBtn.addEventListener('click', function() {
                 modal.style.display = 'none';
+                bgSliderContainer.style.display = 'none';
             });
 
             modal.addEventListener('click', function(e) {
                 if (e.target === modal) {
                     modal.style.display = 'none';
+                    bgSliderContainer.style.display = 'none';
                 }
             });
 
@@ -459,6 +555,8 @@
                     modal.style.display = 'none';
                 }
             });
+
+            bgSlider.addEventListener('input', updateBgColor);
             creativityToggle.addEventListener('click', function() {
                 useHighCreativity = !useHighCreativity;
                 creativityToggle.textContent = useHighCreativity ? 'Less Creative' : 'More Creative';
