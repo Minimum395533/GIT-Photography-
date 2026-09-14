@@ -131,10 +131,80 @@
         @keyframes spin {
             to { transform: rotate(360deg); }
         }
+        .tag-filters {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+        .tag-btn {
+            padding: 10px 20px;
+            border: 2px solid #ddd;
+            background: white;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+        }
+        .tag-btn:hover {
+            border-color: #4CAF50;
+            background: #f0f0f0;
+        }
+        .tag-btn.active {
+            background: #4CAF50;
+            color: white;
+            border-color: #4CAF50;
+        }
+        .tag-btn.burgerking { border-color: #ff6600; }
+        .tag-btn.burgerking:hover { border-color: #ff6600; background: #f0f0f0; }
+        .tag-btn.burgerking.active { background: #ff6600; border-color: #ff6600; color: white; }
+        .tag-btn.mcdonalds { border-color: #c41e3a; }
+        .tag-btn.mcdonalds:hover { border-color: #c41e3a; background: #f0f0f0; }
+        .tag-btn.mcdonalds.active { background: #c41e3a; border-color: #c41e3a; color: white; }
+        .tag-btn.wendys { border-color: #1e3a8a; }
+        .tag-btn.wendys:hover { border-color: #1e3a8a; background: #f0f0f0; }
+        .tag-btn.wendys.active { background: #1e3a8a; border-color: #1e3a8a; color: white; }
+        .tag-row {
+            margin-bottom: 20px;
+        }
+        .tag-label {
+            display: block;
+            font-size: 1.3rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+            padding: 10px;
+            border-radius: 5px 5px 0 0;
+            color: white;
+        }
+        .tag-label.burgerking { background: #ff6600; }
+        .tag-label.mcdonalds { background: #c41e3a; }
+        .tag-label.wendys { background: #1e3a8a; }
+        .tag-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .no-results {
+            text-align: center;
+            padding: 40px;
+            color: #666;
+            font-size: 1.2rem;
+        }
     </style>
 </head>
 <body>
     <h1 style="text-align: center; margin-bottom: 30px;">Burgers</h1>
+    <div class="tag-filters">
+        <button class="tag-btn burgerking" data-tag="Burger King">Burger King</button>
+        <button class="tag-btn mcdonalds" data-tag="McDonald's">McDonald's</button>
+        <button class="tag-btn wendys" data-tag="Wendy's">Wendy's</button>
+        <button class="tag-btn" data-tag="all">All</button>
+    </div>
+    <div id="galleryContainer" class="gallery">
+    </div>
     <div id="fullscreenModal" class="modal">
         <span class="close">&times;</span>
         <div class="modal-content">
@@ -150,83 +220,22 @@
             </div>
         </div>
     </div>
-    <div class="gallery">
-        <div class="card">
-            <a href="images/mcdonalds_hamburger.jpg" class="image-link" data-src="images/mcdonalds_hamburger.jpg" data-alt="McDonalds Hamburger" data-desc="">
-                <img src="images/mcdonalds_hamburger.jpg" alt="McDonalds Hamburger">
-            </a>
-            <div class="card-content">
-                <p></p>
-            </div>
-        </div>
-        <div class="card">
-            <a href="images/mcdonalds_quarterpounder.png" class="image-link" data-src="images/mcdonalds_quarterpounder.png" data-alt="McDonalds Quarter Pounder" data-desc="">
-                <img src="images/mcdonalds_quarterpounder.png" alt="McDonalds Quarter Pounder">
-            </a>
-            <div class="card-content">
-                <p></p>
-            </div>
-        </div>
-        <div class="card">
-            <a href="images/mcdonalds_bigmac.png" class="image-link" data-src="images/mcdonalds_bigmac.png" data-alt="McDonalds Big Mac" data-desc="">
-                <img src="images/mcdonalds_bigmac.png" alt="McDonalds Big Mac">
-            </a>
-            <div class="card-content">
-                <p></p>
-            </div>
-        </div>
-        <div class="card">
-            <a href="images/burgerking_sliders.jpg" class="image-link" data-src="images/burgerking_sliders.jpg" data-alt="Burger King Sliders" data-desc="">
-                <img src="images/burgerking_sliders.jpg" alt="Burger King Sliders">
-            </a>
-            <div class="card-content">
-                <p></p>
-            </div>
-        </div>
-        <div class="card">
-            <a href="images/burgerking_bbq_brisket.jpg" class="image-link" data-src="images/burgerking_bbq_brisket.jpg" data-alt="Burger King BBQ Brisket" data-desc="">
-                <img src="images/burgerking_bbq_brisket.jpg" alt="Burger King BBQ Brisket">
-            </a>
-            <div class="card-content">
-                <p></p>
-            </div>
-        </div>
-        <div class="card">
-            <a href="images/burgerking_chicken_sandwich.png" class="image-link" data-src="images/burgerking_chicken_sandwich.png" data-alt="Burger King Chicken Sandwich" data-desc="">
-                <img src="images/burgerking_chicken_sandwich.png" alt="Burger King Chicken Sandwich">
-            </a>
-            <div class="card-content">
-                <p></p>
-            </div>
-        </div>
-        <div class="card">
-            <a href="images/wendys_square_burger.jpg" class="image-link" data-src="images/wendys_square_burger.jpg" data-alt="Wendys Square Burger" data-desc="">
-                <img src="images/wendys_square_burger.jpg" alt="Wendys Square Burger">
-            </a>
-            <div class="card-content">
-                <p></p>
-            </div>
-        </div>
-        <div class="card">
-            <a href="images/wendys_daves_double.png" class="image-link" data-src="images/wendys_daves_double.png" data-alt="Wendys Dave's Double" data-desc="">
-                <img src="images/wendys_daves_double.png" alt="Wendys Dave's Double">
-            </a>
-            <div class="card-content">
-                <p></p>
-            </div>
-        </div>
-        <div class="card">
-            <a href="images/wendys_secret_menu.jpg" class="image-link" data-src="images/wendys_secret_menu.jpg" data-alt="Wendys Secret Menu Item" data-desc="">
-                <img src="images/wendys_secret_menu.jpg" alt="Wendys Secret Menu Item">
-            </a>
-            <div class="card-content">
-                <p></p>
-            </div>
-        </div>
-    </div>
+
     <script>
         const CEREBRAS_API_KEY = 'csk-j9nrjkhtpyf2pc4dtenc3p6py9r6d4c6jnyd9pfc2mtvcf4t';
         const CEREBRAS_API_URL = 'https://api.cerebras.net/v1/predict';
+
+        const burgers = [
+            { src: 'images/mcdonalds_hamburger.jpg', alt: "McDonald's Hamburger", tag: "McDonald's" },
+            { src: 'images/mcdonalds_quarterpounder.png', alt: "McDonald's Quarter Pounder", tag: "McDonald's" },
+            { src: 'images/mcdonalds_bigmac.png', alt: "McDonald's Big Mac", tag: "McDonald's" },
+            { src: 'images/burgerking_sliders.jpg', alt: "Burger King Sliders", tag: "Burger King" },
+            { src: 'images/burgerking_bbq_brisket.jpg', alt: "Burger King BBQ Brisket", tag: "Burger King" },
+            { src: 'images/burgerking_chicken_sandwich.png', alt: "Burger King Chicken Sandwich", tag: "Burger King" },
+            { src: 'images/wendys_square_burger.jpg', alt: "Wendy's Square Burger", tag: "Wendy's" },
+            { src: 'images/wendys_daves_double.png', alt: "Wendy's Dave's Double", tag: "Wendy's" },
+            { src: 'images/wendys_secret_menu.jpg', alt: "Wendy's Secret Menu Item", tag: "Wendy's" }
+        ];
 
         function getCookie(name) {
             const value = `; ${document.cookie}`;
@@ -308,6 +317,86 @@
             }
         }
 
+        function renderGallery(filterTag) {
+            const gallery = document.getElementById('galleryContainer');
+            gallery.innerHTML = '';
+
+            if (filterTag === 'all') {
+                burgers.forEach(burger => {
+                    const card = createCard(burger);
+                    gallery.appendChild(card);
+                });
+                return;
+            }
+
+            const grouped = {};
+            burgers.forEach(burger => {
+                if (filterTag === 'all' || burger.tag === filterTag) {
+                    if (!grouped[burger.tag]) {
+                        grouped[burger.tag] = [];
+                    }
+                    grouped[burger.tag].push(burger);
+                }
+            });
+
+            const sortedTags = Object.keys(grouped).sort();
+            sortedTags.forEach(tag => {
+                const tagRow = document.createElement('div');
+                tagRow.className = 'tag-row';
+
+                const tagLabel = document.createElement('div');
+                tagLabel.className = `tag-label ${tag.toLowerCase().replace(/\s+/g, '').replace(/'/g, '')}`;
+                tagLabel.textContent = tag;
+                tagRow.appendChild(tagLabel);
+
+                const tagGrid = document.createElement('div');
+                tagGrid.className = 'tag-grid';
+
+                grouped[tag].forEach(burger => {
+                    const card = createCard(burger);
+                    tagGrid.appendChild(card);
+                });
+
+                tagRow.appendChild(tagGrid);
+                gallery.appendChild(tagRow);
+            });
+
+            if (Object.keys(grouped).length === 0) {
+                const noResults = document.createElement('div');
+                noResults.className = 'no-results';
+                noResults.textContent = 'No burgers found for this filter.';
+                gallery.appendChild(noResults);
+            }
+        }
+
+        function createCard(burger) {
+            const card = document.createElement('div');
+            card.className = 'card';
+
+            const link = document.createElement('a');
+            link.href = burger.src;
+            link.className = 'image-link';
+            link.setAttribute('data-src', burger.src);
+            link.setAttribute('data-alt', burger.alt);
+            link.setAttribute('data-desc', '');
+
+            const img = document.createElement('img');
+            img.src = burger.src;
+            img.alt = burger.alt;
+
+            link.appendChild(img);
+            card.appendChild(link);
+
+            const cardContent = document.createElement('div');
+            cardContent.className = 'card-content';
+            const tagP = document.createElement('p');
+            tagP.textContent = burger.tag;
+            cardContent.appendChild(tagP);
+            card.appendChild(cardContent);
+
+            return card;
+        }
+
         document.addEventListener('DOMContentLoaded', function() {
             const modal = document.getElementById('fullscreenModal');
             const modalImage = document.getElementById('modalImage');
@@ -318,36 +407,49 @@
             const aiDescriptionContainer = document.getElementById('aiDescriptionContainer');
             const aiDescriptionText = document.getElementById('aiDescriptionText');
             const loadingSpinner = document.getElementById('loadingSpinner');
+            const galleryContainer = document.getElementById('galleryContainer');
+            const tagButtons = document.querySelectorAll('.tag-btn');
 
             let currentImageSrc = '';
 
-            const imageLinks = document.querySelectorAll('.image-link');
+            renderGallery('all');
 
-            imageLinks.forEach(link => {
-                link.addEventListener('click', async function(e) {
-                    e.preventDefault();
-                    const src = this.getAttribute('data-src');
-                    const alt = this.getAttribute('data-alt');
-                    const imageName = src.split('/').pop() || `image_${Array.from(imageLinks).indexOf(this) + 1}`;
+            tagButtons.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    tagButtons.forEach(b => {
+                        b.classList.remove('active');
+                    });
+                    this.classList.add('active');
+                    const filterTag = this.getAttribute('data-tag');
+                    renderGallery(filterTag);
+                });
+            });
 
-                    currentImageSrc = src;
-                    modalImage.src = src;
-                    modalImage.alt = alt;
-                    modalTitle.textContent = imageName;
-                    modalDescription.textContent = '';
+            galleryContainer.addEventListener('click', function(e) {
+                const link = e.target.closest('.image-link');
+                if (!link) return;
 
-                    aiDescriptionBtn.disabled = true;
-                    loadingSpinner.style.display = 'inline-block';
-                    aiDescriptionContainer.style.display = 'block';
-                    aiDescriptionText.textContent = 'Generating description...';
+                e.preventDefault();
+                const src = link.getAttribute('data-src');
+                const alt = link.getAttribute('data-alt');
+                const imageName = src.split('/').pop() || alt;
 
-                    const description = await generateAIDescription(src, imageName);
+                currentImageSrc = src;
+                modalImage.src = src;
+                modalImage.alt = alt;
+                modalTitle.textContent = imageName;
+                modalDescription.textContent = '';
 
+                aiDescriptionBtn.disabled = true;
+                loadingSpinner.style.display = 'inline-block';
+                aiDescriptionContainer.style.display = 'block';
+                aiDescriptionText.textContent = 'Generating description...';
+
+                generateAIDescription(src, imageName).then(description => {
                     modalDescription.textContent = description;
                     aiDescriptionText.textContent = description;
                     loadingSpinner.style.display = 'none';
                     aiDescriptionBtn.disabled = false;
-
                     modal.style.display = 'flex';
                 });
             });
