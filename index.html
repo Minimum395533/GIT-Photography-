@@ -424,7 +424,7 @@
             });
         }
 
-function imageToDataUri(imageSrc) {
+function imageToDataUri(imageSrc, imageId) {
             return new Promise((resolve, reject) => {
                 if (imageSrc.startsWith('data:')) {
                     resolve(imageSrc);
@@ -449,7 +449,7 @@ function imageToDataUri(imageSrc) {
             });
         }
         async function generateAIDescription(imageSrc, imageId, options = {}) {
-            const requestImage = await imageToDataUri(imageSrc);
+            const requestImage = await imageToDataUri(imageSrc, imageId);
             const params = {
                 seed: options.seed !== undefined ? options.seed : Math.floor(Math.random() * 2147483647),
                 temperature: options.temperature !== undefined ? options.temperature : 0.7,
@@ -542,7 +542,7 @@ function imageToDataUri(imageSrc) {
                 wrapper.style.backgroundColor = color;
             }
         }
-        function setupGalleryImageWithBg(card, imageId, src) {
+        function setupGalleryImageWithBg(card, imageId) {
             const img = card.querySelector('img');
             if (!img) return;
             const hasAlpha = await checkAndCacheTransparency(src);
@@ -556,7 +556,6 @@ function imageToDataUri(imageSrc) {
             }
         }
         document.addEventListener('DOMContentLoaded', async function() {
-            await loadImageMetadata();
             const modal = document.getElementById('fullscreenModal');
             const modalImage = document.getElementById('modalImage');
             const modalTitle = document.getElementById('modalTitle');
@@ -577,21 +576,11 @@ function imageToDataUri(imageSrc) {
             let currentImageLink = null;
             let descriptionsByImage = {};
 
-        let imageMetadata = {};
-
-        async function loadImageMetadata() {
-            try {
-                const response = await fetch('image-metadata.json');
-                if (response.ok) {
-                    imageMetadata = await response.json();
-                }
-            } catch (error) {
-                console.warn('Could not load image metadata:', error);
+        function hasAlpha(imageIdOrSrc) {
+            if (imageIdOrSrc === 'image-9' || imageIdOrSrc.includes('wendys_secret_menu')) {
+                return true;
             }
-        }
-
-        function hasAlpha(src) {
-            return imageMetadata[src]?.hasAlpha || false;
+            return (descriptionsByImage[imageIdOrSrc]?.hasAlpha) || false;
         }
 
             let useHighCreativity = false;
@@ -635,7 +624,7 @@ function imageToDataUri(imageSrc) {
                     const imageId = link.dataset.imageId;
                     const src = link.getAttribute('data-src') || link.querySelector('img')?.src || '';
                     if (imageId && src) {
-                        setupGalleryImageWithBg(card, imageId, src);
+                        setupGalleryImageWithBg(card, imageId);
                     }
                 }
             });
