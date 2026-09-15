@@ -195,6 +195,29 @@
         .shuffle-btn { padding: 10px 20px; background: #2196F3; color: white; border: none; border-radius: 5px; cursor: pointer; font-size: 1rem; }
         .hidden { display: none; }
         .bg-white { background-color: #ffffff; }
+
+        .ai-options-container {
+            transition: max-height 0.3s ease-out;
+            overflow: hidden;
+            max-height: 0;
+        }
+        .ai-options-container.expanded {
+            max-height: 500px;
+        }
+        .ai-options-toggle {
+            background: #2196F3;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            margin-top: 10px;
+            transition: background 0.3s;
+        }
+        .ai-options-toggle:hover {
+            background: #1976D2;
+        }
 .bg-color-preview {
             width: 30px;
             height: 30px;
@@ -565,6 +588,10 @@ function imageToDataUri(imageSrc, imageId) {
             const aiDescriptionContainer = document.getElementById('aiDescriptionContainer');
             const aiDescriptionText = document.getElementById('aiDescriptionText');
             const loadingSpinner = document.getElementById('loadingSpinner');
+            const aiOptionsToggle = document.getElementById('aiOptionsToggle');
+            const aiOptionsContainer = document.getElementById('aiOptionsContainer');
+
+
             const regenControls = document.getElementById('regenControls');
             const regenBtn = document.getElementById('regenBtn');
             const creativityToggle = document.getElementById('creativityToggle');
@@ -656,6 +683,8 @@ function imageToDataUri(imageSrc, imageId) {
                         aiDescriptionContainer.style.display = 'block';
                         aiDescriptionBtn.style.display = 'none';
                         regenControls.style.display = 'flex';
+                    aiOptionsContainer.classList.add('expanded');
+                    aiOptionsToggle.textContent = 'Minimize';
                     } else {
                         modalDescription.textContent = desc;
                         aiDescriptionContainer.style.display = 'none';
@@ -745,6 +774,10 @@ function imageToDataUri(imageSrc, imageId) {
                     modalDescription.textContent = description;
                     aiDescriptionBtn.style.display = 'none';
                     regenControls.style.display = 'flex';
+                    aiOptionsContainer.classList.add('expanded');
+                    aiOptionsToggle.textContent = 'Minimize';
+                    aiOptionsContainer.classList.add('expanded');
+                    aiOptionsToggle.textContent = 'Minimize';
                 } catch (error) {
                     console.error('Error generating AI description:', error);
                     aiDescriptionText.textContent = error.message || 'Error generating description. Try again.';
