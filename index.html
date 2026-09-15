@@ -190,7 +190,12 @@
             cursor: pointer;
             border: none;
         }
-        .bg-color-preview {
+        .title-center { text-align: center; margin-bottom: 30px; }
+        .center-mb { text-align: center; margin-bottom: 20px; }
+        .shuffle-btn { padding: 10px 20px; background: #2196F3; color: white; border: none; border-radius: 5px; cursor: pointer; font-size: 1rem; }
+        .hidden { display: none; }
+        .bg-white { background-color: #ffffff; }
+.bg-color-preview {
             width: 30px;
             height: 30px;
             border-radius: 50%;
@@ -207,9 +212,6 @@
             display: block;
             width: 100%;
         }
-
-
-
         .ai-description {
             color: white;
             margin-top: 15px;
@@ -237,9 +239,9 @@
     </style>
 </head>
 <body>
-    <h1 style="text-align: center; margin-bottom: 30px;">Photography Gallery</h1>
-    <div style="text-align: center; margin-bottom: 20px;">
-        <button id="shuffleBtn" style="padding: 10px 20px; background: #2196F3; color: white; border: none; border-radius: 5px; cursor: pointer; font-size: 1rem;">
+    <h1 class="title-center">Photography Gallery</h1>
+    <div class="center-mb">
+        <button id="shuffleBtn" class="shuffle-btn">
             Shuffle Images
         </button>
     </div>
@@ -251,19 +253,18 @@
                 <h2 id="modalTitle"></h2>
                 <p id="modalDescription"></p>
                 <button id="aiDescriptionBtn" class="ai-description-btn">Generate AI Description</button>
-                <div id="regenControls" class="regen-controls" style="display: none;">
-                <div id="bgSliderContainer" class="bg-slider-container" style="display: none;">
+                <div id="regenControls" class="regen-controls" class="hidden">
+                <div id="bgSliderContainer" class="bg-slider-container" class="hidden">
                     <label class="bg-slider-label">Background Color</label>
                     <input type="range" id="bgSlider" class="bg-slider" min="0" max="255" value="255">
-                    <div id="bgColorPreview" class="bg-color-preview" style="background-color: #ffffff;"></div>
+                    <div id="bgColorPreview" class="bg-color-preview" class="bg-white"></div>
                 </div>
-
                     <button id="regenBtn" class="regen-btn">Regenerate</button>
                     <button id="creativityToggle" class="creativity-btn">More Creative</button>
                 </div>
-                <div id="aiDescriptionContainer" class="ai-description" style="display: none;">
+                <div id="aiDescriptionContainer" class="ai-description" class="hidden">
                     <span id="aiDescriptionText"></span>
-                    <span id="loadingSpinner" class="loading" style="display: none;"></span>
+                    <span id="loadingSpinner" class="loading" class="hidden"></span>
                 </div>
             </div>
         </div>
@@ -343,7 +344,36 @@
         </div>
     </div>
     <script>
-        function hasTransparency(image) {
+        // Transparency now cached in checkAndCacheTransparency        const transparencyCache = new Map();
+
+        function checkAndCacheTransparency(src) {
+            if (transparencyCache.has(src)) {
+                return Promise.resolve(transparencyCache.get(src));
+            }
+            return new Promise((resolve) => {
+                const img = new Image();
+                img.onload = () => {
+                    const canvas = document.createElement('canvas');
+                    canvas.width = img.naturalWidth || 1;
+                    canvas.height = img.naturalHeight || 1;
+                    const ctx = canvas.getContext('2d');
+                    ctx.drawImage(img, 0, 0);
+                    const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+                    let hasAlpha = false;
+                    for (let i = 3; i < imageData.data.length; i += 4) {
+                        if (imageData.data[i] < 255) {
+                            hasAlpha = true;
+                            break;
+                        }
+                    }
+                    transparencyCache.set(src, hasAlpha);
+                    resolve(hasAlpha);
+                };
+                img.onerror = () => resolve(false);
+                img.src = src;
+            });
+        }
+
             const canvas = document.createElement('canvas');
             canvas.width = image.naturalWidth || 300;
             canvas.height = image.naturalHeight || 300;
@@ -357,8 +387,44 @@
             }
             return false;
         }
+                async function processImage(imageSrc, needsDataUri = false) {
+            const cached = transparencyCache.get(imageSrc);
+            if (cached !== undefined) {
+                if (needsDataUri) {
+                    return { hasAlpha: cached, dataUri: imageToDataUri(imageSrc) };
+                }
+                return cached;
+            }
+            return new Promise((resolve) => {
+                const img = new Image();
+                img.onload = async () => {
+                    const canvas = document.createElement('canvas');
+                    canvas.width = img.naturalWidth || 1;
+                    canvas.height = img.naturalHeight || 1;
+                    const ctx = canvas.getContext('2d');
+                    ctx.drawImage(img, 0, 0);
+                    const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+                    let hasAlpha = false;
+                    for (let i = 3; i < imageData.data.length; i += 4) {
+                        if (imageData.data[i] < 255) {
+                            hasAlpha = true;
+                            break;
+                        }
+                    }
+                    transparencyCache.set(imageSrc, hasAlpha);
+                    if (needsDataUri) {
+                        const dataUri = await imageToDataUri(imageSrc);
+                        resolve({ hasAlpha, dataUri });
+                    } else {
+                        resolve(hasAlpha);
+                    }
+                };
+                img.onerror = () => resolve(needsDataUri ? { hasAlpha: false, dataUri: '' } : false);
+                img.src = imageSrc;
+            });
+        }
 
-        function imageToDataUri(imageSrc) {
+function imageToDataUri(imageSrc) {
             return new Promise((resolve, reject) => {
                 if (imageSrc.startsWith('data:')) {
                     resolve(imageSrc);
@@ -370,7 +436,7 @@
                     canvas.width = image.naturalWidth || 300;
                     canvas.height = image.naturalHeight || 300;
                     const ctx = canvas.getContext('2d');
-                    const hasAlpha = hasTransparency(image);
+                    const hasAlpha = await checkAndCacheTransparency(imageSrc);
                     if (hasAlpha) {
                         ctx.fillStyle = 'white';
                         ctx.fillRect(0, 0, canvas.width, canvas.height);
@@ -382,7 +448,6 @@
                 image.src = imageSrc;
             });
         }
-
         async function generateAIDescription(imageSrc, imageId, options = {}) {
             const requestImage = await imageToDataUri(imageSrc);
             const params = {
@@ -411,7 +476,6 @@
             }
             return data;
         }
-
         function setCardDescription(link, description) {
             link.dataset.desc = description;
             const cardDescription = link.closest('.card')?.querySelector('.card-content p');
@@ -423,18 +487,15 @@
             const hex = hexValue.toString(16).padStart(2, '0');
             return '#' + hex + hex + hex;
         }
-
         function updateBgColor() {
             bgColorValue = parseInt(bgSlider.value);
             const color = getBgColor(bgColorValue);
             bgColorPreview.style.backgroundColor = color;
             saveBgColor(currentImageId, bgColorValue);
         }
-
         function saveBgColor(imageId, value) {
             localStorage.setItem('bgColor_' + imageId, value.toString());
         }
-
         function loadBgColor(imageId) {
             const saved = localStorage.getItem('bgColor_' + imageId);
             if (saved !== null) {
@@ -442,10 +503,8 @@
             }
             return 255; // default to white
         }
-
         function applyBgColorToImage(imgElement, hexValue) {
             const color = getBgColor(hexValue);
-            // Create a container with the background color
             const container = document.createElement('div');
             container.style.backgroundColor = color;
             container.style.display = 'inline-block';
@@ -454,7 +513,7 @@
             container.appendChild(imgElement.cloneNode(true));
             return container;
         }
-        async function checkImageTransparency(src) {
+        async function checkAndCacheTransparency(src) {
             return new Promise((resolve) => {
                 const img = new Image();
                 img.onload = () => {
@@ -476,7 +535,6 @@
                 img.src = src;
             });
         }
-
         function applyBgToGalleryImage(imgElement, hexValue) {
             const color = getBgColor(hexValue);
             const wrapper = imgElement.closest('.card-image-wrapper');
@@ -484,12 +542,10 @@
                 wrapper.style.backgroundColor = color;
             }
         }
-
-        async function setupGalleryImageWithBg(card, imageId, src) {
+        function setupGalleryImageWithBg(card, imageId, src) {
             const img = card.querySelector('img');
             if (!img) return;
-
-            const hasAlpha = await checkImageTransparency(src);
+            const hasAlpha = await checkAndCacheTransparency(src);
             if (hasAlpha) {
                 const wrapper = document.createElement('div');
                 wrapper.className = 'card-image-wrapper';
@@ -499,10 +555,8 @@
                 wrapper.appendChild(img);
             }
         }
-
-
-
         document.addEventListener('DOMContentLoaded', async function() {
+            await loadImageMetadata();
             const modal = document.getElementById('fullscreenModal');
             const modalImage = document.getElementById('modalImage');
             const modalTitle = document.getElementById('modalTitle');
@@ -518,14 +572,53 @@
             const bgSliderContainer = document.getElementById('bgSliderContainer');
             const bgSlider = document.getElementById('bgSlider');
             const bgColorPreview = document.getElementById('bgColorPreview');
-
             let currentImageSrc = '';
             let currentImageId = '';
             let currentImageLink = null;
             let descriptionsByImage = {};
-            let useHighCreativity = false;
-            let bgColorValue = 255;
 
+        let imageMetadata = {};
+
+        async function loadImageMetadata() {
+            try {
+                const response = await fetch('image-metadata.json');
+                if (response.ok) {
+                    imageMetadata = await response.json();
+                }
+            } catch (error) {
+                console.warn('Could not load image metadata:', error);
+            }
+        }
+
+        function hasAlpha(src) {
+            return imageMetadata[src]?.hasAlpha || false;
+        }
+
+            let useHighCreativity = false;
+        const DOM = {
+            fullscreenModal: DOM.fullscreenModal,
+            modalImage: DOM.modalImage,
+            modalTitle: DOM.modalTitle,
+            modalDescription: DOM.modalDescription,
+            closeBtn: DOM.closeBtn,
+            aiDescriptionBtn: DOM.aiDescriptionBtn,
+            aiDescriptionContainer: DOM.aiDescriptionContainer,
+            aiDescriptionText: DOM.aiDescriptionText,
+            loadingSpinner: DOM.loadingSpinner,
+            regenControls: DOM.regenControls,
+            regenBtn: DOM.regenBtn,
+            creativityToggle: DOM.creativityToggle,
+            bgSliderContainer: DOM.bgSliderContainer,
+            bgSlider: DOM.bgSlider,
+            bgColorPreview: DOM.bgColorPreview,
+            shuffleBtn: DOM.shuffleBtn,
+            gallery: DOM.gallery,
+            imageLinks: DOM.imageLinks,
+            cards: DOM.cards,
+            close: DOM.close,
+            galleryEl: DOM.galleryEl
+        };
+            let bgColorValue = 255;
             try {
                 const response = await fetch('/api/descriptions');
                 if (response.ok) {
@@ -534,10 +627,7 @@
             } catch (error) {
                 console.warn('Saved descriptions could not be loaded:', error);
             }
-
             const imageLinks = document.querySelectorAll('.image-link');
-
-            // Setup background colors for transparent images in gallery
             const cards = document.querySelectorAll('.card');
             cards.forEach(card => {
                 const link = card.querySelector('.image-link');
@@ -549,14 +639,12 @@
                     }
                 }
             });
-
             imageLinks.forEach(link => {
                 const savedDescription = descriptionsByImage[link.dataset.imageId]?.description;
                 if (savedDescription) {
                     setCardDescription(link, savedDescription);
                 }
             });
-
             imageLinks.forEach(link => {
                 link.addEventListener('click', function(e) {
                     e.preventDefault();
@@ -566,7 +654,6 @@
                     const imageName = src.startsWith('data:') ? alt : src.split('/').pop();
                     const imageId = this.dataset.imageId;
                     const savedDescription = descriptionsByImage[imageId]?.description;
-
                     currentImageSrc = src;
                     currentImageId = imageId;
                     currentImageLink = this;
@@ -594,22 +681,18 @@
                     bgSliderContainer.style.display = 'block';
                 });
             });
-
             closeBtn.addEventListener('click', function() {
                 modal.style.display = 'none';
                 bgSliderContainer.style.display = 'none';
             });
-
             modal.addEventListener('click', function(e) {
                 if (e.target === modal) {
                     modal.style.display = 'none';
                     bgSliderContainer.style.display = 'none';
                 }
             });
-
             const shuffleBtn = document.getElementById('shuffleBtn');
             const gallery = document.querySelector('.gallery');
-
             shuffleBtn.addEventListener('click', function() {
                 const cards = Array.from(gallery.querySelectorAll('.card'));
                 for (let i = cards.length - 1; i > 0; i--) {
@@ -618,25 +701,21 @@
                 }
                 cards.forEach(card => gallery.appendChild(card));
             });
-
             document.addEventListener('keydown', function(e) {
                 if (e.key === 'Escape') {
                     modal.style.display = 'none';
                 }
             });
-
             bgSlider.addEventListener('input', updateBgColor);
             creativityToggle.addEventListener('click', function() {
                 useHighCreativity = !useHighCreativity;
                 creativityToggle.textContent = useHighCreativity ? 'Less Creative' : 'More Creative';
                 creativityToggle.classList.toggle('active', useHighCreativity);
             });
-
             regenBtn.addEventListener('click', async function() {
                 regenBtn.disabled = true;
                 loadingSpinner.style.display = 'inline-block';
                 aiDescriptionText.textContent = 'Regenerating description...';
-
                 try {
                     const temperature = useHighCreativity ? 0.9 : 0.3;
                     const result = await generateAIDescription(currentImageSrc, currentImageId, {
@@ -660,14 +739,11 @@
                     regenBtn.disabled = false;
                 }
             });
-
-
             aiDescriptionBtn.addEventListener('click', async function() {
                 aiDescriptionBtn.disabled = true;
                 loadingSpinner.style.display = 'inline-block';
                 aiDescriptionContainer.style.display = 'block';
                 aiDescriptionText.textContent = 'Generating a description with Cerebras…';
-
                 try {
                     const result = await generateAIDescription(currentImageSrc, currentImageId);
                     const description = result.description;
