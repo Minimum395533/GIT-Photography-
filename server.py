@@ -93,7 +93,18 @@ class GalleryRequestHandler(SimpleHTTPRequestHandler):
 
     def do_GET(self):
         if self.path == "/api/descriptions":
-            self.send_json(200, description_cache)
+            self.send_response(200)
+            self.send_header("Content-Type", "application/json")
+            self.send_header("Cache-Control", "public, max-age=31536000, immutable")
+            self.end_headers()
+            self.wfile.write(json.dumps(description_cache).encode("utf-8"))
+            return
+        elif self.path.startswith("/images/"):
+            self.send_response(200)
+            self.send_header("Cache-Control", "public, max-age=31536000, immutable")
+            self.end_headers()
+            with open("." + self.path, "rb") as f:
+                self.wfile.write(f.read())
             return
         super().do_GET()
 
