@@ -341,6 +341,7 @@
         .tag-filters {
             display: flex;
             justify-content: center;
+            align-items: center;
             gap: 12px;
             margin-bottom: 24px;
             flex-wrap: wrap;
@@ -364,9 +365,37 @@
             color: white;
             border-color: #2196F3;
         }
-        .tag-btn.burgerking.active { background: #ff6600; border-color: #ff6600; }
-        .tag-btn.mcdonalds.active { background: #c41e3a; border-color: #c41e3a; }
-        .tag-btn.wendys.active { background: #1e3a8a; border-color: #1e3a8a; }
+        .tag-btn.restaurant-logo {
+            width: 54px;
+            height: 54px;
+            padding: 8px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            box-sizing: border-box;
+            background: #ffffff;
+        }
+        .tag-btn.restaurant-logo:hover {
+            background: #f1f1f1;
+            border-color: #7f9abb;
+        }
+        .tag-btn.restaurant-logo.active {
+            background: #ffffff;
+            border-color: #2196F3;
+            box-shadow: 0 0 0 3px rgba(33, 150, 243, 0.25);
+        }
+        .tag-btn.restaurant-logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            display: block;
+        }
+        .tag-btn.burgerking.active,
+        .tag-btn.mcdonalds.active,
+        .tag-btn.wendys.active {
+            background: #ffffff;
+        }
         #shuffleBtn:hover {
             background: #0b7dda;
         }
@@ -430,9 +459,15 @@
     </div>
     <div class="tag-filters" aria-label="Filter burgers by restaurant">
         <button class="tag-btn" data-tag="all">All</button>
-        <button class="tag-btn burgerking" data-tag="Burger King">Burger King</button>
-        <button class="tag-btn mcdonalds" data-tag="McDonald's">McDonald's</button>
-        <button class="tag-btn wendys" data-tag="Wendy's">Wendy's</button>
+        <button class="tag-btn restaurant-logo burgerking" data-tag="Burger King" aria-label="Burger King" title="Burger King">
+            <img src="https://cdn.simpleicons.org/burgerking" alt="Burger King">
+        </button>
+        <button class="tag-btn restaurant-logo mcdonalds" data-tag="McDonald's" aria-label="McDonald's" title="McDonald's">
+            <img src="https://cdn.simpleicons.org/mcdonalds" alt="McDonald's">
+        </button>
+        <button class="tag-btn restaurant-logo wendys" data-tag="Wendy's" aria-label="Wendy's" title="Wendy's">
+            <img src="https://cdn.simpleicons.org/wendys" alt="Wendy's">
+        </button>
     </div>
     <div id="fullscreenModal" class="modal">
         <span class="close">&times;</span>
