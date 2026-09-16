@@ -1,2 +1,2 @@
 - [Cerebras server requests](cerebras-server-requests.md) — Cerebras API calls need an explicit User-Agent in this environment.
-- [GitHub connector pushes](github-push-via-connector.md) — The GitHub integration authorizes API calls but does not configure the local HTTPS Git credential helper.
+- [GitHub connector sync](github-push-via-connector.md) — Use the GitHub connector REST API for remote sync because local HTTPS Git credentials are unavailable and origin refs may be stale.

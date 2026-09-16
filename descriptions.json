@@ -1,38 +1,132 @@
 {
-  "image-6": {
-    "description": "",
-    "image_hash": ""
-  },
-  "image-5": {
-    "description": "",
-    "image_hash": ""
-  },
-  "image-2": {
-    "description": "",
-    "image_hash": ""
-  },
   "image-4": {
-    "description": "",
-    "image_hash": ""
-  },
-  "image-1": {
-    "description": "",
-    "image_hash": ""
+    "description": "A Burger King \"King-Sized Sliders Box\" containing six different types of sliders, including Steakhouse Bacon, Deluxe, and Bacon & Cheese, is displayed next to its red packaging.",
+    "image_hash": "9796ccad1f6b8fa7b442c727811bcd36f443d8043e9144c3d4fbfdef0450bf8a",
+    "position": [
+      935,
+      500
+    ],
+    "position_limits": [
+      -175,
+      175,
+      0,
+      0
+    ]
   },
   "image-3": {
-    "description": "",
-    "image_hash": ""
-  },
-  "image-8": {
-    "description": "",
-    "image_hash": ""
+    "description": "A close-up, studio shot of a double cheeseburger with a sesame seed bun, two beef patties, melted yellow cheese, lettuce, pickles, and a creamy sauce, all set against a plain white background.",
+    "image_hash": "85d742662e75df01e673f8b035ed48a4094da7b89a66769943bef348f79c17b3",
+    "background_color": "0C",
+    "position": [
+      516,
+      480
+    ],
+    "position_limits": [
+      -142,
+      142,
+      -142,
+      142
+    ]
   },
   "image-9": {
-    "description": "",
-    "image_hash": ""
+    "description": "A towering, multi-layered cheeseburger with six beef patties, melted cheese, lettuce, tomato, onion, and ketchup, set against a red background.",
+    "image_hash": "405dcb6e1f7535af588ddd18b26dbcc4a5b30b7465353e1507809dc1fe5b15b8",
+    "position": [
+      520,
+      949
+    ],
+    "position_limits": [
+      -96,
+      96,
+      0,
+      0
+    ]
+  },
+  "image-1": {
+    "description": "A close-up of a single hamburger with a beef patty, ketchup, mustard, and a pickle slice on a bun.",
+    "image_hash": "111e86d9411dc12e2d2b64e203843894f48d1e22b0d56ff35b41c5dc9923a396",
+    "position": [
+      369,
+      314
+    ],
+    "position_limits": [
+      0,
+      0,
+      0,
+      0
+    ]
+  },
+  "image-5": {
+    "description": "Two Burger King burgers, topped with shredded meat, cheese, pickles, and tomato, are displayed on a wooden surface alongside a drink and condiments.",
+    "image_hash": "63a1dbf8a9fadbf395046b533e96afa9c307ea0b1e2b97619d9e173446ecf70b",
+    "position": [
+      500,
+      500
+    ],
+    "position_limits": [
+      -97,
+      97,
+      0,
+      0
+    ]
   },
   "image-7": {
-    "description": "",
-    "image_hash": ""
+    "description": "A close-up, studio shot of a classic cheeseburger with a beef patty, melted cheese, lettuce, tomato, onion, pickles, and ketchup on a toasted bun, set against a plain white background.",
+    "image_hash": "c22f7960726753b240329883fa4413dcae8ea867a8ae46bb6d53103f94f96dfd",
+    "position": [
+      491,
+      501
+    ],
+    "position_limits": [
+      0,
+      0,
+      0,
+      0
+    ]
+  },
+  "image-8": {
+    "description": "A close-up, studio shot of a double cheeseburger featuring two beef patties, melted yellow cheese, fresh lettuce, tomato slices, pickles, onions, and ketchup, all nestled between a glossy, golden-brown bun against a plain white background.",
+    "image_hash": "bb3770b5b02199113568379f0d1aa0affc5882014de60ccdb5bd8d27df5856d6",
+    "background_color": "40",
+    "position": [
+      500,
+      598
+    ],
+    "position_limits": [
+      -142,
+      142,
+      -142,
+      142
+    ]
+  },
+  "image-2": {
+    "description": "A close-up of a classic cheeseburger with a sesame seed bun, melted cheese, a beef patty, pickles, onions, ketchup, and mustard.",
+    "image_hash": "e1e82ce3b5aba09442d8e2d3d7392f25e1c51695d67232034d0852a2b01b6c48",
+    "background_color": "B0",
+    "position": [
+      496,
+      453
+    ],
+    "position_limits": [
+      -142,
+      142,
+      -142,
+      142
+    ]
+  },
+  "image-6": {
+    "description": "A breaded, golden-brown fish fillet sandwich is served on a sesame seed bun with fresh green lettuce and a white sauce, presented against a plain white background.",
+    "image_hash": "c61cc55e23200a9d56a8c814ad5d9309378c4621d9b105136e31284b539c9052",
+    "background_color": "95",
+    "position": [
+      510,
+      500
+    ],
+    "position_limits": [
+      -116,
+      116,
+      -142,
+      142
+    ]
   }
 }

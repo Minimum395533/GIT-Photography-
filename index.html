@@ -36,9 +36,102 @@
         }
         .card img {
             width: 100%;
-            height: 150px;
+            height: 100%;
             object-fit: cover;
             aspect-ratio: 1/1;
+            background-color: transparent;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            max-width: none;
+            transform: translate(-50%, -50%);
+            user-select: none;
+            -webkit-user-drag: none;
+            -webkit-touch-callout: none;
+        }
+        .image-link {
+            position: relative;
+            display: block;
+            height: auto;
+            aspect-ratio: 1 / 1;
+            overflow: hidden;
+            background-color: #fff;
+        }
+        .image-link,
+        .image-link img,
+        .modal-content img {
+            user-select: none;
+            -webkit-user-drag: none;
+            -webkit-touch-callout: none;
+        }
+        .image-position-panel {
+            position: absolute;
+            left: 8px;
+            bottom: 8px;
+            z-index: 3;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 4px;
+            border-radius: 8px;
+            background: rgba(11, 15, 20, 0.88);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
+        }
+        .image-position-toggle {
+            display: grid;
+            flex: 0 0 30px;
+            place-items: center;
+            width: 30px;
+            height: 30px;
+            padding: 4px;
+            border: 0;
+            border-radius: 50%;
+            background: #2196f3;
+            color: white;
+            cursor: pointer;
+        }
+        .image-position-toggle:hover {
+            background: #0b7dda;
+        }
+        .image-position-toggle svg {
+            width: 22px;
+            height: 22px;
+            fill: none;
+            stroke: currentColor;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            stroke-width: 1.8;
+        }
+        .image-position-sliders {
+            display: none;
+            width: 170px;
+            gap: 4px;
+            flex-direction: column;
+        }
+        .image-position-panel.is-open .image-position-sliders {
+            display: flex;
+        }
+        .image-position-row {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+        .image-position-row svg {
+            flex: 0 0 17px;
+            width: 17px;
+            height: 17px;
+            fill: none;
+            stroke: #f3f6fa;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            stroke-width: 1.8;
+        }
+        .image-position-row input {
+            width: 100%;
+            height: 14px;
+            margin: 0;
+            accent-color: #2196f3;
+            cursor: pointer;
         }
         .card-content {
             padding: 15px;
@@ -73,6 +166,7 @@
             max-width: 100%;
             max-height: 80vh;
             object-fit: contain;
+            background-color: #fff;
         }
         .modal-info {
             color: white;
@@ -122,15 +216,18 @@
             justify-content: center;
             margin-top: 15px;
         }
-        .regen-btn {
-            background: #9c27b0;
-            color: white;
+        .regen-btn,
+        .creativity-btn {
             border: none;
-            padding: 10px 20px;
             border-radius: 5px;
+            color: white;
             cursor: pointer;
             font-size: 1rem;
+            padding: 10px 20px;
             transition: background 0.3s;
+        }
+        .regen-btn {
+            background: #9c27b0;
         }
         .regen-btn:hover {
             background: #7b1fa2;
@@ -140,20 +237,20 @@
             cursor: not-allowed;
         }
         .creativity-btn {
-            background: #2196F3;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 5px;
-            cursor: pointer;
+            background: #3b4654;
             font-size: 0.9rem;
-            transition: background 0.3s;
         }
         .creativity-btn:hover {
-            background: #1976D2;
+            background: #536274;
         }
         .creativity-btn.active {
-            background: #0d47a1;
+            background: #1976d2;
+            box-shadow: 0 0 0 2px rgba(144, 202, 249, 0.9);
+        }
+        .creativity-modes {
+            display: flex;
+            gap: 8px;
+            justify-content: center;
         }
         .bg-slider-container {
             margin-top: 15px;
@@ -169,7 +266,7 @@
             width: 200px;
             height: 8px;
             border-radius: 4px;
-            background: #d3d3d3;
+            background: linear-gradient(to right, #000, #fff);
             outline: none;
             -webkit-appearance: none;
         }
@@ -179,61 +276,23 @@
             width: 20px;
             height: 20px;
             border-radius: 50%;
-            background: #2196F3;
+            background: #2196f3;
             cursor: pointer;
         }
         .bg-slider::-moz-range-thumb {
             width: 20px;
             height: 20px;
             border-radius: 50%;
-            background: #2196F3;
+            background: #2196f3;
             cursor: pointer;
             border: none;
         }
-        .title-center { text-align: center; margin-bottom: 30px; }
-        .center-mb { text-align: center; margin-bottom: 20px; }
-        .shuffle-btn { padding: 10px 20px; background: #2196F3; color: white; border: none; border-radius: 5px; cursor: pointer; font-size: 1rem; }
-        .hidden { display: none; }
-        .bg-white { background-color: #ffffff; }
-
-        .ai-options-container {
-            transition: max-height 0.3s ease-out;
-            overflow: hidden;
-            max-height: 0;
-        }
-        .ai-options-container.expanded {
-            max-height: 500px;
-        }
-        .ai-options-toggle {
-            background: #2196F3;
-            color: white;
-            border: none;
-            padding: 8px 16px;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 0.9rem;
-            margin-top: 10px;
-            transition: background 0.3s;
-        }
-        .ai-options-toggle:hover {
-            background: #1976D2;
-        }
-.bg-color-preview {
+        .bg-color-preview {
             width: 30px;
             height: 30px;
             border-radius: 50%;
             border: 2px solid white;
             margin: 10px auto 0;
-            cursor: pointer;
-        }
-        .card-image-wrapper {
-            position: relative;
-            display: block;
-            background-color: #ffffff;
-        }
-        .card-image-wrapper img {
-            display: block;
-            width: 100%;
         }
         .ai-description {
             color: white;
@@ -243,6 +302,29 @@
             border-radius: 5px;
             font-style: italic;
             min-height: 20px;
+        }
+        .ai-options-container {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+        }
+        .ai-options-container.expanded {
+            max-height: 500px;
+        }
+        .ai-options-toggle {
+            display: block;
+            margin: 10px auto 0;
+            padding: 8px 16px;
+            border: 0;
+            border-radius: 5px;
+            background: #2196f3;
+            color: white;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: background 0.3s;
+        }
+        .ai-options-toggle:hover {
+            background: #1976d2;
         }
         .loading {
             display: inline-block;
@@ -256,17 +338,101 @@
         @keyframes spin {
             to { transform: rotate(360deg); }
         }
+        .tag-filters {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 24px;
+            flex-wrap: wrap;
+        }
+        .tag-btn {
+            padding: 9px 18px;
+            border: 2px solid #40546d;
+            background: #151c25;
+            color: #f3f6fa;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 0.95rem;
+        }
+        .tag-btn:hover {
+            border-color: #7f9abb;
+            background: #202b39;
+        }
+        .tag-btn.active {
+            background: #2196F3;
+            color: white;
+            border-color: #2196F3;
+        }
+        .tag-btn.burgerking.active { background: #ff6600; border-color: #ff6600; }
+        .tag-btn.mcdonalds.active { background: #c41e3a; border-color: #c41e3a; }
+        .tag-btn.wendys.active { background: #1e3a8a; border-color: #1e3a8a; }
         #shuffleBtn:hover {
             background: #0b7dda;
+        }
+        .bulk-description-actions {
+            max-width: 1200px;
+            margin: 32px auto 0;
+            padding: 20px;
+            border-top: 1px solid #263242;
+            text-align: center;
+        }
+        .bulk-description-actions h2 {
+            margin: 0 0 8px;
+            font-size: 1.1rem;
+        }
+        .bulk-description-actions p {
+            margin: 0 0 16px;
+            color: #aeb9c7;
+        }
+        .bulk-description-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+        .bulk-description-btn {
+            border: none;
+            border-radius: 5px;
+            color: white;
+            cursor: pointer;
+            font-size: 1rem;
+            padding: 10px 18px;
+        }
+        .bulk-description-btn:disabled {
+            cursor: not-allowed;
+            opacity: 0.55;
+        }
+        #generateAllDescriptionsBtn {
+            background: #4caf50;
+        }
+        #generateAllDescriptionsBtn:hover:not(:disabled) {
+            background: #45a049;
+        }
+        #deleteAllDescriptionsBtn {
+            background: #b42318;
+        }
+        #deleteAllDescriptionsBtn:hover:not(:disabled) {
+            background: #d92d20;
+        }
+        #bulkDescriptionStatus {
+            min-height: 1.25em;
+            margin-top: 14px;
         }
     </style>
 </head>
 <body>
-    <h1 class="title-center">Photography Gallery</h1>
-    <div class="center-mb">
-        <button id="shuffleBtn" class="shuffle-btn">
+    <h1 style="text-align: center; margin-bottom: 30px;">Burgers</h1>
+    <div style="text-align: center; margin-bottom: 20px;">
+        <button id="shuffleBtn" style="padding: 10px 20px; background: #2196F3; color: white; border: none; border-radius: 5px; cursor: pointer; font-size: 1rem;">
             Shuffle Images
         </button>
+    </div>
+    <div class="tag-filters" aria-label="Filter burgers by restaurant">
+        <button class="tag-btn" data-tag="all">All</button>
+        <button class="tag-btn burgerking" data-tag="Burger King">Burger King</button>
+        <button class="tag-btn mcdonalds" data-tag="McDonald's">McDonald's</button>
+        <button class="tag-btn wendys" data-tag="Wendy's">Wendy's</button>
     </div>
     <div id="fullscreenModal" class="modal">
         <span class="close">&times;</span>
@@ -275,90 +441,102 @@
             <div class="modal-info">
                 <h2 id="modalTitle"></h2>
                 <p id="modalDescription"></p>
-                <button id="aiDescriptionBtn" class="ai-description-btn">Generate AI Description</button>
-                <div id="regenControls" class="regen-controls" class="hidden">
-                <div id="bgSliderContainer" class="bg-slider-container" class="hidden">
-                    <label class="bg-slider-label">Background Color</label>
-                    <input type="range" id="bgSlider" class="bg-slider" min="0" max="255" value="255">
-                    <div id="bgColorPreview" class="bg-color-preview" class="bg-white"></div>
-                </div>
-                    <button id="regenBtn" class="regen-btn">Regenerate</button>
-                    <button id="creativityToggle" class="creativity-btn">More Creative</button>
-                </div>
-                <div id="aiDescriptionContainer" class="ai-description" class="hidden">
-                    <span id="aiDescriptionText"></span>
-                    <span id="loadingSpinner" class="loading" class="hidden"></span>
+                <button id="aiOptionsToggle" class="ai-options-toggle" type="button" aria-expanded="false">
+                    All Image AI Options
+                </button>
+                <div id="aiOptionsContainer" class="ai-options-container">
+                    <button id="aiDescriptionBtn" class="ai-description-btn">Generate AI Description</button>
+                    <div id="regenControls" class="regen-controls" style="display: none;">
+                        <button id="regenBtn" class="regen-btn" type="button">Regenerate</button>
+                        <div class="creativity-modes" role="group" aria-label="Description creativity">
+                            <button id="lessCreativeBtn" class="creativity-btn active" type="button" aria-pressed="true">
+                                Less Creative
+                            </button>
+                            <button id="moreCreativeBtn" class="creativity-btn" type="button" aria-pressed="false">
+                                More Creative
+                            </button>
+                        </div>
+                    </div>
+                    <div id="bgSliderContainer" class="bg-slider-container" style="display: none;">
+                        <label class="bg-slider-label" for="bgSlider">Transparent image background</label>
+                        <input type="range" id="bgSlider" class="bg-slider" min="0" max="255" value="255">
+                        <div id="bgColorPreview" class="bg-color-preview" aria-label="Current background color"></div>
+                    </div>
+                    <div id="aiDescriptionContainer" class="ai-description" style="display: none;">
+                        <span id="aiDescriptionText"></span>
+                        <span id="loadingSpinner" class="loading" style="display: none;"></span>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
     <div class="gallery">
-        <div class="card">
-            <a href="images/mcdonalds_hamburger.webp" class="image-link" data-image-id="image-1" data-src="images/mcdonalds_hamburger.webp" data-alt="McDonalds Hamburger" data-desc="">
+        <div class="card" data-tag="McDonald's">
+            <a class="image-link" data-image-id="image-1" data-src="images/mcdonalds_hamburger.webp" data-alt="McDonalds Hamburger" data-desc="">
                 <img src="images/mcdonalds_hamburger.webp" alt="McDonalds Hamburger" loading="lazy" decoding="async">
             </a>
             <div class="card-content">
                 <p></p>
             </div>
         </div>
-        <div class="card">
-            <a href="images/mcdonalds_quarterpounder.webp" class="image-link" data-image-id="image-2" data-src="images/mcdonalds_quarterpounder.webp" data-alt="McDonalds Quarter Pounder" data-desc="">
-                <img src="images/mcdonalds_quarterpounder.webp" alt="McDonalds Quarter Pounder" loading="lazy" decoding="async">
+        <div class="card" data-tag="McDonald's">
+            <a class="image-link" data-image-id="image-2" data-src="images/mcdonalds_quarterpounder.webp?v=alpha1" data-alt="McDonalds Quarter Pounder" data-desc="">
+                <img src="images/mcdonalds_quarterpounder.webp?v=alpha1" alt="McDonalds Quarter Pounder" loading="lazy" decoding="async">
             </a>
             <div class="card-content">
                 <p></p>
             </div>
         </div>
-        <div class="card">
-            <a href="images/mcdonalds_bigmac.webp" class="image-link" data-image-id="image-3" data-src="images/mcdonalds_bigmac.webp" data-alt="McDonalds Big Mac" data-desc="">
-                <img src="images/mcdonalds_bigmac.webp" alt="McDonalds Big Mac" loading="lazy" decoding="async">
+        <div class="card" data-tag="McDonald's">
+            <a class="image-link" data-image-id="image-3" data-src="images/mcdonalds_bigmac.webp?v=alpha1" data-alt="McDonalds Big Mac" data-desc="">
+                <img src="images/mcdonalds_bigmac.webp?v=alpha1" alt="McDonalds Big Mac" loading="lazy" decoding="async">
             </a>
             <div class="card-content">
                 <p></p>
             </div>
         </div>
-        <div class="card">
-            <a href="images/burgerking_sliders.webp" class="image-link" data-image-id="image-4" data-src="images/burgerking_sliders.webp" data-alt="Burger King Sliders" data-desc="">
+        <div class="card" data-tag="Burger King">
+            <a class="image-link" data-image-id="image-4" data-src="images/burgerking_sliders.webp" data-alt="Burger King Sliders" data-desc="">
                 <img src="images/burgerking_sliders.webp" alt="Burger King Sliders" loading="lazy" decoding="async">
             </a>
             <div class="card-content">
                 <p></p>
             </div>
         </div>
-        <div class="card">
-            <a href="images/burgerking_bbq_brisket.webp" class="image-link" data-image-id="image-5" data-src="images/burgerking_bbq_brisket.webp" data-alt="Burger King BBQ Brisket" data-desc="">
+        <div class="card" data-tag="Burger King">
+            <a class="image-link" data-image-id="image-5" data-src="images/burgerking_bbq_brisket.webp" data-alt="Burger King BBQ Brisket" data-desc="">
                 <img src="images/burgerking_bbq_brisket.webp" alt="Burger King BBQ Brisket" loading="lazy" decoding="async">
             </a>
             <div class="card-content">
                 <p></p>
             </div>
         </div>
-        <div class="card">
-            <a href="images/burgerking_chicken_sandwich.webp" class="image-link" data-image-id="image-6" data-src="images/burgerking_chicken_sandwich.webp" data-alt="Burger King Chicken Sandwich" data-desc="">
-                <img src="images/burgerking_chicken_sandwich.webp" alt="Burger King Chicken Sandwich" loading="lazy" decoding="async">
+        <div class="card" data-tag="Burger King">
+            <a class="image-link" data-image-id="image-6" data-src="images/burgerking_chicken_sandwich.webp?v=alpha1" data-alt="Burger King Chicken Sandwich" data-desc="">
+                <img src="images/burgerking_chicken_sandwich.webp?v=alpha1" alt="Burger King Chicken Sandwich" loading="lazy" decoding="async">
             </a>
             <div class="card-content">
                 <p></p>
             </div>
         </div>
-        <div class="card">
-            <a href="images/wendys_square_burger.webp" class="image-link" data-image-id="image-7" data-src="images/wendys_square_burger.webp" data-alt="Wendys Square Burger" data-desc="">
+        <div class="card" data-tag="Wendy's">
+            <a class="image-link" data-image-id="image-7" data-src="images/wendys_square_burger.webp" data-alt="Wendys Square Burger" data-desc="">
                 <img src="images/wendys_square_burger.webp" alt="Wendys Square Burger" loading="lazy" decoding="async">
             </a>
             <div class="card-content">
                 <p></p>
             </div>
         </div>
-        <div class="card">
-            <a href="images/wendys_daves_double.webp" class="image-link" data-image-id="image-8" data-src="images/wendys_daves_double.webp" data-alt="Wendys Dave's Double" data-desc="">
-                <img src="images/wendys_daves_double.webp" alt="Wendys Dave's Double" loading="lazy" decoding="async">
+        <div class="card" data-tag="Wendy's">
+            <a class="image-link" data-image-id="image-8" data-src="images/wendys_daves_double.webp?v=alpha1" data-alt="Wendys Dave's Double" data-desc="">
+                <img src="images/wendys_daves_double.webp?v=alpha1" alt="Wendys Dave's Double" loading="lazy" decoding="async">
             </a>
             <div class="card-content">
                 <p></p>
             </div>
         </div>
-        <div class="card">
-            <a href="images/wendys_secret_menu.webp" class="image-link" data-image-id="image-9" data-src="images/wendys_secret_menu.webp" data-alt="Wendys Secret Menu Item" data-desc="">
+        <div class="card" data-tag="Wendy's">
+            <a class="image-link" data-image-id="image-9" data-src="images/wendys_secret_menu.webp" data-alt="Wendys Secret Menu Item" data-desc="">
                 <img src="images/wendys_secret_menu.webp" alt="Wendys Secret Menu Item" loading="lazy" decoding="async">
             </a>
             <div class="card-content">
@@ -366,88 +544,52 @@
             </div>
         </div>
     </div>
+    <section class="bulk-description-actions" aria-labelledby="bulk-description-title">
+        <h2 id="bulk-description-title">AI descriptions</h2>
+        <p>Generate descriptions for every image or clear the saved descriptions.</p>
+        <div class="bulk-description-buttons">
+            <button id="generateAllDescriptionsBtn" class="bulk-description-btn" type="button">
+                Generate All Descriptions
+            </button>
+            <button id="deleteAllDescriptionsBtn" class="bulk-description-btn" type="button">
+                Delete All Descriptions
+            </button>
+        </div>
+        <p id="bulkDescriptionStatus" role="status" aria-live="polite"></p>
+    </section>
     <script>
-        // Transparency now cached in checkAndCacheTransparency        const transparencyCache = new Map();
+        document.addEventListener('contextmenu', function(e) {
+            e.preventDefault();
+        });
 
-        function checkAndCacheTransparency(src) {
-            if (transparencyCache.has(src)) {
-                return Promise.resolve(transparencyCache.get(src));
+        document.addEventListener('dragstart', function(e) {
+            if (e.target.closest('img, .image-link')) {
+                e.preventDefault();
             }
-            return new Promise((resolve) => {
-                const img = new Image();
-                img.onload = () => {
-                    const canvas = document.createElement('canvas');
-                    canvas.width = img.naturalWidth || 1;
-                    canvas.height = img.naturalHeight || 1;
-                    const ctx = canvas.getContext('2d');
-                    ctx.drawImage(img, 0, 0);
-                    const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-                    let hasAlpha = false;
-                    for (let i = 3; i < imageData.data.length; i += 4) {
-                        if (imageData.data[i] < 255) {
-                            hasAlpha = true;
-                            break;
-                        }
-                    }
-                    transparencyCache.set(src, hasAlpha);
-                    resolve(hasAlpha);
-                };
-                img.onerror = () => resolve(false);
-                img.src = src;
-            });
+        });
+
+        document.addEventListener('keydown', function(e) {
+            const key = e.key.toLowerCase();
+            if ((e.ctrlKey || e.metaKey) && (key === 's' || key === 'u')) {
+                e.preventDefault();
+            }
+            if (e.key === 'F12' || (e.ctrlKey || e.metaKey) && e.shiftKey && key === 'i') {
+                e.preventDefault();
+            }
+        });
+
+        const transparentImageIds = new Set([
+            'image-2',
+            'image-3',
+            'image-6',
+            'image-8'
+        ]);
+
+        function hasTransparency(imageId) {
+            return transparentImageIds.has(imageId);
         }
 
-            const canvas = document.createElement('canvas');
-            canvas.width = image.naturalWidth || 300;
-            canvas.height = image.naturalHeight || 300;
-            const ctx = canvas.getContext('2d');
-            ctx.drawImage(image, 0, 0);
-            const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-            for (let i = 3; i < imageData.data.length; i += 4) {
-                if (imageData.data[i] < 255) {
-                    return true;
-                }
-            }
-            return false;
-        }
-                async function processImage(imageSrc, needsDataUri = false) {
-            const cached = transparencyCache.get(imageSrc);
-            if (cached !== undefined) {
-                if (needsDataUri) {
-                    return { hasAlpha: cached, dataUri: imageToDataUri(imageSrc) };
-                }
-                return cached;
-            }
-            return new Promise((resolve) => {
-                const img = new Image();
-                img.onload = async () => {
-                    const canvas = document.createElement('canvas');
-                    canvas.width = img.naturalWidth || 1;
-                    canvas.height = img.naturalHeight || 1;
-                    const ctx = canvas.getContext('2d');
-                    ctx.drawImage(img, 0, 0);
-                    const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-                    let hasAlpha = false;
-                    for (let i = 3; i < imageData.data.length; i += 4) {
-                        if (imageData.data[i] < 255) {
-                            hasAlpha = true;
-                            break;
-                        }
-                    }
-                    transparencyCache.set(imageSrc, hasAlpha);
-                    if (needsDataUri) {
-                        const dataUri = await imageToDataUri(imageSrc);
-                        resolve({ hasAlpha, dataUri });
-                    } else {
-                        resolve(hasAlpha);
-                    }
-                };
-                img.onerror = () => resolve(needsDataUri ? { hasAlpha: false, dataUri: '' } : false);
-                img.src = imageSrc;
-            });
-        }
-
-function imageToDataUri(imageSrc, imageId) {
+        function imageToDataUri(imageSrc, imageId) {
             return new Promise((resolve, reject) => {
                 if (imageSrc.startsWith('data:')) {
                     resolve(imageSrc);
@@ -459,7 +601,7 @@ function imageToDataUri(imageSrc, imageId) {
                     canvas.width = image.naturalWidth || 300;
                     canvas.height = image.naturalHeight || 300;
                     const ctx = canvas.getContext('2d');
-                    const hasAlpha = await checkAndCacheTransparency(imageSrc);
+                    const hasAlpha = hasTransparency(imageId);
                     if (hasAlpha) {
                         ctx.fillStyle = 'white';
                         ctx.fillRect(0, 0, canvas.width, canvas.height);
@@ -471,26 +613,24 @@ function imageToDataUri(imageSrc, imageId) {
                 image.src = imageSrc;
             });
         }
+
         async function generateAIDescription(imageSrc, imageId, options = {}) {
             const requestImage = await imageToDataUri(imageSrc, imageId);
             const params = {
                 seed: options.seed !== undefined ? options.seed : Math.floor(Math.random() * 2147483647),
-                temperature: options.temperature !== undefined ? options.temperature : 0.7,
-                repetition_penalty: options.repetition_penalty !== undefined ? options.repetition_penalty : 1.1,
-                top_p: 0.9,
-                top_k: 50
+                temperature: options.temperature !== undefined ? options.temperature : 0.2,
+                top_p: options.top_p !== undefined ? options.top_p : 0.9
             };
             const response = await fetch('/api/generate-description', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ 
-                    imageId, 
+                body: JSON.stringify({
+                    imageId,
                     image: requestImage,
+                    regenerate: Boolean(options.regenerate),
                     seed: params.seed,
                     temperature: params.temperature,
-                    repetition_penalty: params.repetition_penalty,
-                    top_p: params.top_p,
-                    top_k: params.top_k
+                    top_p: params.top_p
                 })
             });
             const data = await response.json();
@@ -499,6 +639,7 @@ function imageToDataUri(imageSrc, imageId) {
             }
             return data;
         }
+
         function setCardDescription(link, description) {
             link.dataset.desc = description;
             const cardDescription = link.closest('.card')?.querySelector('.card-content p');
@@ -506,78 +647,25 @@ function imageToDataUri(imageSrc, imageId) {
                 cardDescription.textContent = description;
             }
         }
-        function getBgColor(hexValue) {
-            const hex = hexValue.toString(16).padStart(2, '0');
-            return '#' + hex + hex + hex;
-        }
-        function updateBgColor() {
-            bgColorValue = parseInt(bgSlider.value);
-            const color = getBgColor(bgColorValue);
-            bgColorPreview.style.backgroundColor = color;
-            saveBgColor(currentImageId, bgColorValue);
-        }
-        function saveBgColor(imageId, value) {
-            localStorage.setItem('bgColor_' + imageId, value.toString());
-        }
-        function loadBgColor(imageId) {
-            const saved = localStorage.getItem('bgColor_' + imageId);
-            if (saved !== null) {
-                return parseInt(saved);
-            }
-            return 255; // default to white
-        }
-        function applyBgColorToImage(imgElement, hexValue) {
-            const color = getBgColor(hexValue);
-            const container = document.createElement('div');
-            container.style.backgroundColor = color;
-            container.style.display = 'inline-block';
-            container.style.padding = '0';
-            container.style.margin = '0';
-            container.appendChild(imgElement.cloneNode(true));
-            return container;
-        }
-        async function checkAndCacheTransparency(src) {
-            return new Promise((resolve) => {
-                const img = new Image();
-                img.onload = () => {
-                    const canvas = document.createElement('canvas');
-                    canvas.width = img.naturalWidth || 1;
-                    canvas.height = img.naturalHeight || 1;
-                    const ctx = canvas.getContext('2d');
-                    ctx.drawImage(img, 0, 0);
-                    const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-                    for (let i = 3; i < imageData.data.length; i += 4) {
-                        if (imageData.data[i] < 255) {
-                            resolve(true);
-                            return;
-                        }
-                    }
-                    resolve(false);
-                };
-                img.onerror = () => resolve(false);
-                img.src = src;
-            });
-        }
-        function applyBgToGalleryImage(imgElement, hexValue) {
-            const color = getBgColor(hexValue);
-            const wrapper = imgElement.closest('.card-image-wrapper');
-            if (wrapper) {
-                wrapper.style.backgroundColor = color;
+
+        function clearCardDescription(link) {
+            link.dataset.desc = '';
+            const card = link.closest('.card');
+            const cardDescription = card?.querySelector('.card-content p');
+            if (cardDescription) {
+                cardDescription.textContent = card?.dataset.tag || '';
             }
         }
-        function setupGalleryImageWithBg(card, imageId) {
-            const img = card.querySelector('img');
-            if (!img) return;
-            const hasAlpha = await checkAndCacheTransparency(src);
-            if (hasAlpha) {
-                const wrapper = document.createElement('div');
-                wrapper.className = 'card-image-wrapper';
-                const bgValue = loadBgColor(imageId);
-                wrapper.style.backgroundColor = getBgColor(bgValue);
-                img.parentNode.insertBefore(wrapper, img);
-                wrapper.appendChild(img);
-            }
+
+        function backgroundValueToColor(value) {
+            const hex = Number(value).toString(16).padStart(2, '0');
+            return `#${hex}${hex}${hex}`;
         }
+
+        function backgroundValueToHex(value) {
+            return Number(value).toString(16).padStart(2, '0').toUpperCase();
+        }
+
         document.addEventListener('DOMContentLoaded', async function() {
             const modal = document.getElementById('fullscreenModal');
             const modalImage = document.getElementById('modalImage');
@@ -588,53 +676,87 @@ function imageToDataUri(imageSrc, imageId) {
             const aiDescriptionContainer = document.getElementById('aiDescriptionContainer');
             const aiDescriptionText = document.getElementById('aiDescriptionText');
             const loadingSpinner = document.getElementById('loadingSpinner');
+            const generateAllDescriptionsBtn = document.getElementById('generateAllDescriptionsBtn');
+            const deleteAllDescriptionsBtn = document.getElementById('deleteAllDescriptionsBtn');
+            const bulkDescriptionStatus = document.getElementById('bulkDescriptionStatus');
             const aiOptionsToggle = document.getElementById('aiOptionsToggle');
             const aiOptionsContainer = document.getElementById('aiOptionsContainer');
-
-
             const regenControls = document.getElementById('regenControls');
             const regenBtn = document.getElementById('regenBtn');
-            const creativityToggle = document.getElementById('creativityToggle');
+            const lessCreativeBtn = document.getElementById('lessCreativeBtn');
+            const moreCreativeBtn = document.getElementById('moreCreativeBtn');
             const bgSliderContainer = document.getElementById('bgSliderContainer');
             const bgSlider = document.getElementById('bgSlider');
             const bgColorPreview = document.getElementById('bgColorPreview');
+
             let currentImageSrc = '';
             let currentImageId = '';
             let currentImageLink = null;
             let descriptionsByImage = {};
-
-        function hasAlpha(imageIdOrSrc) {
-            if (imageIdOrSrc === 'image-9' || imageIdOrSrc.includes('wendys_secret_menu')) {
-                return true;
-            }
-            return (descriptionsByImage[imageIdOrSrc]?.hasAlpha) || false;
-        }
-
             let useHighCreativity = false;
-        const DOM = {
-            fullscreenModal: DOM.fullscreenModal,
-            modalImage: DOM.modalImage,
-            modalTitle: DOM.modalTitle,
-            modalDescription: DOM.modalDescription,
-            closeBtn: DOM.closeBtn,
-            aiDescriptionBtn: DOM.aiDescriptionBtn,
-            aiDescriptionContainer: DOM.aiDescriptionContainer,
-            aiDescriptionText: DOM.aiDescriptionText,
-            loadingSpinner: DOM.loadingSpinner,
-            regenControls: DOM.regenControls,
-            regenBtn: DOM.regenBtn,
-            creativityToggle: DOM.creativityToggle,
-            bgSliderContainer: DOM.bgSliderContainer,
-            bgSlider: DOM.bgSlider,
-            bgColorPreview: DOM.bgColorPreview,
-            shuffleBtn: DOM.shuffleBtn,
-            gallery: DOM.gallery,
-            imageLinks: DOM.imageLinks,
-            cards: DOM.cards,
-            close: DOM.close,
-            galleryEl: DOM.galleryEl
-        };
-            let bgColorValue = 255;
+
+            function setAIOptionsExpanded(expanded) {
+                aiOptionsContainer.classList.toggle('expanded', expanded);
+                aiOptionsToggle.setAttribute('aria-expanded', String(expanded));
+                aiOptionsToggle.textContent = expanded
+                    ? 'Minimize'
+                    : 'All Image AI Options';
+            }
+
+            function getSavedBackgroundValue(imageId) {
+                const saved = descriptionsByImage[imageId]?.background_color;
+                if (typeof saved === 'string' && /^[0-9A-Fa-f]{2}$/.test(saved)) {
+                    return parseInt(saved, 16);
+                }
+                return 255;
+            }
+
+            async function saveBackgroundColor(imageId, value) {
+                const backgroundColor = backgroundValueToHex(value);
+                const entry = descriptionsByImage[imageId] || {
+                    description: '',
+                    image_hash: ''
+                };
+                entry.background_color = backgroundColor;
+                descriptionsByImage[imageId] = entry;
+
+                try {
+                    const response = await fetch('/api/background-color', {
+                        method: 'PUT',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ imageId, backgroundColor })
+                    });
+                    const data = await response.json();
+                    if (!response.ok) {
+                        throw new Error(data.error || 'The background color could not be saved.');
+                    }
+                } catch (error) {
+                    console.error('Error saving transparent image background:', error);
+                }
+            }
+
+            function applyBackgroundValue(value) {
+                const color = backgroundValueToColor(value);
+                modalImage.style.backgroundColor = color;
+                bgColorPreview.style.backgroundColor = color;
+                if (currentImageLink) {
+                    currentImageLink.style.backgroundColor = color;
+                }
+            }
+
+            function updateTransparentImageControls() {
+                if (!modalImage.naturalWidth || !hasTransparency(currentImageId)) {
+                    modalImage.style.backgroundColor = '';
+                    bgSliderContainer.style.display = 'none';
+                    return;
+                }
+
+                const value = getSavedBackgroundValue(currentImageId);
+                bgSlider.value = value;
+                applyBackgroundValue(value);
+                bgSliderContainer.style.display = 'block';
+            }
+
             try {
                 const response = await fetch('/api/descriptions');
                 if (response.ok) {
@@ -643,37 +765,288 @@ function imageToDataUri(imageSrc, imageId) {
             } catch (error) {
                 console.warn('Saved descriptions could not be loaded:', error);
             }
+
             const imageLinks = document.querySelectorAll('.image-link');
-            const cards = document.querySelectorAll('.card');
-            cards.forEach(card => {
-                const link = card.querySelector('.image-link');
-                if (link) {
-                    const imageId = link.dataset.imageId;
-                    const src = link.getAttribute('data-src') || link.querySelector('img')?.src || '';
-                    if (imageId && src) {
-                        setupGalleryImageWithBg(card, imageId);
-                    }
+            const POSITION_SCALE = 1000;
+            const MIN_VISIBLE_AREA = Math.sqrt(0.4);
+            const positionSaveTimers = new Map();
+
+            function clampPositionValue(value) {
+                return Math.max(0, Math.min(POSITION_SCALE, Math.round(Number(value) || 0)));
+            }
+
+            function getSavedImagePosition(imageId) {
+                const saved = descriptionsByImage[imageId]?.position;
+                if (Array.isArray(saved) && saved.length === 2) {
+                    return [clampPositionValue(saved[0]), clampPositionValue(saved[1])];
                 }
+                return [POSITION_SCALE / 2, POSITION_SCALE / 2];
+            }
+
+            function calculateImagePositionMetrics(link) {
+                const image = link.querySelector('img');
+                const frameWidth = link.clientWidth || 300;
+                const frameHeight = link.clientHeight || 300;
+                const naturalWidth = image?.naturalWidth || frameWidth;
+                const naturalHeight = image?.naturalHeight || frameHeight;
+                const scale = Math.max(frameWidth / naturalWidth, frameHeight / naturalHeight);
+                const renderedWidth = naturalWidth * scale;
+                const renderedHeight = naturalHeight * scale;
+                const centeredLeft = (frameWidth - renderedWidth) / 2;
+                const centeredTop = (frameHeight - renderedHeight) / 2;
+                const transparent = hasTransparency(link.dataset.imageId);
+
+                function calculateAxisLimits(frameSize, imageSize, centeredPosition) {
+                    if (!transparent) {
+                        return [
+                            Math.round(frameSize - imageSize - centeredPosition),
+                            Math.round(-centeredPosition)
+                        ];
+                    }
+
+                    const minimumVisible = Math.min(frameSize, imageSize * MIN_VISIBLE_AREA);
+                    return [
+                        Math.round(minimumVisible - imageSize - centeredPosition),
+                        Math.round(frameSize - minimumVisible - centeredPosition)
+                    ];
+                }
+
+                return {
+                    renderedWidth,
+                    renderedHeight,
+                    x: calculateAxisLimits(frameWidth, renderedWidth, centeredLeft),
+                    y: calculateAxisLimits(frameHeight, renderedHeight, centeredTop)
+                };
+            }
+
+            function getImageOffset(position, metrics) {
+                return {
+                    x: metrics.x[0] + (metrics.x[1] - metrics.x[0]) * (position[0] / POSITION_SCALE),
+                    y: metrics.y[0] + (metrics.y[1] - metrics.y[0]) * (position[1] / POSITION_SCALE)
+                };
+            }
+
+            function renderImagePosition(link, position, metrics = calculateImagePositionMetrics(link)) {
+                const image = link.querySelector('img');
+                if (!image) return;
+                const offset = getImageOffset(position, metrics);
+                image.style.width = `${metrics.renderedWidth}px`;
+                image.style.height = `${metrics.renderedHeight}px`;
+                image.style.transform =
+                    `translate(-50%, -50%) translate(${offset.x}px, ${offset.y}px)`;
+            }
+
+            function queueImagePositionSave(imageId, position, metrics) {
+                const entry = descriptionsByImage[imageId] || {
+                    description: '',
+                    image_hash: ''
+                };
+                entry.position = position;
+                entry.position_limits = [
+                    metrics.x[0],
+                    metrics.x[1],
+                    metrics.y[0],
+                    metrics.y[1]
+                ];
+                descriptionsByImage[imageId] = entry;
+
+                clearTimeout(positionSaveTimers.get(imageId));
+                positionSaveTimers.set(imageId, setTimeout(async () => {
+                    try {
+                        const response = await fetch('/api/image-position', {
+                            method: 'PUT',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({
+                                imageId,
+                                position,
+                                positionLimits: entry.position_limits
+                            })
+                        });
+                        if (!response.ok) {
+                            throw new Error('The image position could not be saved.');
+                        }
+                    } catch (error) {
+                        console.error('Error saving image position:', error);
+                    }
+                }, 120));
+            }
+
+            function positionIcon(isOpen) {
+                if (isOpen) {
+                    return '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"></circle></svg>';
+                }
+                return '<svg viewBox="0 0 24 24" aria-hidden="true">' +
+                    '<path d="M12 3v5m0-5L9 6m3-3 3 3M12 21v-5m0 5-3-3m3 3 3-3M3 12h5m-5 0 3-3m-3 3 3 3M21 12h-5m5 0-3-3m3 3-3 3"></path>' +
+                    '<circle cx="12" cy="12" r="2"></circle></svg>';
+            }
+
+            function sliderIcon(direction) {
+                if (direction === 'horizontal') {
+                    return '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h16m-16 0 3-3m-3 3 3 3m13-3-3-3m3 3-3 3"></path></svg>';
+                }
+                return '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v16m0-16L9 7m3-3 3 3m-3 13-3-3m3 3 3-3"></path></svg>';
+            }
+
+            function setupImagePositionControls(link) {
+                const panel = document.createElement('div');
+                panel.className = 'image-position-panel';
+
+                const toggle = document.createElement('button');
+                toggle.className = 'image-position-toggle';
+                toggle.type = 'button';
+                toggle.setAttribute('aria-label', 'Adjust image position');
+                toggle.innerHTML = positionIcon(false);
+
+                const sliders = document.createElement('div');
+                sliders.className = 'image-position-sliders';
+
+                const horizontalRow = document.createElement('div');
+                horizontalRow.className = 'image-position-row';
+                horizontalRow.innerHTML = sliderIcon('horizontal');
+                const horizontalSlider = document.createElement('input');
+                horizontalSlider.type = 'range';
+                horizontalSlider.min = 0;
+                horizontalSlider.max = POSITION_SCALE;
+                horizontalSlider.value = getSavedImagePosition(link.dataset.imageId)[0];
+                horizontalSlider.setAttribute('aria-label', 'Horizontal image position');
+                horizontalRow.append(horizontalSlider);
+
+                const verticalRow = document.createElement('div');
+                verticalRow.className = 'image-position-row';
+                verticalRow.innerHTML = sliderIcon('vertical');
+                const verticalSlider = document.createElement('input');
+                verticalSlider.type = 'range';
+                verticalSlider.min = 0;
+                verticalSlider.max = POSITION_SCALE;
+                verticalSlider.value = getSavedImagePosition(link.dataset.imageId)[1];
+                verticalSlider.setAttribute('aria-label', 'Vertical image position');
+                verticalRow.append(verticalSlider);
+
+                sliders.append(horizontalRow, verticalRow);
+                panel.append(toggle, sliders);
+                link.append(panel);
+
+                function renderFromSliders() {
+                    const position = [
+                        clampPositionValue(horizontalSlider.value),
+                        clampPositionValue(verticalSlider.value)
+                    ];
+                    renderImagePosition(link, position);
+                    queueImagePositionSave(link.dataset.imageId, position, calculateImagePositionMetrics(link));
+                }
+
+                toggle.addEventListener('click', function(event) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                    const isOpen = panel.classList.toggle('is-open');
+                    toggle.innerHTML = positionIcon(isOpen);
+                    if (isOpen) {
+                        const position = getSavedImagePosition(link.dataset.imageId);
+                        horizontalSlider.value = position[0];
+                        verticalSlider.value = position[1];
+                        const metrics = calculateImagePositionMetrics(link);
+                        renderImagePosition(link, position, metrics);
+                        queueImagePositionSave(link.dataset.imageId, position, metrics);
+                    }
+                });
+
+                [horizontalSlider, verticalSlider].forEach(slider => {
+                    slider.addEventListener('click', event => event.stopPropagation());
+                    slider.addEventListener('input', function(event) {
+                        event.stopPropagation();
+                        renderFromSliders();
+                    });
+                });
+
+                panel.addEventListener('click', event => event.stopPropagation());
+
+                const image = link.querySelector('img');
+                const initialize = () => {
+                    const position = getSavedImagePosition(link.dataset.imageId);
+                    const metrics = calculateImagePositionMetrics(link);
+                    renderImagePosition(link, position, metrics);
+                    const savedLimits = descriptionsByImage[link.dataset.imageId]?.position_limits;
+                    const currentLimits = [
+                        metrics.x[0],
+                        metrics.x[1],
+                        metrics.y[0],
+                        metrics.y[1]
+                    ];
+                    const limitsMatch = Array.isArray(savedLimits)
+                        && savedLimits.length === currentLimits.length
+                        && savedLimits.every((value, index) => value === currentLimits[index]);
+                    if (!limitsMatch) {
+                        queueImagePositionSave(link.dataset.imageId, position, metrics);
+                    }
+                };
+                if (image?.complete && image.naturalWidth) {
+                    initialize();
+                } else {
+                    image?.addEventListener('load', initialize, { once: true });
+                }
+            }
+
+            imageLinks.forEach(setupImagePositionControls);
+            window.addEventListener('resize', function() {
+                imageLinks.forEach(link => {
+                    const image = link.querySelector('img');
+                    if (image?.complete && image.naturalWidth) {
+                        renderImagePosition(link, getSavedImagePosition(link.dataset.imageId));
+                    }
+                });
             });
+
+            function setupGalleryImageBackground(link) {
+                const image = link.querySelector('img');
+                if (!image) return;
+
+                const applySavedColor = () => {
+                    if (hasTransparency(link.dataset.imageId)) {
+                        link.style.backgroundColor = backgroundValueToColor(
+                            getSavedBackgroundValue(link.dataset.imageId)
+                        );
+                    } else {
+                        link.style.backgroundColor = '';
+                    }
+                };
+
+                if (image.complete && image.naturalWidth) {
+                    applySavedColor();
+                } else {
+                    image.addEventListener('load', applySavedColor, { once: true });
+                }
+            }
+
+            imageLinks.forEach(setupGalleryImageBackground);
+
             imageLinks.forEach(link => {
                 const savedDescription = descriptionsByImage[link.dataset.imageId]?.description;
                 if (savedDescription) {
                     setCardDescription(link, savedDescription);
+                } else {
+                    clearCardDescription(link);
                 }
             });
+
             imageLinks.forEach(link => {
                 link.addEventListener('click', function(e) {
                     e.preventDefault();
                     const src = this.getAttribute('data-src') || this.querySelector('img')?.src || '';
                     const alt = this.getAttribute('data-alt');
                     const desc = this.getAttribute('data-desc');
-                    const imageName = src.startsWith('data:') ? alt : src.split('/').pop();
+                    const imageName = src.startsWith('data:')
+                        ? alt
+                        : src.split('/').pop().split('?')[0];
                     const imageId = this.dataset.imageId;
                     const savedDescription = descriptionsByImage[imageId]?.description;
+
                     currentImageSrc = src;
                     currentImageId = imageId;
                     currentImageLink = this;
-                    bgColorValue = loadBgColor(imageId);
+                    setAIOptionsExpanded(false);
+                    modalImage.onload = updateTransparentImageControls;
+                    modalImage.style.backgroundColor = '';
+                    bgSliderContainer.style.display = 'none';
                     modalImage.src = src;
                     modalImage.alt = alt;
                     modalTitle.textContent = imageName;
@@ -683,8 +1056,7 @@ function imageToDataUri(imageSrc, imageId) {
                         aiDescriptionContainer.style.display = 'block';
                         aiDescriptionBtn.style.display = 'none';
                         regenControls.style.display = 'flex';
-                    aiOptionsContainer.classList.add('expanded');
-                    aiOptionsToggle.textContent = 'Minimize';
+                        setAIOptionsExpanded(true);
                     } else {
                         modalDescription.textContent = desc;
                         aiDescriptionContainer.style.display = 'none';
@@ -694,23 +1066,67 @@ function imageToDataUri(imageSrc, imageId) {
                         regenControls.style.display = 'none';
                     }
                     modal.style.display = 'flex';
-                    bgSlider.value = bgColorValue;
-                    bgColorPreview.style.backgroundColor = getBgColor(bgColorValue);
-                    bgSliderContainer.style.display = 'block';
+                    if (modalImage.complete && modalImage.naturalWidth) {
+                        updateTransparentImageControls();
+                    }
                 });
             });
+
+            aiOptionsToggle.addEventListener('click', function() {
+                setAIOptionsExpanded(!aiOptionsContainer.classList.contains('expanded'));
+            });
+
             closeBtn.addEventListener('click', function() {
                 modal.style.display = 'none';
                 bgSliderContainer.style.display = 'none';
+                modalImage.style.backgroundColor = '';
             });
+
             modal.addEventListener('click', function(e) {
                 if (e.target === modal) {
                     modal.style.display = 'none';
                     bgSliderContainer.style.display = 'none';
+                    modalImage.style.backgroundColor = '';
                 }
             });
+
             const shuffleBtn = document.getElementById('shuffleBtn');
             const gallery = document.querySelector('.gallery');
+            const tagButtons = document.querySelectorAll('.tag-btn');
+            const galleryCards = Array.from(gallery.querySelectorAll('.card'));
+
+            function applyTagFilter(selectedTag, preserveCurrentOrder = false) {
+                if (!preserveCurrentOrder) {
+                    galleryCards.sort((first, second) => {
+                        const tagOrder = (first.dataset.tag || '').localeCompare(second.dataset.tag || '');
+                        if (tagOrder !== 0) return tagOrder;
+                        const firstAlt = first.querySelector('img')?.alt || '';
+                        const secondAlt = second.querySelector('img')?.alt || '';
+                        return firstAlt.localeCompare(secondAlt);
+                    });
+                }
+
+                galleryCards.forEach(card => {
+                    if (!preserveCurrentOrder) {
+                        gallery.appendChild(card);
+                    }
+                    card.style.display = selectedTag === 'all' || card.dataset.tag === selectedTag
+                        ? ''
+                        : 'none';
+                });
+
+                tagButtons.forEach(button => {
+                    button.classList.toggle('active', button.dataset.tag === selectedTag);
+                });
+            }
+
+            tagButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    applyTagFilter(this.dataset.tag);
+                });
+            });
+            applyTagFilter('all', true);
+
             shuffleBtn.addEventListener('click', function() {
                 const cards = Array.from(gallery.querySelectorAll('.card'));
                 for (let i = cards.length - 1; i > 0; i--) {
@@ -719,27 +1135,48 @@ function imageToDataUri(imageSrc, imageId) {
                 }
                 cards.forEach(card => gallery.appendChild(card));
             });
+
             document.addEventListener('keydown', function(e) {
                 if (e.key === 'Escape') {
                     modal.style.display = 'none';
+                    bgSliderContainer.style.display = 'none';
+                    modalImage.style.backgroundColor = '';
                 }
             });
-            bgSlider.addEventListener('input', updateBgColor);
-            creativityToggle.addEventListener('click', function() {
-                useHighCreativity = !useHighCreativity;
-                creativityToggle.textContent = useHighCreativity ? 'Less Creative' : 'More Creative';
-                creativityToggle.classList.toggle('active', useHighCreativity);
+
+            function setCreativityMode(highCreativity) {
+                useHighCreativity = highCreativity;
+                lessCreativeBtn.classList.toggle('active', !highCreativity);
+                moreCreativeBtn.classList.toggle('active', highCreativity);
+                lessCreativeBtn.setAttribute('aria-pressed', String(!highCreativity));
+                moreCreativeBtn.setAttribute('aria-pressed', String(highCreativity));
+            }
+
+            lessCreativeBtn.addEventListener('click', function() {
+                setCreativityMode(false);
             });
+
+            moreCreativeBtn.addEventListener('click', function() {
+                setCreativityMode(true);
+            });
+
+            bgSlider.addEventListener('input', function() {
+                const value = Number(bgSlider.value);
+                applyBackgroundValue(value);
+                saveBackgroundColor(currentImageId, value);
+            });
+
             regenBtn.addEventListener('click', async function() {
                 regenBtn.disabled = true;
                 loadingSpinner.style.display = 'inline-block';
-                aiDescriptionText.textContent = 'Regenerating description...';
+                aiDescriptionContainer.style.display = 'block';
+                aiDescriptionText.textContent = 'Regenerating description…';
+
                 try {
-                    const temperature = useHighCreativity ? 0.9 : 0.3;
                     const result = await generateAIDescription(currentImageSrc, currentImageId, {
+                        regenerate: true,
                         seed: Math.floor(Math.random() * 2147483647),
-                        temperature: temperature,
-                        repetition_penalty: 1.15
+                        temperature: useHighCreativity ? 0.9 : 0.3
                     });
                     const description = result.description;
                     descriptionsByImage[currentImageId] = {
@@ -749,19 +1186,23 @@ function imageToDataUri(imageSrc, imageId) {
                     setCardDescription(currentImageLink, description);
                     aiDescriptionText.textContent = description;
                     modalDescription.textContent = description;
+                    setAIOptionsExpanded(true);
                 } catch (error) {
                     console.error('Error regenerating AI description:', error);
-                    aiDescriptionText.textContent = error.message || 'Error regenerating description. Try again.';
+                    aiDescriptionText.textContent =
+                        error.message || 'Error regenerating description. Try again.';
                 } finally {
                     loadingSpinner.style.display = 'none';
                     regenBtn.disabled = false;
                 }
             });
+
             aiDescriptionBtn.addEventListener('click', async function() {
                 aiDescriptionBtn.disabled = true;
                 loadingSpinner.style.display = 'inline-block';
                 aiDescriptionContainer.style.display = 'block';
                 aiDescriptionText.textContent = 'Generating a description with Cerebras…';
+
                 try {
                     const result = await generateAIDescription(currentImageSrc, currentImageId);
                     const description = result.description;
@@ -774,10 +1215,7 @@ function imageToDataUri(imageSrc, imageId) {
                     modalDescription.textContent = description;
                     aiDescriptionBtn.style.display = 'none';
                     regenControls.style.display = 'flex';
-                    aiOptionsContainer.classList.add('expanded');
-                    aiOptionsToggle.textContent = 'Minimize';
-                    aiOptionsContainer.classList.add('expanded');
-                    aiOptionsToggle.textContent = 'Minimize';
+                    setAIOptionsExpanded(true);
                 } catch (error) {
                     console.error('Error generating AI description:', error);
                     aiDescriptionText.textContent = error.message || 'Error generating description. Try again.';
@@ -786,6 +1224,84 @@ function imageToDataUri(imageSrc, imageId) {
                     if (aiDescriptionBtn.style.display !== 'none') {
                         aiDescriptionBtn.disabled = false;
                     }
+                }
+            });
+
+            function setBulkDescriptionButtonsDisabled(disabled) {
+                generateAllDescriptionsBtn.disabled = disabled;
+                deleteAllDescriptionsBtn.disabled = disabled;
+            }
+
+            generateAllDescriptionsBtn.addEventListener('click', async function() {
+                setBulkDescriptionButtonsDisabled(true);
+                const failures = [];
+                const total = imageLinks.length;
+
+                for (let index = 0; index < total; index += 1) {
+                    const link = imageLinks[index];
+                    const imageId = link.dataset.imageId;
+                    bulkDescriptionStatus.textContent =
+                        `Processing description ${index + 1} of ${total}…`;
+
+                    try {
+                        const result = await generateAIDescription(link.dataset.src, imageId);
+                        const description = result.description;
+                        descriptionsByImage[imageId] = {
+                            description,
+                            image_hash: result.image_hash || ''
+                        };
+                        setCardDescription(link, description);
+
+                        if (currentImageLink === link) {
+                            aiDescriptionText.textContent = description;
+                            modalDescription.textContent = description;
+                            aiDescriptionContainer.style.display = 'block';
+                            aiDescriptionBtn.style.display = 'none';
+                        }
+                    } catch (error) {
+                        console.error(`Error generating description for ${imageId}:`, error);
+                        failures.push(imageId);
+                    }
+                }
+
+                bulkDescriptionStatus.textContent = failures.length
+                    ? `Finished with ${failures.length} error${failures.length === 1 ? '' : 's'}: ${failures.join(', ')}.`
+                    : `Finished descriptions for all ${total} images.`;
+                setBulkDescriptionButtonsDisabled(false);
+            });
+
+            deleteAllDescriptionsBtn.addEventListener('click', async function() {
+                if (!window.confirm('Delete all saved AI descriptions? This cannot be undone.')) {
+                    return;
+                }
+
+                setBulkDescriptionButtonsDisabled(true);
+                bulkDescriptionStatus.textContent = 'Deleting saved descriptions…';
+
+                try {
+                    const response = await fetch('/api/descriptions', { method: 'DELETE' });
+                    const data = await response.json();
+                    if (!response.ok) {
+                        throw new Error(data.error || 'Saved descriptions could not be deleted.');
+                    }
+
+                    descriptionsByImage = data.descriptions || {};
+                    imageLinks.forEach(clearCardDescription);
+                    aiDescriptionContainer.style.display = 'none';
+                    aiDescriptionText.textContent = '';
+                    regenControls.style.display = 'none';
+                    modalDescription.textContent = currentImageLink?.dataset.desc || '';
+                    aiDescriptionBtn.style.display = 'inline-block';
+                    aiDescriptionBtn.disabled = false;
+                    updateTransparentImageControls();
+                    bulkDescriptionStatus.textContent =
+                        `Deleted ${data.deleted} saved description${data.deleted === 1 ? '' : 's'}.`;
+                } catch (error) {
+                    console.error('Error deleting saved descriptions:', error);
+                    bulkDescriptionStatus.textContent =
+                        error.message || 'Saved descriptions could not be deleted.';
+                } finally {
+                    setBulkDescriptionButtonsDisabled(false);
                 }
             });
         });

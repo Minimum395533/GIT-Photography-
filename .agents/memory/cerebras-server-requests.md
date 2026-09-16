@@ -7,4 +7,4 @@ The Cerebras API rejected Python's default urllib request with HTTP 403/error co
 
 **Why:** The edge layer treats the default Python request signature as automated traffic.
 
-**How to apply:** Keep an explicit, non-secret User-Agent on server-side Cerebras requests.
+**How to apply:** Keep an explicit, non-secret User-Agent on server-side Cerebras requests, and send only parameters supported by the selected Cerebras model; this model rejects `top_k` and `repetition_penalty`.
