@@ -155,12 +155,15 @@
             height: 100%;
             background-color: rgba(0, 0, 0, 0.9);
             justify-content: center;
-            align-items: center;
+            align-items: flex-start;
+            overflow-y: auto;
+            padding-top: 60px;
+            padding-bottom: 40px;
         }
         .modal-content {
             text-align: center;
             max-width: 90%;
-            max-height: 90%;
+            margin: 0 auto;
         }
         .modal-content img {
             max-width: 100%;
@@ -488,7 +491,7 @@
                 </button>
                 <div id="aiOptionsContainer" class="ai-options-container">
                     <button id="aiDescriptionBtn" class="ai-description-btn">Generate AI Description</button>
-                    <div id="regenControls" class="regen-controls" style="display: none;">
+                    <div id="regenControls" class="regen-controls">
                         <button id="regenBtn" class="regen-btn" type="button">Regenerate</button>
                         <div class="creativity-modes" role="group" aria-label="Description creativity">
                             <button id="lessCreativeBtn" class="creativity-btn active" type="button" aria-pressed="true">
@@ -499,12 +502,12 @@
                             </button>
                         </div>
                     </div>
-                    <div id="bgSliderContainer" class="bg-slider-container" style="display: none;">
+                    <div id="bgSliderContainer" class="bg-slider-container">
                         <label class="bg-slider-label" for="bgSlider">Transparent image background</label>
                         <input type="range" id="bgSlider" class="bg-slider" min="0" max="255" value="255">
                         <div id="bgColorPreview" class="bg-color-preview" aria-label="Current background color"></div>
                     </div>
-                    <div id="aiDescriptionContainer" class="ai-description" style="display: none;">
+                    <div id="aiDescriptionContainer" class="ai-description">
                         <span id="aiDescriptionText"></span>
                         <span id="loadingSpinner" class="loading" style="display: none;"></span>
                     </div>
@@ -824,18 +827,18 @@
                     const imageId = this.dataset.imageId;
                     const savedDescription = descriptionsByImage[imageId]?.description;
                     currentImageSrc = src; currentImageId = imageId; currentImageLink = this; setAIOptionsExpanded(false);
-                    modalImage.onload = updateTransparentImageControls; modalImage.style.backgroundColor = ''; bgSliderContainer.style.display = 'none'; modalImage.src = src; modalImage.alt = alt; modalTitle.textContent = restaurantTag;
+                    modalImage.onload = updateTransparentImageControls; modalImage.style.backgroundColor = ''; modalImage.src = src; modalImage.alt = alt; modalTitle.textContent = restaurantTag;
                     if (savedDescription) {
                         modalDescription.textContent = savedDescription; aiDescriptionText.textContent = ''; aiDescriptionContainer.style.display = 'none'; aiDescriptionBtn.style.display = 'none'; regenControls.style.display = 'flex'; setAIOptionsExpanded(true);
                     } else {
-                        modalDescription.textContent = desc; aiDescriptionContainer.style.display = 'none'; aiDescriptionText.textContent = ''; aiDescriptionBtn.style.display = 'inline-block'; aiDescriptionBtn.disabled = false; regenControls.style.display = 'none';
+                        modalDescription.textContent = desc; aiDescriptionContainer.style.display = 'none'; aiDescriptionText.textContent = ''; aiDescriptionBtn.style.display = 'inline-block'; aiDescriptionBtn.disabled = false; regenControls.style.display = 'flex';
                     }
                     modal.style.display = 'flex'; if (modalImage.complete && modalImage.naturalWidth) updateTransparentImageControls();
                 });
             });
             aiOptionsToggle.addEventListener('click', function() { setAIOptionsExpanded(!aiOptionsContainer.classList.contains('expanded')); });
-            closeBtn.addEventListener('click', function() { modal.style.display = 'none'; bgSliderContainer.style.display = 'none'; modalImage.style.backgroundColor = ''; });
-            modal.addEventListener('click', function(e) { if (e.target === modal) { modal.style.display = 'none'; bgSliderContainer.style.display = 'none'; modalImage.style.backgroundColor = ''; } });
+            closeBtn.addEventListener('click', function() { modal.style.display = 'none'; modalImage.style.backgroundColor = ''; });
+            modal.addEventListener('click', function(e) { if (e.target === modal) { modal.style.display = 'none'; modalImage.style.backgroundColor = ''; } });
 
             const shuffleBtn = document.getElementById('shuffleBtn');
             const gallery = document.querySelector('.gallery');
@@ -853,7 +856,7 @@
                 for (let i = cards.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [cards[i], cards[j]] = [cards[j], cards[i]]; }
                 cards.forEach(card => gallery.appendChild(card));
             });
-            document.addEventListener('keydown', function(e) { if (e.key === 'Escape') { modal.style.display = 'none'; bgSliderContainer.style.display = 'none'; modalImage.style.backgroundColor = ''; } });
+            document.addEventListener('keydown', function(e) { if (e.key === 'Escape') { modal.style.display = 'none'; modalImage.style.backgroundColor = ''; } });
             function setCreativityMode(highCreativity) { useHighCreativity = highCreativity; lessCreativeBtn.classList.toggle('active', !highCreativity); moreCreativeBtn.classList.toggle('active', highCreativity); lessCreativeBtn.setAttribute('aria-pressed', String(!highCreativity)); moreCreativeBtn.setAttribute('aria-pressed', String(highCreativity)); }
             lessCreativeBtn.addEventListener('click', function() { setCreativityMode(false); });
             moreCreativeBtn.addEventListener('click', function() { setCreativityMode(true); });
