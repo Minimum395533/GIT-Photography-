@@ -473,7 +473,7 @@
             <img src="https://cdn.simpleicons.org/mcdonalds" alt="McDonald's">
         </button>
         <button class="tag-btn restaurant-logo wendys" data-tag="Wendy's" aria-label="Wendy's" title="Wendy's">
-            <span class="restaurant-logo-mark" aria-hidden="true">W</span>
+            <img src="https://www.wendys.com.mx/sites/default/files/2019-11/February%202013_sm.png" alt="Wendy's">
         </button>
     </div>
     <div id="fullscreenModal" class="modal">
@@ -517,134 +517,88 @@
             <a class="image-link" data-image-id="image-1" data-src="images/mcdonalds_hamburger.webp" data-alt="McDonalds Hamburger" data-desc="">
                 <img src="images/mcdonalds_hamburger.webp" alt="McDonalds Hamburger" loading="lazy" decoding="async">
             </a>
-            <div class="card-content">
-                <p></p>
-            </div>
+            <div class="card-content"><p></p></div>
         </div>
         <div class="card" data-tag="McDonald's">
             <a class="image-link" data-image-id="image-2" data-src="images/mcdonalds_quarterpounder.webp?v=alpha1" data-alt="McDonalds Quarter Pounder" data-desc="">
                 <img src="images/mcdonalds_quarterpounder.webp?v=alpha1" alt="McDonalds Quarter Pounder" loading="lazy" decoding="async">
             </a>
-            <div class="card-content">
-                <p></p>
-            </div>
+            <div class="card-content"><p></p></div>
         </div>
         <div class="card" data-tag="McDonald's">
             <a class="image-link" data-image-id="image-3" data-src="images/mcdonalds_bigmac.webp?v=alpha1" data-alt="McDonalds Big Mac" data-desc="">
                 <img src="images/mcdonalds_bigmac.webp?v=alpha1" alt="McDonalds Big Mac" loading="lazy" decoding="async">
             </a>
-            <div class="card-content">
-                <p></p>
-            </div>
+            <div class="card-content"><p></p></div>
         </div>
         <div class="card" data-tag="Burger King">
             <a class="image-link" data-image-id="image-4" data-src="images/burgerking_sliders.webp" data-alt="Burger King Sliders" data-desc="">
                 <img src="images/burgerking_sliders.webp" alt="Burger King Sliders" loading="lazy" decoding="async">
             </a>
-            <div class="card-content">
-                <p></p>
-            </div>
+            <div class="card-content"><p></p></div>
         </div>
         <div class="card" data-tag="Burger King">
             <a class="image-link" data-image-id="image-5" data-src="images/burgerking_bbq_brisket.webp" data-alt="Burger King BBQ Brisket" data-desc="">
                 <img src="images/burgerking_bbq_brisket.webp" alt="Burger King BBQ Brisket" loading="lazy" decoding="async">
             </a>
-            <div class="card-content">
-                <p></p>
-            </div>
+            <div class="card-content"><p></p></div>
         </div>
         <div class="card" data-tag="Burger King">
             <a class="image-link" data-image-id="image-6" data-src="images/burgerking_chicken_sandwich.webp?v=alpha1" data-alt="Burger King Chicken Sandwich" data-desc="">
                 <img src="images/burgerking_chicken_sandwich.webp?v=alpha1" alt="Burger King Chicken Sandwich" loading="lazy" decoding="async">
             </a>
-            <div class="card-content">
-                <p></p>
-            </div>
+            <div class="card-content"><p></p></div>
         </div>
         <div class="card" data-tag="Wendy's">
             <a class="image-link" data-image-id="image-7" data-src="images/wendys_square_burger.webp" data-alt="Wendys Square Burger" data-desc="">
                 <img src="images/wendys_square_burger.webp" alt="Wendys Square Burger" loading="lazy" decoding="async">
             </a>
-            <div class="card-content">
-                <p></p>
-            </div>
+            <div class="card-content"><p></p></div>
         </div>
         <div class="card" data-tag="Wendy's">
             <a class="image-link" data-image-id="image-8" data-src="images/wendys_daves_double.webp?v=alpha1" data-alt="Wendys Dave's Double" data-desc="">
                 <img src="images/wendys_daves_double.webp?v=alpha1" alt="Wendys Dave's Double" loading="lazy" decoding="async">
             </a>
-            <div class="card-content">
-                <p></p>
-            </div>
+            <div class="card-content"><p></p></div>
         </div>
         <div class="card" data-tag="Wendy's">
             <a class="image-link" data-image-id="image-9" data-src="images/wendys_secret_menu.webp" data-alt="Wendys Secret Menu Item" data-desc="">
                 <img src="images/wendys_secret_menu.webp" alt="Wendys Secret Menu Item" loading="lazy" decoding="async">
             </a>
-            <div class="card-content">
-                <p></p>
-            </div>
+            <div class="card-content"><p></p></div>
         </div>
     </div>
     <section class="bulk-description-actions" aria-labelledby="bulk-description-title">
         <h2 id="bulk-description-title">AI descriptions</h2>
         <p>Generate descriptions for every image or clear the saved descriptions.</p>
         <div class="bulk-description-buttons">
-            <button id="generateAllDescriptionsBtn" class="bulk-description-btn" type="button">
-                Generate All Descriptions
-            </button>
-            <button id="deleteAllDescriptionsBtn" class="bulk-description-btn" type="button">
-                Delete All Descriptions
-            </button>
+            <button id="generateAllDescriptionsBtn" class="bulk-description-btn" type="button">Generate All Descriptions</button>
+            <button id="deleteAllDescriptionsBtn" class="bulk-description-btn" type="button">Delete All Descriptions</button>
         </div>
         <p id="bulkDescriptionStatus" role="status" aria-live="polite"></p>
     </section>
     <script>
-        document.addEventListener('contextmenu', function(e) {
-            e.preventDefault();
-        });
-
-        document.addEventListener('dragstart', function(e) {
-            if (e.target.closest('img, .image-link')) {
-                e.preventDefault();
-            }
-        });
-
+        document.addEventListener('contextmenu', function(e) { e.preventDefault(); });
+        document.addEventListener('dragstart', function(e) { if (e.target.closest('img, .image-link')) e.preventDefault(); });
         document.addEventListener('keydown', function(e) {
             const key = e.key.toLowerCase();
-            if ((e.ctrlKey || e.metaKey) && (key === 's' || key === 'u')) {
-                e.preventDefault();
-            }
-            if (e.key === 'F12' || (e.ctrlKey || e.metaKey) && e.shiftKey && key === 'i') {
-                e.preventDefault();
-            }
+            if ((e.ctrlKey || e.metaKey) && (key === 's' || key === 'u')) e.preventDefault();
+            if (e.key === 'F12' || (e.ctrlKey || e.metaKey) && e.shiftKey && key === 'i') e.preventDefault();
         });
 
-        const transparentImageIds = new Set([
-            'image-2',
-            'image-3',
-            'image-6',
-            'image-8'
-        ]);
-
-        function hasTransparency(imageId) {
-            return transparentImageIds.has(imageId);
-        }
+        const transparentImageIds = new Set(['image-2', 'image-3', 'image-6', 'image-8']);
+        function hasTransparency(imageId) { return transparentImageIds.has(imageId); }
 
         function imageToDataUri(imageSrc, imageId) {
             return new Promise((resolve, reject) => {
-                if (imageSrc.startsWith('data:')) {
-                    resolve(imageSrc);
-                    return;
-                }
+                if (imageSrc.startsWith('data:')) { resolve(imageSrc); return; }
                 const image = new Image();
                 image.onload = () => {
                     const canvas = document.createElement('canvas');
                     canvas.width = image.naturalWidth || 300;
                     canvas.height = image.naturalHeight || 300;
                     const ctx = canvas.getContext('2d');
-                    const hasAlpha = hasTransparency(imageId);
-                    if (hasAlpha) {
+                    if (hasTransparency(imageId)) {
                         ctx.fillStyle = 'white';
                         ctx.fillRect(0, 0, canvas.width, canvas.height);
                     }
@@ -664,49 +618,30 @@
                 top_p: options.top_p !== undefined ? options.top_p : 0.9
             };
             const response = await fetch('/api/generate-description', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    imageId,
-                    image: requestImage,
-                    regenerate: Boolean(options.regenerate),
-                    seed: params.seed,
-                    temperature: params.temperature,
-                    top_p: params.top_p
-                })
+                method: 'POST', headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ imageId, image: requestImage, regenerate: Boolean(options.regenerate), seed: params.seed, temperature: params.temperature, top_p: params.top_p })
             });
             const data = await response.json();
-            if (!response.ok) {
-                throw new Error(data.error || 'Cerebras could not generate a description.');
-            }
+            if (!response.ok) throw new Error(data.error || 'Cerebras could not generate a description.');
             return data;
         }
 
         function setCardDescription(link, description) {
             link.dataset.desc = description;
             const cardDescription = link.closest('.card')?.querySelector('.card-content p');
-            if (cardDescription) {
-                cardDescription.textContent = description;
-            }
+            if (cardDescription) cardDescription.textContent = description;
         }
-
         function clearCardDescription(link) {
             link.dataset.desc = '';
             const card = link.closest('.card');
             const cardDescription = card?.querySelector('.card-content p');
-            if (cardDescription) {
-                cardDescription.textContent = card?.dataset.tag || '';
-            }
+            if (cardDescription) cardDescription.textContent = card?.dataset.tag || '';
         }
-
         function backgroundValueToColor(value) {
             const hex = Number(value).toString(16).padStart(2, '0');
             return `#${hex}${hex}${hex}`;
         }
-
-        function backgroundValueToHex(value) {
-            return Number(value).toString(16).padStart(2, '0').toUpperCase();
-        }
+        function backgroundValueToHex(value) { return Number(value).toString(16).padStart(2, '0').toUpperCase(); }
 
         document.addEventListener('DOMContentLoaded', async function() {
             const modal = document.getElementById('fullscreenModal');
@@ -730,624 +665,231 @@
             const bgSliderContainer = document.getElementById('bgSliderContainer');
             const bgSlider = document.getElementById('bgSlider');
             const bgColorPreview = document.getElementById('bgColorPreview');
-
-            let currentImageSrc = '';
-            let currentImageId = '';
-            let currentImageLink = null;
-            let descriptionsByImage = {};
-            let useHighCreativity = false;
+            let currentImageSrc = '', currentImageId = '', currentImageLink = null, descriptionsByImage = {}, useHighCreativity = false;
 
             function setAIOptionsExpanded(expanded) {
                 aiOptionsContainer.classList.toggle('expanded', expanded);
                 aiOptionsToggle.setAttribute('aria-expanded', String(expanded));
-                aiOptionsToggle.textContent = expanded
-                    ? 'Minimize'
-                    : 'All Image AI Options';
+                aiOptionsToggle.textContent = expanded ? 'Minimize' : 'All Image AI Options';
             }
-
             function getSavedBackgroundValue(imageId) {
                 const saved = descriptionsByImage[imageId]?.background_color;
-                if (typeof saved === 'string' && /^[0-9A-Fa-f]{2}$/.test(saved)) {
-                    return parseInt(saved, 16);
-                }
-                return 255;
+                return typeof saved === 'string' && /^[0-9A-Fa-f]{2}$/.test(saved) ? parseInt(saved, 16) : 255;
             }
-
             async function saveBackgroundColor(imageId, value) {
                 const backgroundColor = backgroundValueToHex(value);
-                const entry = descriptionsByImage[imageId] || {
-                    description: '',
-                    image_hash: ''
-                };
+                const entry = descriptionsByImage[imageId] || { description: '', image_hash: '' };
                 entry.background_color = backgroundColor;
                 descriptionsByImage[imageId] = entry;
-
                 try {
-                    const response = await fetch('/api/background-color', {
-                        method: 'PUT',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({ imageId, backgroundColor })
-                    });
+                    const response = await fetch('/api/background-color', { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ imageId, backgroundColor }) });
                     const data = await response.json();
-                    if (!response.ok) {
-                        throw new Error(data.error || 'The background color could not be saved.');
-                    }
-                } catch (error) {
-                    console.error('Error saving transparent image background:', error);
-                }
+                    if (!response.ok) throw new Error(data.error || 'The background color could not be saved.');
+                } catch (error) { console.error('Error saving transparent image background:', error); }
             }
-
             function applyBackgroundValue(value) {
                 const color = backgroundValueToColor(value);
                 modalImage.style.backgroundColor = color;
                 bgColorPreview.style.backgroundColor = color;
-                if (currentImageLink) {
-                    currentImageLink.style.backgroundColor = color;
-                }
+                if (currentImageLink) currentImageLink.style.backgroundColor = color;
             }
-
             function updateTransparentImageControls() {
                 if (!modalImage.naturalWidth || !hasTransparency(currentImageId)) {
                     modalImage.style.backgroundColor = '';
                     bgSliderContainer.style.display = 'none';
                     return;
                 }
-
                 const value = getSavedBackgroundValue(currentImageId);
                 bgSlider.value = value;
                 applyBackgroundValue(value);
                 bgSliderContainer.style.display = 'block';
             }
-
             try {
                 const response = await fetch('/api/descriptions');
-                if (response.ok) {
-                    descriptionsByImage = await response.json();
-                }
-            } catch (error) {
-                console.warn('Saved descriptions could not be loaded:', error);
-            }
+                if (response.ok) descriptionsByImage = await response.json();
+            } catch (error) { console.warn('Saved descriptions could not be loaded:', error); }
 
             const imageLinks = document.querySelectorAll('.image-link');
             const POSITION_SCALE = 1000;
             const MIN_VISIBLE_AREA = Math.sqrt(0.4);
             const positionSaveTimers = new Map();
-
-            function clampPositionValue(value) {
-                return Math.max(0, Math.min(POSITION_SCALE, Math.round(Number(value) || 0)));
-            }
-
+            function clampPositionValue(value) { return Math.max(0, Math.min(POSITION_SCALE, Math.round(Number(value) || 0))); }
             function getSavedImagePosition(imageId) {
                 const saved = descriptionsByImage[imageId]?.position;
-                if (Array.isArray(saved) && saved.length === 2) {
-                    return [clampPositionValue(saved[0]), clampPositionValue(saved[1])];
-                }
-                return [POSITION_SCALE / 2, POSITION_SCALE / 2];
+                return Array.isArray(saved) && saved.length === 2 ? [clampPositionValue(saved[0]), clampPositionValue(saved[1])] : [POSITION_SCALE / 2, POSITION_SCALE / 2];
             }
-
             function calculateImagePositionMetrics(link) {
                 const image = link.querySelector('img');
-                const frameWidth = link.clientWidth || 300;
-                const frameHeight = link.clientHeight || 300;
-                const naturalWidth = image?.naturalWidth || frameWidth;
-                const naturalHeight = image?.naturalHeight || frameHeight;
+                const frameWidth = link.clientWidth || 300, frameHeight = link.clientHeight || 300;
+                const naturalWidth = image?.naturalWidth || frameWidth, naturalHeight = image?.naturalHeight || frameHeight;
                 const scale = Math.max(frameWidth / naturalWidth, frameHeight / naturalHeight);
-                const renderedWidth = naturalWidth * scale;
-                const renderedHeight = naturalHeight * scale;
-                const centeredLeft = (frameWidth - renderedWidth) / 2;
-                const centeredTop = (frameHeight - renderedHeight) / 2;
+                const renderedWidth = naturalWidth * scale, renderedHeight = naturalHeight * scale;
+                const centeredLeft = (frameWidth - renderedWidth) / 2, centeredTop = (frameHeight - renderedHeight) / 2;
                 const transparent = hasTransparency(link.dataset.imageId);
-
                 function calculateAxisLimits(frameSize, imageSize, centeredPosition) {
-                    if (!transparent) {
-                        return [
-                            Math.round(frameSize - imageSize - centeredPosition),
-                            Math.round(-centeredPosition)
-                        ];
-                    }
-
+                    if (!transparent) return [Math.round(frameSize - imageSize - centeredPosition), Math.round(-centeredPosition)];
                     const minimumVisible = Math.min(frameSize, imageSize * MIN_VISIBLE_AREA);
-                    return [
-                        Math.round(minimumVisible - imageSize - centeredPosition),
-                        Math.round(frameSize - minimumVisible - centeredPosition)
-                    ];
+                    return [Math.round(minimumVisible - imageSize - centeredPosition), Math.round(frameSize - minimumVisible - centeredPosition)];
                 }
-
-                return {
-                    renderedWidth,
-                    renderedHeight,
-                    x: calculateAxisLimits(frameWidth, renderedWidth, centeredLeft),
-                    y: calculateAxisLimits(frameHeight, renderedHeight, centeredTop)
-                };
+                return { renderedWidth, renderedHeight, x: calculateAxisLimits(frameWidth, renderedWidth, centeredLeft), y: calculateAxisLimits(frameHeight, renderedHeight, centeredTop) };
             }
-
             function getImageOffset(position, metrics) {
-                return {
-                    x: metrics.x[0] + (metrics.x[1] - metrics.x[0]) * (position[0] / POSITION_SCALE),
-                    y: metrics.y[0] + (metrics.y[1] - metrics.y[0]) * (position[1] / POSITION_SCALE)
-                };
+                return { x: metrics.x[0] + (metrics.x[1] - metrics.x[0]) * (position[0] / POSITION_SCALE), y: metrics.y[0] + (metrics.y[1] - metrics.y[0]) * (position[1] / POSITION_SCALE) };
             }
-
             function renderImagePosition(link, position, metrics = calculateImagePositionMetrics(link)) {
                 const image = link.querySelector('img');
                 if (!image) return;
                 const offset = getImageOffset(position, metrics);
                 image.style.width = `${metrics.renderedWidth}px`;
                 image.style.height = `${metrics.renderedHeight}px`;
-                image.style.transform =
-                    `translate(-50%, -50%) translate(${offset.x}px, ${offset.y}px)`;
+                image.style.transform = `translate(-50%, -50%) translate(${offset.x}px, ${offset.y}px)`;
             }
-
             function queueImagePositionSave(imageId, position, metrics) {
-                const entry = descriptionsByImage[imageId] || {
-                    description: '',
-                    image_hash: ''
-                };
+                const entry = descriptionsByImage[imageId] || { description: '', image_hash: '' };
                 entry.position = position;
-                entry.position_limits = [
-                    metrics.x[0],
-                    metrics.x[1],
-                    metrics.y[0],
-                    metrics.y[1]
-                ];
+                entry.position_limits = [metrics.x[0], metrics.x[1], metrics.y[0], metrics.y[1]];
                 descriptionsByImage[imageId] = entry;
-
                 clearTimeout(positionSaveTimers.get(imageId));
                 positionSaveTimers.set(imageId, setTimeout(async () => {
                     try {
-                        const response = await fetch('/api/image-position', {
-                            method: 'PUT',
-                            headers: { 'Content-Type': 'application/json' },
-                            body: JSON.stringify({
-                                imageId,
-                                position,
-                                positionLimits: entry.position_limits
-                            })
-                        });
-                        if (!response.ok) {
-                            throw new Error('The image position could not be saved.');
-                        }
-                    } catch (error) {
-                        console.error('Error saving image position:', error);
-                    }
+                        const response = await fetch('/api/image-position', { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ imageId, position, positionLimits: entry.position_limits }) });
+                        if (!response.ok) throw new Error('The image position could not be saved.');
+                    } catch (error) { console.error('Error saving image position:', error); }
                 }, 120));
             }
-
             function positionIcon(isOpen) {
-                if (isOpen) {
-                    return '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"></circle></svg>';
-                }
-                return '<svg viewBox="0 0 24 24" aria-hidden="true">' +
-                    '<path d="M12 3v5m0-5L9 6m3-3 3 3M12 21v-5m0 5-3-3m3 3 3-3M3 12h5m-5 0 3-3m-3 3 3 3M21 12h-5m5 0-3-3m3 3-3 3"></path>' +
-                    '<circle cx="12" cy="12" r="2"></circle></svg>';
+                if (isOpen) return '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"></circle></svg>';
+                return '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v5m0-5L9 6m3-3 3 3M12 21v-5m0 5-3-3m3 3 3-3M3 12h5m-5 0 3-3m-3 3 3 3M21 12h-5m5 0-3-3m3 3-3 3"></path><circle cx="12" cy="12" r="2"></circle></svg>';
             }
-
             function sliderIcon(direction) {
-                if (direction === 'horizontal') {
-                    return '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h16m-16 0 3-3m-3 3 3 3m13-3-3-3m3 3-3 3"></path></svg>';
-                }
+                if (direction === 'horizontal') return '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h16m-16 0 3-3m-3 3 3 3m13-3-3-3m3 3-3 3"></path></svg>';
                 return '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v16m0-16L9 7m3-3 3 3m-3 13-3-3m3 3 3-3"></path></svg>';
             }
-
             function setupImagePositionControls(link) {
                 const panel = document.createElement('div');
                 panel.className = 'image-position-panel';
-
                 const toggle = document.createElement('button');
-                toggle.className = 'image-position-toggle';
-                toggle.type = 'button';
-                toggle.setAttribute('aria-label', 'Adjust image position');
-                toggle.innerHTML = positionIcon(false);
-
-                const sliders = document.createElement('div');
-                sliders.className = 'image-position-sliders';
-
-                const horizontalRow = document.createElement('div');
-                horizontalRow.className = 'image-position-row';
-                horizontalRow.innerHTML = sliderIcon('horizontal');
-                const horizontalSlider = document.createElement('input');
-                horizontalSlider.type = 'range';
-                horizontalSlider.min = 0;
-                horizontalSlider.max = POSITION_SCALE;
-                horizontalSlider.value = getSavedImagePosition(link.dataset.imageId)[0];
-                horizontalSlider.setAttribute('aria-label', 'Horizontal image position');
-                horizontalRow.append(horizontalSlider);
-
-                const verticalRow = document.createElement('div');
-                verticalRow.className = 'image-position-row';
-                verticalRow.innerHTML = sliderIcon('vertical');
-                const verticalSlider = document.createElement('input');
-                verticalSlider.type = 'range';
-                verticalSlider.min = 0;
-                verticalSlider.max = POSITION_SCALE;
-                verticalSlider.value = getSavedImagePosition(link.dataset.imageId)[1];
-                verticalSlider.setAttribute('aria-label', 'Vertical image position');
-                verticalRow.append(verticalSlider);
-
-                sliders.append(horizontalRow, verticalRow);
-                panel.append(toggle, sliders);
-                link.append(panel);
-
+                toggle.className = 'image-position-toggle'; toggle.type = 'button'; toggle.setAttribute('aria-label', 'Adjust image position'); toggle.innerHTML = positionIcon(false);
+                const sliders = document.createElement('div'); sliders.className = 'image-position-sliders';
+                const horizontalRow = document.createElement('div'); horizontalRow.className = 'image-position-row'; horizontalRow.innerHTML = sliderIcon('horizontal');
+                const horizontalSlider = document.createElement('input'); horizontalSlider.type = 'range'; horizontalSlider.min = 0; horizontalSlider.max = POSITION_SCALE; horizontalSlider.value = getSavedImagePosition(link.dataset.imageId)[0]; horizontalSlider.setAttribute('aria-label', 'Horizontal image position'); horizontalRow.append(horizontalSlider);
+                const verticalRow = document.createElement('div'); verticalRow.className = 'image-position-row'; verticalRow.innerHTML = sliderIcon('vertical');
+                const verticalSlider = document.createElement('input'); verticalSlider.type = 'range'; verticalSlider.min = 0; verticalSlider.max = POSITION_SCALE; verticalSlider.value = getSavedImagePosition(link.dataset.imageId)[1]; verticalSlider.setAttribute('aria-label', 'Vertical image position'); verticalRow.append(verticalSlider);
+                sliders.append(horizontalRow, verticalRow); panel.append(toggle, sliders); link.append(panel);
                 function renderFromSliders() {
-                    const position = [
-                        clampPositionValue(horizontalSlider.value),
-                        clampPositionValue(verticalSlider.value)
-                    ];
-                    renderImagePosition(link, position);
-                    queueImagePositionSave(link.dataset.imageId, position, calculateImagePositionMetrics(link));
+                    const position = [clampPositionValue(horizontalSlider.value), clampPositionValue(verticalSlider.value)];
+                    renderImagePosition(link, position); queueImagePositionSave(link.dataset.imageId, position, calculateImagePositionMetrics(link));
                 }
-
                 toggle.addEventListener('click', function(event) {
-                    event.preventDefault();
-                    event.stopPropagation();
-                    const isOpen = panel.classList.toggle('is-open');
-                    toggle.innerHTML = positionIcon(isOpen);
+                    event.preventDefault(); event.stopPropagation(); const isOpen = panel.classList.toggle('is-open'); toggle.innerHTML = positionIcon(isOpen);
                     if (isOpen) {
-                        const position = getSavedImagePosition(link.dataset.imageId);
-                        horizontalSlider.value = position[0];
-                        verticalSlider.value = position[1];
-                        const metrics = calculateImagePositionMetrics(link);
-                        renderImagePosition(link, position, metrics);
-                        queueImagePositionSave(link.dataset.imageId, position, metrics);
+                        const position = getSavedImagePosition(link.dataset.imageId); horizontalSlider.value = position[0]; verticalSlider.value = position[1]; const metrics = calculateImagePositionMetrics(link); renderImagePosition(link, position, metrics); queueImagePositionSave(link.dataset.imageId, position, metrics);
                     }
                 });
-
                 [horizontalSlider, verticalSlider].forEach(slider => {
                     slider.addEventListener('click', event => event.stopPropagation());
-                    slider.addEventListener('input', function(event) {
-                        event.stopPropagation();
-                        renderFromSliders();
-                    });
+                    slider.addEventListener('input', function(event) { event.stopPropagation(); renderFromSliders(); });
                 });
-
                 panel.addEventListener('click', event => event.stopPropagation());
-
                 const image = link.querySelector('img');
                 const initialize = () => {
-                    const position = getSavedImagePosition(link.dataset.imageId);
-                    const metrics = calculateImagePositionMetrics(link);
+                    const position = getSavedImagePosition(link.dataset.imageId), metrics = calculateImagePositionMetrics(link);
                     renderImagePosition(link, position, metrics);
                     const savedLimits = descriptionsByImage[link.dataset.imageId]?.position_limits;
-                    const currentLimits = [
-                        metrics.x[0],
-                        metrics.x[1],
-                        metrics.y[0],
-                        metrics.y[1]
-                    ];
-                    const limitsMatch = Array.isArray(savedLimits)
-                        && savedLimits.length === currentLimits.length
-                        && savedLimits.every((value, index) => value === currentLimits[index]);
-                    if (!limitsMatch) {
-                        queueImagePositionSave(link.dataset.imageId, position, metrics);
-                    }
+                    const currentLimits = [metrics.x[0], metrics.x[1], metrics.y[0], metrics.y[1]];
+                    const limitsMatch = Array.isArray(savedLimits) && savedLimits.length === currentLimits.length && savedLimits.every((value, index) => value === currentLimits[index]);
+                    if (!limitsMatch) queueImagePositionSave(link.dataset.imageId, position, metrics);
                 };
-                if (image?.complete && image.naturalWidth) {
-                    initialize();
-                } else {
-                    image?.addEventListener('load', initialize, { once: true });
-                }
+                if (image?.complete && image.naturalWidth) initialize(); else image?.addEventListener('load', initialize, { once: true });
             }
-
             imageLinks.forEach(setupImagePositionControls);
             window.addEventListener('resize', function() {
-                imageLinks.forEach(link => {
-                    const image = link.querySelector('img');
-                    if (image?.complete && image.naturalWidth) {
-                        renderImagePosition(link, getSavedImagePosition(link.dataset.imageId));
-                    }
-                });
+                imageLinks.forEach(link => { const image = link.querySelector('img'); if (image?.complete && image.naturalWidth) renderImagePosition(link, getSavedImagePosition(link.dataset.imageId)); });
             });
-
             function setupGalleryImageBackground(link) {
-                const image = link.querySelector('img');
-                if (!image) return;
-
-                const applySavedColor = () => {
-                    if (hasTransparency(link.dataset.imageId)) {
-                        link.style.backgroundColor = backgroundValueToColor(
-                            getSavedBackgroundValue(link.dataset.imageId)
-                        );
-                    } else {
-                        link.style.backgroundColor = '';
-                    }
-                };
-
-                if (image.complete && image.naturalWidth) {
-                    applySavedColor();
-                } else {
-                    image.addEventListener('load', applySavedColor, { once: true });
-                }
+                const image = link.querySelector('img'); if (!image) return;
+                const applySavedColor = () => { link.style.backgroundColor = hasTransparency(link.dataset.imageId) ? backgroundValueToColor(getSavedBackgroundValue(link.dataset.imageId)) : ''; };
+                if (image.complete && image.naturalWidth) applySavedColor(); else image.addEventListener('load', applySavedColor, { once: true });
             }
-
             imageLinks.forEach(setupGalleryImageBackground);
-
-            imageLinks.forEach(link => {
-                const savedDescription = descriptionsByImage[link.dataset.imageId]?.description;
-                if (savedDescription) {
-                    setCardDescription(link, savedDescription);
-                } else {
-                    clearCardDescription(link);
-                }
-            });
-
+            imageLinks.forEach(link => { const savedDescription = descriptionsByImage[link.dataset.imageId]?.description; if (savedDescription) setCardDescription(link, savedDescription); else clearCardDescription(link); });
             imageLinks.forEach(link => {
                 link.addEventListener('click', function(e) {
                     e.preventDefault();
                     const src = this.getAttribute('data-src') || this.querySelector('img')?.src || '';
                     const alt = this.getAttribute('data-alt');
                     const desc = this.getAttribute('data-desc');
-                    const imageName = src.startsWith('data:')
-                        ? alt
-                        : src.split('/').pop().split('?')[0];
+                    const imageName = src.startsWith('data:') ? alt : src.split('/').pop().split('?')[0];
                     const restaurantTag = this.closest('.card')?.dataset.tag || imageName;
                     const imageId = this.dataset.imageId;
                     const savedDescription = descriptionsByImage[imageId]?.description;
-
-                    currentImageSrc = src;
-                    currentImageId = imageId;
-                    currentImageLink = this;
-                    setAIOptionsExpanded(false);
-                    modalImage.onload = updateTransparentImageControls;
-                    modalImage.style.backgroundColor = '';
-                    bgSliderContainer.style.display = 'none';
-                    modalImage.src = src;
-                    modalImage.alt = alt;
-                    modalTitle.textContent = restaurantTag;
+                    currentImageSrc = src; currentImageId = imageId; currentImageLink = this; setAIOptionsExpanded(false);
+                    modalImage.onload = updateTransparentImageControls; modalImage.style.backgroundColor = ''; bgSliderContainer.style.display = 'none'; modalImage.src = src; modalImage.alt = alt; modalTitle.textContent = restaurantTag;
                     if (savedDescription) {
-                        modalDescription.textContent = savedDescription;
-                        aiDescriptionText.textContent = '';
-                        aiDescriptionContainer.style.display = 'none';
-                        aiDescriptionBtn.style.display = 'none';
-                        regenControls.style.display = 'flex';
-                        setAIOptionsExpanded(true);
+                        modalDescription.textContent = savedDescription; aiDescriptionText.textContent = ''; aiDescriptionContainer.style.display = 'none'; aiDescriptionBtn.style.display = 'none'; regenControls.style.display = 'flex'; setAIOptionsExpanded(true);
                     } else {
-                        modalDescription.textContent = desc;
-                        aiDescriptionContainer.style.display = 'none';
-                        aiDescriptionText.textContent = '';
-                        aiDescriptionBtn.style.display = 'inline-block';
-                        aiDescriptionBtn.disabled = false;
-                        regenControls.style.display = 'none';
+                        modalDescription.textContent = desc; aiDescriptionContainer.style.display = 'none'; aiDescriptionText.textContent = ''; aiDescriptionBtn.style.display = 'inline-block'; aiDescriptionBtn.disabled = false; regenControls.style.display = 'none';
                     }
-                    modal.style.display = 'flex';
-                    if (modalImage.complete && modalImage.naturalWidth) {
-                        updateTransparentImageControls();
-                    }
+                    modal.style.display = 'flex'; if (modalImage.complete && modalImage.naturalWidth) updateTransparentImageControls();
                 });
             });
-
-            aiOptionsToggle.addEventListener('click', function() {
-                setAIOptionsExpanded(!aiOptionsContainer.classList.contains('expanded'));
-            });
-
-            closeBtn.addEventListener('click', function() {
-                modal.style.display = 'none';
-                bgSliderContainer.style.display = 'none';
-                modalImage.style.backgroundColor = '';
-            });
-
-            modal.addEventListener('click', function(e) {
-                if (e.target === modal) {
-                    modal.style.display = 'none';
-                    bgSliderContainer.style.display = 'none';
-                    modalImage.style.backgroundColor = '';
-                }
-            });
+            aiOptionsToggle.addEventListener('click', function() { setAIOptionsExpanded(!aiOptionsContainer.classList.contains('expanded')); });
+            closeBtn.addEventListener('click', function() { modal.style.display = 'none'; bgSliderContainer.style.display = 'none'; modalImage.style.backgroundColor = ''; });
+            modal.addEventListener('click', function(e) { if (e.target === modal) { modal.style.display = 'none'; bgSliderContainer.style.display = 'none'; modalImage.style.backgroundColor = ''; } });
 
             const shuffleBtn = document.getElementById('shuffleBtn');
             const gallery = document.querySelector('.gallery');
             const tagButtons = document.querySelectorAll('.tag-btn');
             const galleryCards = Array.from(gallery.querySelectorAll('.card'));
-
             function applyTagFilter(selectedTag, preserveCurrentOrder = false) {
-                if (!preserveCurrentOrder) {
-                    galleryCards.sort((first, second) => {
-                        const tagOrder = (first.dataset.tag || '').localeCompare(second.dataset.tag || '');
-                        if (tagOrder !== 0) return tagOrder;
-                        const firstAlt = first.querySelector('img')?.alt || '';
-                        const secondAlt = second.querySelector('img')?.alt || '';
-                        return firstAlt.localeCompare(secondAlt);
-                    });
-                }
-
-                galleryCards.forEach(card => {
-                    if (!preserveCurrentOrder) {
-                        gallery.appendChild(card);
-                    }
-                    card.style.display = selectedTag === 'all' || card.dataset.tag === selectedTag
-                        ? ''
-                        : 'none';
-                });
-
-                tagButtons.forEach(button => {
-                    button.classList.toggle('active', button.dataset.tag === selectedTag);
-                });
+                if (!preserveCurrentOrder) galleryCards.sort((first, second) => { const tagOrder = (first.dataset.tag || '').localeCompare(second.dataset.tag || ''); if (tagOrder !== 0) return tagOrder; return (first.querySelector('img')?.alt || '').localeCompare(second.querySelector('img')?.alt || ''); });
+                galleryCards.forEach(card => { if (!preserveCurrentOrder) gallery.appendChild(card); card.style.display = selectedTag === 'all' || card.dataset.tag === selectedTag ? '' : 'none'; });
+                tagButtons.forEach(button => button.classList.toggle('active', button.dataset.tag === selectedTag));
             }
-
-            tagButtons.forEach(button => {
-                button.addEventListener('click', function() {
-                    applyTagFilter(this.dataset.tag);
-                });
-            });
+            tagButtons.forEach(button => button.addEventListener('click', function() { applyTagFilter(this.dataset.tag); }));
             applyTagFilter('all', true);
-
             shuffleBtn.addEventListener('click', function() {
                 const cards = Array.from(gallery.querySelectorAll('.card'));
-                for (let i = cards.length - 1; i > 0; i--) {
-                    const j = Math.floor(Math.random() * (i + 1));
-                    [cards[i], cards[j]] = [cards[j], cards[i]];
-                }
+                for (let i = cards.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [cards[i], cards[j]] = [cards[j], cards[i]]; }
                 cards.forEach(card => gallery.appendChild(card));
             });
-
-            document.addEventListener('keydown', function(e) {
-                if (e.key === 'Escape') {
-                    modal.style.display = 'none';
-                    bgSliderContainer.style.display = 'none';
-                    modalImage.style.backgroundColor = '';
-                }
-            });
-
-            function setCreativityMode(highCreativity) {
-                useHighCreativity = highCreativity;
-                lessCreativeBtn.classList.toggle('active', !highCreativity);
-                moreCreativeBtn.classList.toggle('active', highCreativity);
-                lessCreativeBtn.setAttribute('aria-pressed', String(!highCreativity));
-                moreCreativeBtn.setAttribute('aria-pressed', String(highCreativity));
-            }
-
-            lessCreativeBtn.addEventListener('click', function() {
-                setCreativityMode(false);
-            });
-
-            moreCreativeBtn.addEventListener('click', function() {
-                setCreativityMode(true);
-            });
-
-            bgSlider.addEventListener('input', function() {
-                const value = Number(bgSlider.value);
-                applyBackgroundValue(value);
-                saveBackgroundColor(currentImageId, value);
-            });
-
+            document.addEventListener('keydown', function(e) { if (e.key === 'Escape') { modal.style.display = 'none'; bgSliderContainer.style.display = 'none'; modalImage.style.backgroundColor = ''; } });
+            function setCreativityMode(highCreativity) { useHighCreativity = highCreativity; lessCreativeBtn.classList.toggle('active', !highCreativity); moreCreativeBtn.classList.toggle('active', highCreativity); lessCreativeBtn.setAttribute('aria-pressed', String(!highCreativity)); moreCreativeBtn.setAttribute('aria-pressed', String(highCreativity)); }
+            lessCreativeBtn.addEventListener('click', function() { setCreativityMode(false); });
+            moreCreativeBtn.addEventListener('click', function() { setCreativityMode(true); });
+            bgSlider.addEventListener('input', function() { const value = Number(bgSlider.value); applyBackgroundValue(value); saveBackgroundColor(currentImageId, value); });
             regenBtn.addEventListener('click', async function() {
-                regenBtn.disabled = true;
-                loadingSpinner.style.display = 'inline-block';
-                aiDescriptionContainer.style.display = 'block';
-                aiDescriptionText.textContent = 'Regenerating description…';
-
+                regenBtn.disabled = true; loadingSpinner.style.display = 'inline-block'; aiDescriptionContainer.style.display = 'block'; aiDescriptionText.textContent = 'Regenerating description…';
                 try {
-                    const result = await generateAIDescription(currentImageSrc, currentImageId, {
-                        regenerate: true,
-                        seed: Math.floor(Math.random() * 2147483647),
-                        temperature: useHighCreativity ? 0.9 : 0.3
-                    });
-                    const description = result.description;
-                    descriptionsByImage[currentImageId] = {
-                        description,
-                        image_hash: result.image_hash || ''
-                    };
-                    setCardDescription(currentImageLink, description);
-                    modalDescription.textContent = description;
-                    aiDescriptionText.textContent = '';
-                    aiDescriptionContainer.style.display = 'none';
-                    setAIOptionsExpanded(true);
-                } catch (error) {
-                    console.error('Error regenerating AI description:', error);
-                    aiDescriptionText.textContent =
-                        error.message || 'Error regenerating description. Try again.';
-                } finally {
-                    loadingSpinner.style.display = 'none';
-                    regenBtn.disabled = false;
-                }
+                    const result = await generateAIDescription(currentImageSrc, currentImageId, { regenerate: true, seed: Math.floor(Math.random() * 2147483647), temperature: useHighCreativity ? 0.9 : 0.3 });
+                    const description = result.description; descriptionsByImage[currentImageId] = { description, image_hash: result.image_hash || '' }; setCardDescription(currentImageLink, description); modalDescription.textContent = description; aiDescriptionText.textContent = ''; aiDescriptionContainer.style.display = 'none'; setAIOptionsExpanded(true);
+                } catch (error) { console.error('Error regenerating AI description:', error); aiDescriptionText.textContent = error.message || 'Error regenerating description. Try again.'; } finally { loadingSpinner.style.display = 'none'; regenBtn.disabled = false; }
             });
-
             aiDescriptionBtn.addEventListener('click', async function() {
-                aiDescriptionBtn.disabled = true;
-                loadingSpinner.style.display = 'inline-block';
-                aiDescriptionContainer.style.display = 'block';
-                aiDescriptionText.textContent = 'Generating a description with Cerebras…';
-
+                aiDescriptionBtn.disabled = true; loadingSpinner.style.display = 'inline-block'; aiDescriptionContainer.style.display = 'block'; aiDescriptionText.textContent = 'Generating a description with Cerebras…';
                 try {
-                    const result = await generateAIDescription(currentImageSrc, currentImageId);
-                    const description = result.description;
-                    descriptionsByImage[currentImageId] = {
-                        description,
-                        image_hash: result.image_hash || ''
-                    };
-                    setCardDescription(currentImageLink, description);
-                    modalDescription.textContent = description;
-                    aiDescriptionText.textContent = '';
-                    aiDescriptionContainer.style.display = 'none';
-                    aiDescriptionBtn.style.display = 'none';
-                    regenControls.style.display = 'flex';
-                    setAIOptionsExpanded(true);
-                } catch (error) {
-                    console.error('Error generating AI description:', error);
-                    aiDescriptionText.textContent = error.message || 'Error generating description. Try again.';
-                } finally {
-                    loadingSpinner.style.display = 'none';
-                    if (aiDescriptionBtn.style.display !== 'none') {
-                        aiDescriptionBtn.disabled = false;
-                    }
-                }
+                    const result = await generateAIDescription(currentImageSrc, currentImageId); const description = result.description; descriptionsByImage[currentImageId] = { description, image_hash: result.image_hash || '' }; setCardDescription(currentImageLink, description); modalDescription.textContent = description; aiDescriptionText.textContent = ''; aiDescriptionContainer.style.display = 'none'; aiDescriptionBtn.style.display = 'none'; regenControls.style.display = 'flex'; setAIOptionsExpanded(true);
+                } catch (error) { console.error('Error generating AI description:', error); aiDescriptionText.textContent = error.message || 'Error generating description. Try again.'; } finally { loadingSpinner.style.display = 'none'; if (aiDescriptionBtn.style.display !== 'none') aiDescriptionBtn.disabled = false; }
             });
-
-            function setBulkDescriptionButtonsDisabled(disabled) {
-                generateAllDescriptionsBtn.disabled = disabled;
-                deleteAllDescriptionsBtn.disabled = disabled;
-            }
-
+            function setBulkDescriptionButtonsDisabled(disabled) { generateAllDescriptionsBtn.disabled = disabled; deleteAllDescriptionsBtn.disabled = disabled; }
             generateAllDescriptionsBtn.addEventListener('click', async function() {
-                setBulkDescriptionButtonsDisabled(true);
-                const failures = [];
-                const total = imageLinks.length;
-
+                setBulkDescriptionButtonsDisabled(true); const failures = [], total = imageLinks.length;
                 for (let index = 0; index < total; index += 1) {
-                    const link = imageLinks[index];
-                    const imageId = link.dataset.imageId;
-                    bulkDescriptionStatus.textContent =
-                        `Processing description ${index + 1} of ${total}…`;
-
-                    try {
-                        const result = await generateAIDescription(link.dataset.src, imageId);
-                        const description = result.description;
-                        descriptionsByImage[imageId] = {
-                            description,
-                            image_hash: result.image_hash || ''
-                        };
-                        setCardDescription(link, description);
-
-                        if (currentImageLink === link) {
-                            modalDescription.textContent = description;
-                            aiDescriptionText.textContent = '';
-                            aiDescriptionContainer.style.display = 'none';
-                            aiDescriptionBtn.style.display = 'none';
-                        }
-                    } catch (error) {
-                        console.error(`Error generating description for ${imageId}:`, error);
-                        failures.push(imageId);
-                    }
+                    const link = imageLinks[index], imageId = link.dataset.imageId; bulkDescriptionStatus.textContent = `Processing description ${index + 1} of ${total}…`;
+                    try { const result = await generateAIDescription(link.dataset.src, imageId); const description = result.description; descriptionsByImage[imageId] = { description, image_hash: result.image_hash || '' }; setCardDescription(link, description); if (currentImageLink === link) { modalDescription.textContent = description; aiDescriptionText.textContent = ''; aiDescriptionContainer.style.display = 'none'; aiDescriptionBtn.style.display = 'none'; } }
+                    catch (error) { console.error(`Error generating description for ${imageId}:`, error); failures.push(imageId); }
                 }
-
-                bulkDescriptionStatus.textContent = failures.length
-                    ? `Finished with ${failures.length} error${failures.length === 1 ? '' : 's'}: ${failures.join(', ')}.`
-                    : `Finished descriptions for all ${total} images.`;
+                bulkDescriptionStatus.textContent = failures.length ? `Finished with ${failures.length} error${failures.length === 1 ? '' : 's'}: ${failures.join(', ')}.` : `Finished descriptions for all ${total} images.`;
                 setBulkDescriptionButtonsDisabled(false);
             });
-
             deleteAllDescriptionsBtn.addEventListener('click', async function() {
-                if (!window.confirm('Delete all saved AI descriptions? This cannot be undone.')) {
-                    return;
-                }
-
-                setBulkDescriptionButtonsDisabled(true);
-                bulkDescriptionStatus.textContent = 'Deleting saved descriptions…';
-
+                if (!window.confirm('Delete all saved AI descriptions? This cannot be undone.')) return;
+                setBulkDescriptionButtonsDisabled(true); bulkDescriptionStatus.textContent = 'Deleting saved descriptions…';
                 try {
-                    const response = await fetch('/api/descriptions', { method: 'DELETE' });
-                    const data = await response.json();
-                    if (!response.ok) {
-                        throw new Error(data.error || 'Saved descriptions could not be deleted.');
-                    }
-
-                    descriptionsByImage = data.descriptions || {};
-                    imageLinks.forEach(clearCardDescription);
-                    aiDescriptionContainer.style.display = 'none';
-                    aiDescriptionText.textContent = '';
-                    regenControls.style.display = 'none';
-                    modalDescription.textContent = currentImageLink?.dataset.desc || '';
-                    aiDescriptionBtn.style.display = 'inline-block';
-                    aiDescriptionBtn.disabled = false;
-                    updateTransparentImageControls();
-                    bulkDescriptionStatus.textContent =
-                        `Deleted ${data.deleted} saved description${data.deleted === 1 ? '' : 's'}.`;
-                } catch (error) {
-                    console.error('Error deleting saved descriptions:', error);
-                    bulkDescriptionStatus.textContent =
-                        error.message || 'Saved descriptions could not be deleted.';
-                } finally {
-                    setBulkDescriptionButtonsDisabled(false);
-                }
+                    const response = await fetch('/api/descriptions', { method: 'DELETE' }); const data = await response.json(); if (!response.ok) throw new Error(data.error || 'Saved descriptions could not be deleted.');
+                    descriptionsByImage = data.descriptions || {}; imageLinks.forEach(clearCardDescription); aiDescriptionContainer.style.display = 'none'; aiDescriptionText.textContent = ''; regenControls.style.display = 'none'; modalDescription.textContent = currentImageLink?.dataset.desc || ''; aiDescriptionBtn.style.display = 'inline-block'; aiDescriptionBtn.disabled = false; updateTransparentImageControls(); bulkDescriptionStatus.textContent = `Deleted ${data.deleted} saved description${data.deleted === 1 ? '' : 's'}.`;
+                } catch (error) { console.error('Error deleting saved descriptions:', error); bulkDescriptionStatus.textContent = error.message || 'Saved descriptions could not be deleted.'; }
+                finally { setBulkDescriptionButtonsDisabled(false); }
             });
         });
     </script>
