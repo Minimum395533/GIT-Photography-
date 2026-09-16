@@ -1,3 +1,4 @@
 # GIT-Photography-
 
-ChatGPT is connected.
+
+The thing is made

@@ -391,6 +391,13 @@
             object-fit: contain;
             display: block;
         }
+        .tag-btn.restaurant-logo .restaurant-logo-mark {
+            color: #1e3a8a;
+            font-family: Georgia, serif;
+            font-size: 1.8rem;
+            font-weight: bold;
+            line-height: 1;
+        }
         .tag-btn.burgerking.active,
         .tag-btn.mcdonalds.active,
         .tag-btn.wendys.active {
@@ -466,7 +473,7 @@
             <img src="https://cdn.simpleicons.org/mcdonalds" alt="McDonald's">
         </button>
         <button class="tag-btn restaurant-logo wendys" data-tag="Wendy's" aria-label="Wendy's" title="Wendy's">
-            <img src="https://cdn.simpleicons.org/wendys" alt="Wendy's">
+            <span class="restaurant-logo-mark" aria-hidden="true">W</span>
         </button>
     </div>
     <div id="fullscreenModal" class="modal">
@@ -1072,6 +1079,7 @@
                     const imageName = src.startsWith('data:')
                         ? alt
                         : src.split('/').pop().split('?')[0];
+                    const restaurantTag = this.closest('.card')?.dataset.tag || imageName;
                     const imageId = this.dataset.imageId;
                     const savedDescription = descriptionsByImage[imageId]?.description;
 
@@ -1084,11 +1092,11 @@
                     bgSliderContainer.style.display = 'none';
                     modalImage.src = src;
                     modalImage.alt = alt;
-                    modalTitle.textContent = imageName;
+                    modalTitle.textContent = restaurantTag;
                     if (savedDescription) {
                         modalDescription.textContent = savedDescription;
-                        aiDescriptionText.textContent = savedDescription;
-                        aiDescriptionContainer.style.display = 'block';
+                        aiDescriptionText.textContent = '';
+                        aiDescriptionContainer.style.display = 'none';
                         aiDescriptionBtn.style.display = 'none';
                         regenControls.style.display = 'flex';
                         setAIOptionsExpanded(true);
@@ -1219,8 +1227,9 @@
                         image_hash: result.image_hash || ''
                     };
                     setCardDescription(currentImageLink, description);
-                    aiDescriptionText.textContent = description;
                     modalDescription.textContent = description;
+                    aiDescriptionText.textContent = '';
+                    aiDescriptionContainer.style.display = 'none';
                     setAIOptionsExpanded(true);
                 } catch (error) {
                     console.error('Error regenerating AI description:', error);
@@ -1246,8 +1255,9 @@
                         image_hash: result.image_hash || ''
                     };
                     setCardDescription(currentImageLink, description);
-                    aiDescriptionText.textContent = description;
                     modalDescription.textContent = description;
+                    aiDescriptionText.textContent = '';
+                    aiDescriptionContainer.style.display = 'none';
                     aiDescriptionBtn.style.display = 'none';
                     regenControls.style.display = 'flex';
                     setAIOptionsExpanded(true);
@@ -1288,9 +1298,9 @@
                         setCardDescription(link, description);
 
                         if (currentImageLink === link) {
-                            aiDescriptionText.textContent = description;
                             modalDescription.textContent = description;
-                            aiDescriptionContainer.style.display = 'block';
+                            aiDescriptionText.textContent = '';
+                            aiDescriptionContainer.style.display = 'none';
                             aiDescriptionBtn.style.display = 'none';
                         }
                     } catch (error) {
