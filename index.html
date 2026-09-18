@@ -414,6 +414,26 @@
             border-top: 1px solid #263242;
             text-align: center;
         }
+        .bulk-description-toggle {
+            border: none;
+            border-radius: 5px;
+            background: #2196f3;
+            color: white;
+            cursor: pointer;
+            font-size: 1rem;
+            padding: 10px 18px;
+            transition: background 0.3s;
+        }
+        .bulk-description-toggle:hover {
+            background: #1976d2;
+        }
+        .bulk-description-options {
+            display: none;
+            margin-top: 18px;
+        }
+        .bulk-description-options.expanded {
+            display: block;
+        }
         .bulk-description-actions h2 {
             margin: 0 0 8px;
             font-size: 1.1rem;
@@ -587,18 +607,24 @@
             </div>
         </div>
     </div>
-    <section class="bulk-description-actions" aria-labelledby="bulk-description-title">
-        <h2 id="bulk-description-title">AI descriptions</h2>
-        <p>Generate descriptions for every image or clear the saved descriptions.</p>
-        <div class="bulk-description-buttons">
-            <button id="generateAllDescriptionsBtn" class="bulk-description-btn" type="button">
-                Generate All Descriptions
-            </button>
-            <button id="deleteAllDescriptionsBtn" class="bulk-description-btn" type="button">
-                Delete All Descriptions
-            </button>
+    <section class="bulk-description-actions" aria-label="AI description options">
+        <button id="bulkDescriptionToggle" class="bulk-description-toggle" type="button"
+                aria-expanded="false" aria-controls="bulkDescriptionOptions">
+            AI OPTIONS
+        </button>
+        <div id="bulkDescriptionOptions" class="bulk-description-options">
+            <h2 id="bulk-description-title">AI descriptions</h2>
+            <p>Generate descriptions for every image or clear the saved descriptions.</p>
+            <div class="bulk-description-buttons">
+                <button id="generateAllDescriptionsBtn" class="bulk-description-btn" type="button">
+                    Generate All Descriptions
+                </button>
+                <button id="deleteAllDescriptionsBtn" class="bulk-description-btn" type="button">
+                    Delete All Descriptions
+                </button>
+            </div>
+            <p id="bulkDescriptionStatus" role="status" aria-live="polite"></p>
         </div>
-        <p id="bulkDescriptionStatus" role="status" aria-live="polite"></p>
     </section>
     <script>
         document.addEventListener('contextmenu', function(e) {
@@ -719,6 +745,8 @@
             const aiDescriptionContainer = document.getElementById('aiDescriptionContainer');
             const aiDescriptionText = document.getElementById('aiDescriptionText');
             const loadingSpinner = document.getElementById('loadingSpinner');
+            const bulkDescriptionToggle = document.getElementById('bulkDescriptionToggle');
+            const bulkDescriptionOptions = document.getElementById('bulkDescriptionOptions');
             const generateAllDescriptionsBtn = document.getElementById('generateAllDescriptionsBtn');
             const deleteAllDescriptionsBtn = document.getElementById('deleteAllDescriptionsBtn');
             const bulkDescriptionStatus = document.getElementById('bulkDescriptionStatus');
@@ -1259,6 +1287,20 @@
                         aiDescriptionBtn.disabled = false;
                     }
                 }
+            });
+
+            function setBulkDescriptionOptionsExpanded(expanded) {
+                bulkDescriptionOptions.classList.toggle('expanded', expanded);
+                bulkDescriptionToggle.setAttribute('aria-expanded', String(expanded));
+                bulkDescriptionToggle.textContent = expanded
+                    ? 'MINIMIZE AI OPTIONS'
+                    : 'AI OPTIONS';
+            }
+
+            bulkDescriptionToggle.addEventListener('click', function() {
+                setBulkDescriptionOptionsExpanded(
+                    !bulkDescriptionOptions.classList.contains('expanded')
+                );
             });
 
             function setBulkDescriptionButtonsDisabled(disabled) {
