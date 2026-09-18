@@ -37,10 +37,10 @@
       598
     ],
     "position_limits": [
-      -142,
-      142,
-      -142,
-      142
+      -135,
+      135,
+      -135,
+      135
     ]
   },
   "image-7": {
@@ -93,8 +93,8 @@
       949
     ],
     "position_limits": [
-      -96,
-      96,
+      -91,
+      92,
       0,
       0
     ]
@@ -102,7 +102,7 @@
   "image-2": {
     "description": "A close-up of a classic cheeseburger with a sesame seed bun, melted cheese, a beef patty, pickles, onions, ketchup, and mustard.",
     "image_hash": "e1e82ce3b5aba09442d8e2d3d7392f25e1c51695d67232034d0852a2b01b6c48",
-    "background_color": "B0",
+    "background_color": "EF",
     "position": [
       496,
       453
