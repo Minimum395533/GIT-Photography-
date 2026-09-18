@@ -156,7 +156,6 @@
             width: 100%;
             height: 100%;
             background-color: rgba(0, 0, 0, 0.9);
-            display: flex;
             justify-content: center;
             align-items: center;
             overflow-y: auto;
@@ -399,11 +398,6 @@
             height: 100%;
             object-fit: contain;
             display: block;
-        }
-        .tag-btn.wendys img {
-            width: 120%;
-            height: 120%;
-            object-fit: contain;
         }
         .tag-btn.burgerking.active,
         .tag-btn.mcdonalds.active,
@@ -1143,23 +1137,11 @@
             const shuffleBtn = document.getElementById('shuffleBtn');
             const gallery = document.querySelector('.gallery');
             const tagButtons = document.querySelectorAll('.tag-btn');
-            const galleryCards = Array.from(gallery.querySelectorAll('.card'));
+            const defaultCardOrder = Array.from(gallery.querySelectorAll('.card'));
 
-            function applyTagFilter(selectedTag, preserveCurrentOrder = false) {
-                if (!preserveCurrentOrder) {
-                    galleryCards.sort((first, second) => {
-                        const tagOrder = (first.dataset.tag || '').localeCompare(second.dataset.tag || '');
-                        if (tagOrder !== 0) return tagOrder;
-                        const firstAlt = first.querySelector('img')?.alt || '';
-                        const secondAlt = second.querySelector('img')?.alt || '';
-                        return firstAlt.localeCompare(secondAlt);
-                    });
-                }
-
-                galleryCards.forEach(card => {
-                    if (!preserveCurrentOrder) {
-                        gallery.appendChild(card);
-                    }
+            function applyTagFilter(selectedTag) {
+                defaultCardOrder.forEach(card => {
+                    gallery.appendChild(card);
                     card.style.display = selectedTag === 'all' || card.dataset.tag === selectedTag
                         ? ''
                         : 'none';
@@ -1175,7 +1157,7 @@
                     applyTagFilter(this.dataset.tag);
                 });
             });
-            applyTagFilter('all', true);
+            applyTagFilter('all');
 
             shuffleBtn.addEventListener('click', function() {
                 const cards = Array.from(gallery.querySelectorAll('.card'));
